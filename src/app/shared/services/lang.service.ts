@@ -5,6 +5,8 @@ type langs = 'pt-BR';
 // {[key in langs]: {[x: string]: string | {[x: string]: string}}}
 const translation = {
   'pt-BR': {
+    'app_name': 'HistoRique',
+    'app_names': 'Histo Rique',
     'fixo': 'Fixo',
     'celular': 'Celular',
     "calendar_inputs": {
@@ -59,6 +61,12 @@ const translation = {
     'empty_placeholder': 'Nenhum registro encontrado.',
     'you_are_about_to_delete': 'Você está prestes a excluir este registro',
     'are_you_sure': 'Deseja realmente continuar?',
+
+    // MODULES
+    'home': 'Início',
+    'account': 'Conta',
+    'exams': 'Exames',
+    'reports': 'Relatórios',
 
     //VERBS
     'close': 'Fechar',

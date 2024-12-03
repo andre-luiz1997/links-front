@@ -1,8 +1,10 @@
 @import "primeng/resources/primeng.css";
 @import 'variables';
 @import 'mixins';
+@import 'fonts';
 
-* {
+html,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

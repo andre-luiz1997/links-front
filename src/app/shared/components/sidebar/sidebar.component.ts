@@ -26,8 +26,13 @@ export class SidebarComponent {
     },
     {
       title: 'exams',
-      icon: 'phosphorNewspaperClipping',
+      icon: 'phosphorFile',
       route: '/exams'
+    },
+    {
+      title: 'reports',
+      icon: 'phosphorChartLine',
+      route: '/reports'
     }
   ]
 }
