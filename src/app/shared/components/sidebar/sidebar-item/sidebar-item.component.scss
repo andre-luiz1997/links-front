@@ -1,0 +1,10 @@
+@import 'variables';
+
+.sidebar-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: .5rem;
+  padding: .8rem 0;
+}

@@ -1,0 +1,236 @@
+@import 'variables';
+
+// Mapa de direções para padding e margin
+$directions: (
+  "t": "top",
+  "r": "right",
+  "b": "bottom",
+  "l": "left",
+);
+
+// Loop para padding
+@for $i from 0 through 6 {
+  $value: $i * 0.5rem;
+
+  @each $short, $long in $directions {
+    .p#{$short}-#{$i} {
+      padding-#{$long}: $value;
+    }
+
+    .m#{$short}-#{$i} {
+      margin-#{$long}: $value;
+    }
+  }
+
+  // Padding horizontal (left e right)
+  .px-#{$i} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  // Padding vertical (top e bottom)
+  .py-#{$i} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  @extend .flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  @extend .flex;
+  flex-direction: row;
+}
+
+.flex-center {
+  @extend .flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-even {
+  justify-content: space-evenly;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w0 {
+  width: 0;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.h50 {
+  height: 50%;
+}
+
+.h0 {
+  height: 0;
+}
+
+.mw100 {
+  max-width: 100%;
+}
+
+.mw50 {
+  max-width: 50%;
+}
+
+.mw0 {
+  max-width: 0;
+}
+
+.mh100 {
+  max-height: 100%;
+}
+
+.mh50 {
+  max-height: 50%;
+}
+
+.mh0 {
+  max-height: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+// ============================================================================
+@media (max-width: calc($md-breakpoint - 1px)) {
+  .sm-hidden {
+    display: none;
+  }
+
+  .flex-sm-column {
+    flex-direction: column;
+  }
+
+  .flex-sm-row {
+    flex-direction: row;
+  }
+
+  .text-sm-center {
+    text-align: center;
+  }
+
+  .text-sm-left {
+    text-align: left;
+  }
+
+  .text-sm-right {
+    text-align: right;
+  }
+}
+
+@media (max-width: calc($lg-breakpoint - 1px)) {
+  .md-hidden {
+    display: none;
+  }
+
+  .flex-md-column {
+    flex-direction: column;
+  }
+
+  .flex-md-row {
+    flex-direction: row;
+  }
+
+  .text-md-center {
+    text-align: center;
+  }
+
+  .text-md-left {
+    text-align: left;
+  }
+
+  .text-md-right {
+    text-align: right;
+  }
+}
+
+.list-unstyled {
+  list-style: none;
+}

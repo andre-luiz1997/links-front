@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Oi&family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+$main_color: #ff0000;
+$main_color_darker: darken($main_color, 10%);
+$main_color_lighter: lighten($main_color, 10%);
+
+$secondary_color: #00ff00;
+$secondary_color_darker: darken($secondary_color, 10%);
+$secondary_color_lighter: lighten($secondary_color, 10%);
+
+$tertiary_color: #0000ff;
+$tertiary_color_darker: darken($tertiary_color, 10%);
+$tertiary_color_lighter: lighten($tertiary_color, 10%);
+
+$font_color: #ffffff;
+
+$background_color: #232323;
+$sidebar_color: #414141;
+
+// BREAKPOINTS
+$sm-breakpoint: 576px;
+$md-breakpoint: 768px;
+$lg-breakpoint: 992px;
+$xl-breakpoint: 1200px;
+$xxl-breakpoint: 1400px;
+
+$default_radius: 20px;
+
+
+// FONTS
+// Oi: https://fonts.google.com/specimen/Oi
+// Cormorant Garamond: https://fonts.google.com/specimen/Cormorant+Garamond
+// Proza Libre: https://fonts.google.com/specimen/Proza+Libre
+$main_font: 'Proza Libre', sans-serif;
+$emphasis_font: 'Cormorant Garamond', serif;
+$title_font: 'Oi', cursive; 

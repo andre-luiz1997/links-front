@@ -1,0 +1,15 @@
+@import "primeng/resources/primeng.css";
+@import 'variables';
+@import 'mixins';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $main_font, sans-serif;
+}
+
+body {
+  background-color: $background_color;
+  color: $font_color;
+}
