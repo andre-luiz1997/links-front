@@ -2,7 +2,33 @@
 @import 'fonts';
 
 .logo {
-  font-family: $title_font!important;
+  font-family: $title_font !important;
   color: $main_color;
   font-size: 2rem;
+  transition: all .3s ease-in-out;
+  position: relative;
+  user-select: none;
+
+  .wrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    span:nth-child(even) {
+      overflow: hidden;
+      letter-spacing: .05em;
+      transition: .5s ease-in-out;
+      text-overflow: unset;
+    }
+
+    &.short {
+      span:nth-child(even) {
+        letter-spacing: -1em;
+      }
+    }
+  }
 }

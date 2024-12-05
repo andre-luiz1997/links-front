@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LangService } from '@shared/services/lang.service';
 
 @Component({
@@ -7,13 +7,15 @@ import { LangService } from '@shared/services/lang.service';
   styleUrls: ['./logo.component.scss']
 })
 export class LogoComponent {
-
-  appNames: string;
+  @Input('short') short = false;
+  appNames: string[][] = [];
 
   constructor(
     private langService: LangService
   ) {
-    this.appNames = this.langService.getMessage('app_names').split(' ');
+    const names = this.langService.getMessage('app_names').split(' ');
+    this.appNames = names.map((name: string) => {
+      return [name[0].toUpperCase(), name.slice(1)];
+    });
   }
-
 }

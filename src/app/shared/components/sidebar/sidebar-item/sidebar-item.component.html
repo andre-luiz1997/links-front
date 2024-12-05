@@ -1,4 +1,4 @@
-<div class="sidebar-item-container">
+<div class="sidebar-item-container" [ngClass]="{isToggled}">
   <ng-icon size="1.4rem" *ngIf="item.icon" [name]="item.icon" />
   <span>{{ item.title | translate }}</span>
 </div>

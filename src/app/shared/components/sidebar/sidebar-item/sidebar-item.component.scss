@@ -3,7 +3,7 @@
 
 .sidebar-item-container {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
   flex-direction: row;
   gap: .5rem;
@@ -11,10 +11,32 @@
   transition: all .3s ease-in-out;
   border-radius: $default_radius;
   line-height: 1rem;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: unset;
+  position: relative;
+
+  span {
+    overflow: hidden;
+    letter-spacing: 0;
+    transition: .3s ease-in-out;
+    text-overflow: unset;
+  }
 
   &:hover {
     cursor: pointer;
     background-color: $main_color;
     color: $font_color_contrast;
+  }
+
+  &.isToggled {
+    padding: .8rem 0;
+    justify-content: center;
+    border-radius: 10px;
+
+    span {
+      letter-spacing: -1em;
+      display: none;
+    }
   }
 }

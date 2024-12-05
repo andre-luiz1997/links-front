@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarItemComponent } from './sidebar/sidebar-item/sidebar-item.component';
 import { NgIconsModule } from '@ng-icons/core';
-import { phosphorHouseSimple, phosphorFile, phosphorUser, phosphorChartLine } from '@ng-icons/phosphor-icons/regular';
+import { phosphorHouseSimple, phosphorFile, phosphorUser, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight } from '@ng-icons/phosphor-icons/regular';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { LogoComponent } from './logo/logo.component';
 
@@ -21,7 +21,9 @@ import { LogoComponent } from './logo/logo.component';
       phosphorHouseSimple,
       phosphorUser,
       phosphorFile,
-      phosphorChartLine
+      phosphorChartLine,
+      phosphorArrowLeft,
+      phosphorArrowRight
     }),
     TranslatePipe
   ],
