@@ -1,17 +1,15 @@
 <div class="sidebar" [ngClass]="{isToggled}">
   <div class="sidebar-container">
-    <div class="sidebar">
-      <button type="button" class="sidebar-toggler" (click)="toggle()">
-        <ng-icon [name]="togglerIcon" size="1.4rem" />
-      </button>
-      <div class="sidebar-header">
-        <app-logo [short]="isToggled" />
-      </div>
-      <div class="sidebar-contents">
-        <ng-container *ngFor="let item of items">
-          <app-sidebar-item [item]="item"/>
-        </ng-container>
-      </div>
+    <button type="button" class="sidebar-toggler" (click)="toggle()">
+      <ng-icon [name]="togglerIcon" size="1.4rem" />
+    </button>
+    <div class="sidebar-header">
+      <app-logo [short]="isToggled" />
+    </div>
+    <div class="sidebar-contents">
+      <ng-container *ngFor="let item of items">
+        <app-sidebar-item [item]="item" />
+      </ng-container>
     </div>
   </div>
 </div>

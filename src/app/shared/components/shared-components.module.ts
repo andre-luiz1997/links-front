@@ -6,8 +6,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { phosphorHouseSimple, phosphorFile, phosphorUser, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight } from '@ng-icons/phosphor-icons/regular';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { LogoComponent } from './logo/logo.component';
-
-
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -17,6 +16,7 @@ import { LogoComponent } from './logo/logo.component';
   ],
   imports: [
     CommonModule,
+    TooltipModule,
     NgIconsModule.withIcons({
       phosphorHouseSimple,
       phosphorUser,
