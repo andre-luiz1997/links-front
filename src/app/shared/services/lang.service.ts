@@ -96,6 +96,7 @@ const translation = {
 			empty: 'Nenhum registro encontrado',
 		},
 
+		login: 'Entrar',
 		prices: 'Preços',
 		calendar: 'Calendário',
 		name: 'Nome',
@@ -188,6 +189,14 @@ const translation = {
 			},
 			reports: {
 				title: 'Relatórios',
+			},
+			signout: {
+				title: 'Sair',
+			},
+			signin: {
+				title: 'Seja bem-vindo!',
+				create: 'Criar conta',
+				forgot_password: 'Esqueceu a senha?',
 			},
 			subscriptions: {
 				title: 'Escolha seu plano abaixo',

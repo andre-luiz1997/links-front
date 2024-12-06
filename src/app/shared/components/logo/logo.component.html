@@ -1,4 +1,5 @@
 <div class="logo">
+  <span style="visibility: hidden; user-select: none;">LOGO</span>
   <div class="wrapper" [ngClass]="{short}">
     <ng-container *ngFor="let name of appNames; let even = even" >
       <span [class]="{'text-secondary': even}">{{ name[0] |uppercase }}</span><span [class]="{'text-secondary': even}">{{ name[1] |uppercase }}</span>

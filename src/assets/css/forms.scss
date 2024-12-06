@@ -1,0 +1,21 @@
+@import 'variables';
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control {
+    background: none;
+    border: none;
+    border-bottom: 1px solid $font_color;
+    height: $default_control_height;
+    color: $font_color;
+    font-size: 1rem;
+
+    &:focus-visible {
+        outline: none;
+        border-bottom-color: $main_color;
+    }
+}

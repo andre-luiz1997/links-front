@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { TemplateComponent } from './template/template.component';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { AuthInterceptor } from './pages/auth/interceptors/auth.interceptor';
+import { RefreshJwtInterceptor } from './pages/auth/interceptors/refresh-jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,15 @@ import { provideHttpClient } from '@angular/common/http';
     SharedModule,
   ],
   providers: [
-    provideHttpClient()
+    provideHttpClient(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshJwtInterceptor
+    },
   ],
   bootstrap: [AppComponent]
 })

@@ -40,6 +40,7 @@ import { EmptyTableMessageComponent } from './empty-table-message/empty-table-me
   exports: [
     SidebarComponent,
     BreadcrumbsComponent,
+    LogoComponent,
     EmptyTableMessageComponent
   ]
 })

@@ -2,6 +2,7 @@
 @import 'variables';
 @import 'mixins';
 @import 'fonts';
+@import 'forms';
 
 html,
 body {
@@ -14,6 +15,53 @@ body {
 body {
   background-color: $background_color;
   color: $font_color;
+}
+
+small {
+  font-size: .8rem;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: $font_color;
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: $main_color_darker!important;
+  }
+}
+
+.btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: calc($default_radius /2 );
+  transition: all 0.3s ease-in-out;
+  font-size: 1rem;
+  font-weight: normal;
+  font-family: $main_font;
+  gap: 5px;
+
+  &.btn-block {
+    width: 100%;
+  }
+
+  &.btn-primary {
+    background-color: $main_color;
+    color: $font_color_contrast;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $main_color_darker;
+    }
+  }
 }
 
 .page {
