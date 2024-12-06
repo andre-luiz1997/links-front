@@ -3,7 +3,7 @@
 
 .sidebar-item-container {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-start;
   flex-direction: row;
   gap: .5rem;
@@ -15,6 +15,8 @@
   overflow: hidden;
   text-overflow: unset;
   position: relative;
+  text-decoration: none;
+  color: $font_color;
 
   span {
     overflow: hidden;

@@ -1,0 +1,14 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <a [routerLink]="['/']">
+            <ng-icon class="link" name="phosphorHouseSimple" size="1.2rem" />
+        </a>
+        <ng-icon name="phosphorCaretRight" size="1rem" *ngIf="breadcrumbs.length" />
+        <li *ngFor="let item of breadcrumbs; let i = index" class="breadcrumb-item"
+            [ngClass]="{ active: item == lastItem, hide: item.label == '' || item.label == undefined }">
+            <a [routerLink]="[item.url.replace('#', '')]" *ngIf="item != lastItem">{{ item.label }}</a>
+            <span *ngIf="item == lastItem">{{ item.label }}</span>
+            <ng-icon name="phosphorCaretRight" size="1rem" *ngIf="item != lastItem" />
+        </li>
+    </ol>
+</nav>

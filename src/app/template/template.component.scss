@@ -18,4 +18,11 @@
 
 .page-container {
   flex: 1;
+  display: flex;
+  padding: 1rem;
+  .page-content {
+    border-radius: $default_radius;
+    flex: 1;
+    display: flex;
+  }
 }

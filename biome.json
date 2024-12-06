@@ -8,14 +8,17 @@
 		"rules": {
 			"recommended": true,
 			"complexity": {
-        "noForEach": "off",
+				"noForEach": "off",
 				"noUselessCatch": "off",
 				"useLiteralKeys": "off"
-      },
-      "suspicious": {
-        "noExplicitAny": "off",
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
 				"noDoubleEquals": "off"
-      }
+			},
+			"style": {
+				"noParameterAssign": "off"
+			}
 		}
 	},
 	"formatter": {

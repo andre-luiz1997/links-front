@@ -31,9 +31,19 @@ export class SidebarComponent {
       route: '/exams'
     },
     {
+      title: 'exam-types',
+      icon: 'phosphorExam',
+      route: '/exam-types'
+    },
+    {
       title: 'reports',
       icon: 'phosphorChartLine',
       route: '/reports'
+    },
+    {
+      title: 'signout',
+      icon: 'phosphorSignOut',
+      route: '/signout'
     }
   ]
 

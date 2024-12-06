@@ -1,0 +1,29 @@
+@import 'variables';
+
+ol.breadcrumb {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+
+    a {
+        color: $main_color !important;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            color: $secondary_color!important;
+        }
+    }
+
+    .breadcrumb-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
