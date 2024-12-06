@@ -9,18 +9,21 @@ import { LogoComponent } from './logo/logo.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { EmptyTableMessageComponent } from './empty-table-message/empty-table-message.component';
 
 @NgModule({
   declarations: [
     SidebarComponent,
     SidebarItemComponent,
     LogoComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    EmptyTableMessageComponent
   ],
   imports: [
     CommonModule,
     TooltipModule,
     RouterModule,
+    TranslatePipe,
     NgIconsModule.withIcons({
       phosphorHouseSimple,
       phosphorUser,
@@ -36,7 +39,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
   ],
   exports: [
     SidebarComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    EmptyTableMessageComponent
   ]
 })
 export class SharedComponentsModule { }

@@ -20,10 +20,14 @@ body {
   flex: 1;
   background-color: $sidebar_color;
   border-radius: $default_radius;
-  padding: 1rem;
+  padding: 1rem 2rem;
 
   .page-title {
     font-size: 2rem;
     margin-top: 0;
+  }
+
+  .page-content {
+    padding-top: 1rem;
   }
 }

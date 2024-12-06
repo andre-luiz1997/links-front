@@ -91,10 +91,16 @@ const translation = {
 		paid: 'Pago',
 		pending: 'Pendente',
 
+		select: {
+			placeholder: 'Selecione...',
+			empty: 'Nenhum registro encontrado',
+		},
+
 		prices: 'Preços',
 		calendar: 'Calendário',
 		name: 'Nome',
 		description: 'Descrição',
+		unit: 'Unidade',
 		email: 'Email',
 		mobile_phone: 'Celular',
 		group: 'Grupo',
@@ -235,7 +241,7 @@ export class LangService {
 	}
 
 	getMessage(path: string) {
-		if(!path) return;
+		if (!path) return;
 		const fields = path.split('.');
 		const result = this.navigate(this.translation, fields);
 		return result ?? path;

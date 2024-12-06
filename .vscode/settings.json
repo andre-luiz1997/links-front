@@ -1,0 +1,6 @@
+{
+    "exportall.config.folderListener": [
+        "/src/app/shared/types/entities",
+        "/src/app/shared/types"
+    ]
+}
