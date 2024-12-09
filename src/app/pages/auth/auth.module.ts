@@ -28,9 +28,6 @@ import { SharedModule } from '@shared/shared.module';
     NgIconsModule.withIcons({
       phosphorSignIn
     })
-  ],
-  providers: [
-    provideHttpClient()
   ]
 })
 export class AuthModule { }

@@ -4,7 +4,7 @@ import { LoaderService } from '@shared/services/loader.service';
 import { SignupDTO } from '@shared/types';
 import { isEmpty } from '@shared/utils/common';
 import { CustomValidators } from '@shared/validators';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { ToastService } from '@shared/services/toast.service';
 import { LangService } from '@shared/services/lang.service';
 import { Router } from '@angular/router';

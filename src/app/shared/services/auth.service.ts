@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '@shared/services/shared.service';
-import { DefaultResponse, SigninDTO, SigninResponse, SignupDTO } from '@shared/types';
+import { DefaultResponse, IUsers, SigninDTO, SigninResponse, SignupDTO, UpdateUserDTO } from '@shared/types';
 import { STORAGE } from '@shared/utils/storage';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -30,6 +30,12 @@ export class AuthService {
 
 	private loadRole() {
 		return STORAGE.get(STORAGE.keys.ROLE);
+	}
+
+	updateSignedUser(dto: IUsers) {
+		const user = this.$signedUser.getValue();
+		this.$signedUser.next({ ...user, ...dto });
+		STORAGE.set(STORAGE.keys.USER, this.$signedUser.getValue());
 	}
 
 	async signout() {
@@ -74,6 +80,8 @@ export class AuthService {
 			throw error;
 		}
 	}
+
+
 
 	hasAccessToken() {
 		return !!STORAGE.get(STORAGE.keys.ACCESS_TOKEN);

@@ -1,7 +1,7 @@
 import { Component, HostBinding, HostListener, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoaderService } from '@shared/services/loader.service';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { ToastService } from '@shared/services/toast.service';
 import { LangService } from '@shared/services/lang.service';
 import { Router } from '@angular/router';

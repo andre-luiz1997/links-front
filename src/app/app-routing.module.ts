@@ -17,6 +17,11 @@ const routes: Routes = [
         path: 'exam-types',
         loadChildren: () => import('./pages/exam-types/exam-types.module').then(m => m.ExamTypesModule),
         canActivate: [AuthGuardService]
+      },
+      {
+        path: 'account',
+        loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule),
+        canActivate: [AuthGuardService]
       }
     ]
   }

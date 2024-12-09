@@ -8,3 +8,5 @@ export interface IUsers extends DBEntity {
 	status: boolean;
 	role?: IRoles;
 }
+
+export interface UpdateUserDTO extends Partial<IUsers> {}

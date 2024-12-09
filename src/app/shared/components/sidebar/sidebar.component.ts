@@ -24,7 +24,7 @@ export class SidebarComponent {
     {
       title: 'account',
       icon: 'phosphorUser',
-      route: '/user'
+      route: '/account'
     },
     {
       title: 'exams',

@@ -6,7 +6,6 @@ import type {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { STORAGE } from '@shared/utils/storage';
 import { isEmpty } from '@shared/utils/common';
 
