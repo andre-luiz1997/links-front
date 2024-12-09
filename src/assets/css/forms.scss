@@ -19,3 +19,25 @@
         border-bottom-color: $main_color;
     }
 }
+
+.form-control-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .form-control-icon {
+        position: absolute;
+        top: 50%;
+        color: $font_color;
+
+        &.left {
+            left: -15px;
+            transform: translateY(-50%);
+        }
+
+        &.right {
+            right: -15px;
+            transform: translateY(-50%);
+        }
+    }
+}

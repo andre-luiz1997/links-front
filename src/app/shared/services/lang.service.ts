@@ -144,6 +144,8 @@ const translation = {
 
 		password: 'Senha',
 		forgot_password: 'Esqueceu a senha?',
+		show_password: 'Mostrar senha',
+		hide_password: 'Ocultar senha',
 		leave_blank_if_you_dont_want_to_change: 'Deixe em branco se não deseja alterar',
 		card_number: 'Número do cartão',
 		card_name: 'Nome no cartão',

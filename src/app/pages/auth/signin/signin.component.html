@@ -1,10 +1,11 @@
 <form [formGroup]="form">
-    <h3 class="text-center w-100">{{ 'pages.signin.title' | translate }}</h3>
-    <div class="row mb-6">
+    <h3 class="text-center w100">{{ 'pages.signin.title' | translate }}</h3>
+    <div class="row mb-4">
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="email">{{ 'email' | translate }}</label>
                 <input type="email" class="form-control" formControlName="email" />
+                <app-error-block formControlName="email" [show]="isSubmitted" />
             </div>
         </div>
     </div>
@@ -12,18 +13,20 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="password">{{ 'password' | translate }}</label>
-                <input type="email" class="form-control" formControlName="password" />
-                <small class="btn-link">{{ 'pages.signin.forgot_password' | translate }}</small>
+                <app-input-password formControlName="password" [isSubmitted]="isSubmitted" />
+                <!-- <input type="email" class="form-control" formControlName="password" /> -->
+                <app-error-block formControlName="password" [show]="isSubmitted" />
+                <small class="w100 mt-2"><a [routerLink]="['/','auth','forgot-password']" class="text-left btn-link">{{ 'pages.signin.forgot_password' | translate }}</a></small>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-sm-12">
-            <button type="button" class="btn btn-primary btn-block">
+            <button type="button" class="btn btn-primary btn-block" (click)="submitForm()">
                 <span>{{ 'login' | translate}}</span>
                 <ng-icon name="phosphorSignIn" size="1.2rem" />
             </button>
         </div>
     </div>
-    <h5 class="text-center w-100 btn-link">{{ 'pages.signin.create' | translate }}</h5>
+    <a [routerLink]="['/','auth','signup']" class="text-center w100 btn-link">{{ 'pages.signin.create' | translate }}</a>
 </form>

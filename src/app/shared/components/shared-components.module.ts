@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarItemComponent } from './sidebar/sidebar-item/sidebar-item.component';
 import { NgIconsModule } from '@ng-icons/core';
-import { phosphorHouseSimple, phosphorFile, phosphorUser, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight } from '@ng-icons/phosphor-icons/regular';
+import { phosphorHouseSimple, phosphorFile, phosphorUser, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEye, phosphorEyeSlash } from '@ng-icons/phosphor-icons/regular';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { LogoComponent } from './logo/logo.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { EmptyTableMessageComponent } from './empty-table-message/empty-table-message.component';
+import { ErrorBlockComponent } from './error-block/error-block.component';
+import { InputPasswordComponent } from './input-password/input-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,13 +20,16 @@ import { EmptyTableMessageComponent } from './empty-table-message/empty-table-me
     SidebarItemComponent,
     LogoComponent,
     BreadcrumbsComponent,
-    EmptyTableMessageComponent
+    EmptyTableMessageComponent,
+    ErrorBlockComponent,
+    InputPasswordComponent
   ],
   imports: [
     CommonModule,
     TooltipModule,
     RouterModule,
     TranslatePipe,
+    ReactiveFormsModule,
     NgIconsModule.withIcons({
       phosphorHouseSimple,
       phosphorUser,
@@ -33,7 +39,9 @@ import { EmptyTableMessageComponent } from './empty-table-message/empty-table-me
       phosphorArrowRight,
       phosphorSignOut,
       phosphorExam,
-      phosphorCaretRight
+      phosphorCaretRight,
+      phosphorEyeSlash,
+      phosphorEye
     }),
     TranslatePipe
   ],
@@ -41,7 +49,9 @@ import { EmptyTableMessageComponent } from './empty-table-message/empty-table-me
     SidebarComponent,
     BreadcrumbsComponent,
     LogoComponent,
-    EmptyTableMessageComponent
+    EmptyTableMessageComponent,
+    ErrorBlockComponent,
+    InputPasswordComponent
   ]
 })
 export class SharedComponentsModule { }

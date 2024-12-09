@@ -22,12 +22,14 @@ small {
 }
 
 .btn-link {
+  display: block;
   background: none;
   border: none;
   color: $font_color;
   cursor: pointer;
   font-weight: normal;
   transition: all 0.3s ease-in-out;
+  text-decoration: none;
 
   &:hover {
     color: $main_color_darker!important;
@@ -77,5 +79,13 @@ small {
 
   .page-content {
     padding-top: 1rem;
+  }
+}
+
+.clickable {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    opacity: .8;
   }
 }

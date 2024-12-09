@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SharedComponentsModule } from './components/shared-components.module';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
-    SharedComponentsModule
+    SharedComponentsModule,
   ],
   exports: [
     SharedComponentsModule

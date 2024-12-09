@@ -1,0 +1,4 @@
+<div *ngIf="show" class="errors">
+	<div *ngFor="let error of controlErrors" class="error">{{ error }}</div>
+	<ng-content></ng-content>
+</div>

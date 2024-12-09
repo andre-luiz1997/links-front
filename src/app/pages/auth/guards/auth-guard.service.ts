@@ -19,7 +19,6 @@ export class AuthGuardService {
 	}
 
 	private redirect() {
-		console.log("🚀 ~ AuthGuardService ~ redirect ~ redirect:")
 		const redirectUrl = this.url ? encodeURIComponent(this.url) : null;
 		if (redirectUrl) {
 			return this.router.navigate(['/auth/signin'], { queryParams: { redirectUrl } });
@@ -28,12 +27,10 @@ export class AuthGuardService {
 	}
 
   private redirectForbidden() {
-    console.log("🚀 ~ AuthGuardService ~ redirectForbidden ~ redirectForbidden:")
     return this.router.navigate(['/auth/forbidden']);
   }
 
   private redirectHome() {
-    console.log("🚀 ~ AuthGuardService ~ redirectHome ~ redirectHome:")
     return this.router.navigate(this.authService.getBaseUrl());
   }
 
