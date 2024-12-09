@@ -36,7 +36,7 @@ export class InputPasswordComponent implements ControlValueAccessor, Validator {
 
 	onChange: any = () => {};
 	onTouched: any = () => {};
-  onValidatorChange: any = () => {};
+	onValidatorChange: any = () => {};
 
 	passwordForm = new FormGroup({
 		password: new FormControl(null),
@@ -70,11 +70,11 @@ export class InputPasswordComponent implements ControlValueAccessor, Validator {
 		return this.passwordForm.valid ? null : this.passwordForm.errors;
 	}
 	registerOnValidatorChange?(fn: () => void): void {
-    this.onValidatorChange = fn;
-  }
-  updateValidators() {
-    if (this.onValidatorChange) {
-      this.onValidatorChange(); // Atualiza as validações registradas
-    }
-  }
+		this.onValidatorChange = fn;
+	}
+	updateValidators() {
+		if (this.onValidatorChange) {
+			this.onValidatorChange(); // Atualiza as validações registradas
+		}
+	}
 }

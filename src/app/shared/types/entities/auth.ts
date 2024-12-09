@@ -8,7 +8,7 @@ export interface SigninDTO {
 
 export interface SigninResponse {
     user: IUsers;
-    role: IRoles;
+    // role: IRoles;
     access_token: string;
 }
 

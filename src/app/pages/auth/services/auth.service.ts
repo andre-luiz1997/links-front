@@ -39,8 +39,22 @@ export class AuthService {
 		return this.router.navigate(['/auth/signin']);
 	}
 
-	signup(signupDTO: SignupDTO) {
-		return this.httpClient.post<DefaultResponse<SigninResponse>>(`${this.endpoint}/signup`, signupDTO);
+	async signup(signupDTO: SignupDTO) {
+		try {
+			const response = await lastValueFrom(
+				this.httpClient.post<DefaultResponse<SigninResponse>>(`${this.endpoint}/signup`, signupDTO, { withCredentials: true }),
+			);
+			if (response?.data?.access_token) {
+				STORAGE.set(STORAGE.keys.ACCESS_TOKEN, response.data.access_token);
+				STORAGE.set(STORAGE.keys.USER, response.data.user);
+				STORAGE.set(STORAGE.keys.ROLE, response.data.user?.role);
+				this.$signedUser.next(response.data.user);
+				this.$role.next(response.data.user?.role);
+			}
+			return response.data;
+		} catch (error) {
+			throw error;
+		}
 	}
 
 	async signin(signinDTO: SigninDTO) {
@@ -51,10 +65,11 @@ export class AuthService {
 			if (response?.data?.access_token) {
 				STORAGE.set(STORAGE.keys.ACCESS_TOKEN, response.data.access_token);
 				STORAGE.set(STORAGE.keys.USER, response.data.user);
-				STORAGE.set(STORAGE.keys.ROLE, response.data.role);
+				STORAGE.set(STORAGE.keys.ROLE, response.data.user?.role);
 				this.$signedUser.next(response.data.user);
-				this.$role.next(response.data.role);
+				this.$role.next(response.data.user?.role);
 			}
+			return response.data;
 		} catch (error) {
 			throw error;
 		}

@@ -24,10 +24,7 @@
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
 						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": [
-              "node_modules/primeng/resources/primeng.min.css",
-              "src/styles.scss"
-            ],
+						"styles": ["node_modules/primeng/resources/themes/lara-light-blue/theme.css","node_modules/primeng/resources/primeng.min.css", "src/styles.scss"],
 						"scripts": [],
 						"stylePreprocessorOptions": {
 							"includePaths": ["./src/", "./src/assets/css/"]
@@ -55,13 +52,13 @@
 							"vendorChunk": true,
 							"extractLicenses": false,
 							"sourceMap": true,
-              "namedChunks": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
-                }
-              ]
+							"namedChunks": true,
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.development.ts"
+								}
+							]
 						}
 					},
 					"defaultConfiguration": "production"

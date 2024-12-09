@@ -5,6 +5,9 @@ import { SignupDTO } from '@shared/types';
 import { isEmpty } from '@shared/utils/common';
 import { CustomValidators } from '@shared/validators';
 import { AuthService } from '../services/auth.service';
+import { ToastService } from '@shared/services/toast.service';
+import { LangService } from '@shared/services/lang.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-signup',
@@ -22,9 +25,12 @@ export class SignupComponent implements OnInit {
 	isSubmitted = false;
 
 	constructor(
-    private authService: AuthService,
-    private loaderService: LoaderService
-  ) {}
+		private authService: AuthService,
+		private loaderService: LoaderService,
+		private toastService: ToastService,
+		private langService: LangService,
+		private router: Router,
+	) {}
 
 	ngOnInit(): void {
 		this.form.get('password')?.valueChanges.subscribe(password => {
@@ -57,13 +63,27 @@ export class SignupComponent implements OnInit {
 			password: this.form.get('password')?.value!,
 		};
 		this.loaderService.show();
-    this.authService.signup(dto).subscribe({
-      next: (res) => {
-        this.loaderService.hide();
-      },
-      error: (res) => {
-        this.loaderService.hide();
-      }
-    });
+		this.authService
+			.signup(dto)
+			.then(res => {
+				this.toastService.show({
+					severity: 'success',
+					description: this.langService.getMessage('success_messages.record_saved_successfully'),
+				});
+				this.router.navigate(['/']);
+				setTimeout(() => {
+					this.loaderService.hide();
+				}, 3000);
+			})
+			.catch(res => {
+				const message =
+					this.langService.getMessage(`error_messages.${res.error?.message}`) ??
+					this.langService.getMessage('error_messages.error_occurred');
+				this.loaderService.hide();
+				this.toastService.show({
+					severity: 'error',
+					description: message,
+				});
+			});
 	}
 }

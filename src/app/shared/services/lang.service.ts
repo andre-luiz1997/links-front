@@ -43,15 +43,20 @@ const translation = {
 			invalidDocument: 'Documento inválido',
 		},
 		success_messages: {
-			error_occurred: 'Ocorreu um erro. Tente novamente.',
 			record_saved_successfully: 'Registro salvo com sucesso!',
 			record_deleted_successfully: 'Registro deletado com sucesso!',
 			signin_success: 'Login efetuado com sucesso!',
 			signup_success: 'Conta criada com sucesso!',
 		},
 		error_messages: {
-			invalid_credentials: 'Usuário ou senha inválidos. Tente novamente.',
+			error_occurred: 'Ocorreu um erro. Tente novamente.',
+			auth: {
+				invalid_credentials: 'Usuário ou senha inválidos. Tente novamente.',
+			},
 			credentials_conflict: 'Email e/ou telefone já cadastrado. Tente novamente com outros dados.',
+			user: {
+				emailExists: 'Email já cadastrado. Tente novamente com outros dados.',
+			}
 		},
 		signout: 'Sair',
 		signup_success_message: 'Clique no botão abaixo para continuar',

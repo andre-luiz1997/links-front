@@ -1,5 +1,6 @@
-import { Component, EventEmitter, HostBinding, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { SidebarService } from '@shared/services/sidebar.service';
+import { STORAGE } from '@shared/utils/storage';
 
 export interface SidebarItem {
   icon?: string;
@@ -43,13 +44,13 @@ export class SidebarComponent {
     {
       title: 'signout',
       icon: 'phosphorSignOut',
-      route: '/signout'
+      route: '/auth/signout'
     }
   ]
 
-  togglerIcon = 'phosphorArrowLeft';
-  isToggled = false;
-
+  togglerIcon = STORAGE.get(STORAGE.keys.TOGGLE_SIDEBAR) ? 'phosphorArrowRight' :'phosphorArrowLeft';
+  isToggled = STORAGE.get(STORAGE.keys.TOGGLE_SIDEBAR);
+  
   constructor(
     private sidebarService: SidebarService
   ) {
@@ -60,6 +61,8 @@ export class SidebarComponent {
   }
 
   toggle() {
-    this.sidebarService.$toggled.next(!this.isToggled);
+    const toggled = !this.isToggled;
+    this.sidebarService.$toggled.next(toggled);
+    STORAGE.set(STORAGE.keys.TOGGLE_SIDEBAR, toggled);
   }
 }
