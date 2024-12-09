@@ -56,7 +56,8 @@ const translation = {
 			credentials_conflict: 'Email e/ou telefone já cadastrado. Tente novamente com outros dados.',
 			user: {
 				emailExists: 'Email já cadastrado. Tente novamente com outros dados.',
-			}
+			},
+			record_not_found: 'Registro não encontrado',
 		},
 		signout: 'Sair',
 		signup_success_message: 'Clique no botão abaixo para continuar',
