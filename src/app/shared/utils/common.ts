@@ -14,6 +14,12 @@ export function convertToCamelCase (key: string): string {
 	return key.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
 };
 
+export function isEmailValid (email: string): boolean {
+	const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+	if (email && regex.test(email.toLowerCase())) return true;
+	return false;
+};
+
 export function getErrorMessage(langService: LangService, error: string, options: any, extras?: any) {
 	if (!options || options === true) options = {};
 	let message = langService.getMessage(`validation_error.${error}`);

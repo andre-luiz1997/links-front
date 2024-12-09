@@ -14,7 +14,6 @@
             <div class="form-group">
                 <label for="password">{{ 'password' | translate }}</label>
                 <app-input-password formControlName="password" [isSubmitted]="isSubmitted" />
-                <!-- <input type="email" class="form-control" formControlName="password" /> -->
                 <app-error-block formControlName="password" [show]="isSubmitted" />
                 <small class="w100 mt-2"><a [routerLink]="['/','auth','forgot-password']" class="text-left btn-link">{{ 'pages.signin.forgot_password' | translate }}</a></small>
             </div>

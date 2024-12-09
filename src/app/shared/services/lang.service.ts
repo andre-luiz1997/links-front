@@ -95,7 +95,7 @@ const translation = {
 			placeholder: 'Selecione...',
 			empty: 'Nenhum registro encontrado',
 		},
-
+		create_account: 'Criar conta',
 		login: 'Entrar',
 		prices: 'Preços',
 		calendar: 'Calendário',
@@ -143,6 +143,7 @@ const translation = {
 		street: 'Rua',
 
 		password: 'Senha',
+		password_confirm: 'Confirmar senha', 
 		forgot_password: 'Esqueceu a senha?',
 		show_password: 'Mostrar senha',
 		hide_password: 'Ocultar senha',
@@ -199,6 +200,10 @@ const translation = {
 				title: 'Seja bem-vindo!',
 				create: 'Criar conta',
 				forgot_password: 'Esqueceu a senha?',
+			},
+			signup: {
+				title: 'Criar uma conta',
+				signin: 'Já possui uma conta?',
 			},
 			subscriptions: {
 				title: 'Escolha seu plano abaixo',

@@ -1,1 +1,48 @@
-<p>signup works!</p>
+<form [formGroup]="form">
+    <h3 class="text-center w100">{{ 'pages.signup.title' | translate }}</h3>
+    <div class="row mb-4">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="name">{{ 'name' | translate }}</label>
+                <input type="text" class="form-control" formControlName="name" />
+                <app-error-block formControlName="name" [show]="isSubmitted" />
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="email">{{ 'email' | translate }}</label>
+                <input type="email" class="form-control" formControlName="email" />
+                <app-error-block formControlName="email" [show]="isSubmitted" />
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="password">{{ 'password' | translate }}</label>
+                <app-input-password formControlName="password" [isSubmitted]="isSubmitted" />
+                <app-error-block formControlName="password" [show]="isSubmitted" />
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="passwordConfirm">{{ 'password_confirm' | translate }}</label>
+                <app-input-password formControlName="passwordConfirm" [isSubmitted]="isSubmitted" />
+                <app-error-block formControlName="passwordConfirm" [show]="isSubmitted" />
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary btn-block" (click)="submitForm()">
+                <span>{{ 'create_account' | translate}}</span>
+                <ng-icon name="phosphorSignIn" size="1.2rem" />
+            </button>
+        </div>
+    </div>
+    <a [routerLink]="['/','auth','signin']" class="text-center w100 btn-link">{{ 'pages.signup.signin' | translate }}</a>
+</form>

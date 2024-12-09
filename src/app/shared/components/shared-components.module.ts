@@ -13,6 +13,7 @@ import { EmptyTableMessageComponent } from './empty-table-message/empty-table-me
 import { ErrorBlockComponent } from './error-block/error-block.component';
 import { InputPasswordComponent } from './input-password/input-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BreadcrumbsComponent,
     EmptyTableMessageComponent,
     ErrorBlockComponent,
-    InputPasswordComponent
+    InputPasswordComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LogoComponent,
     EmptyTableMessageComponent,
     ErrorBlockComponent,
-    InputPasswordComponent
+    InputPasswordComponent,
+    LoaderComponent
   ]
 })
 export class SharedComponentsModule { }

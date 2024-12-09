@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '@shared/services/shared.service';
-import { DefaultResponse, SigninDTO, SigninResponse } from '@shared/types';
+import { DefaultResponse, SigninDTO, SigninResponse, SignupDTO } from '@shared/types';
 import { STORAGE } from '@shared/utils/storage';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -37,6 +37,10 @@ export class AuthService {
 		this.sharedService.clear();
 		this.httpClient.get(`${environment.SERVER_URL}/auth/signout`, { withCredentials: true }).subscribe();
 		return this.router.navigate(['/auth/signin']);
+	}
+
+	signup(signupDTO: SignupDTO) {
+		return this.httpClient.post<DefaultResponse<SigninResponse>>(`${this.endpoint}/signup`, signupDTO);
 	}
 
 	async signin(signinDTO: SigninDTO) {

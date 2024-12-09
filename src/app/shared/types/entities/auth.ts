@@ -11,3 +11,9 @@ export interface SigninResponse {
     role: IRoles;
     access_token: string;
 }
+
+export interface SignupDTO {
+    name: string;
+	email: string;
+	password: string;
+}
