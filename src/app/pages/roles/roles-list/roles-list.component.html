@@ -1,0 +1,39 @@
+<div class="grid">
+    <div class="col-12">
+        <a [routerLink]="['add']" class="btn btn-primary ml-auto">
+            {{ 'pages.roles.permissions.add' | translate }}
+        </a>
+    </div>
+    <div class="col-12">
+        <p-table #table [loading]="isLoading" [totalRecords]="totalRecords" [value]="roles" [lazyLoadOnInit]="true"
+            [lazy]="true" (onLazyLoad)="getAll($event)" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[10,50,100]" styleClass="p-datatable-striped p-datatable-dark">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-left">{{'name' | translate}}</th>
+                    <th class="text-center">{{'is_default' | translate}}</th>
+                    <th class="text-center w100px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-role let-index="rowIndex">
+                <tr>
+                    <td class="text-left">{{role.name}}</td>
+                    <td class="text-center"><app-standalone-switch [isActive]="role.isDefault" (onChange)="toggleDefaultRole(role._id,$event)" /></td>
+                    <td class="text-center actions w100px">
+                        <a [routerLink]="['edit',role._id]" class="btn btn-circle table-btn" [pTooltip]="'pages.roles.permissions.edit' | translate" tooltipPosition="left">
+                            <ng-icon name="phosphorPencilSimple" size="1.2rem" />
+                        </a>
+                        <button type="button" class="btn btn-circle table-btn" [pTooltip]="'pages.roles.permissions.delete' | translate" tooltipPosition="left" (click)="deleteRole(role._id)">
+                            <ng-icon name="phosphorTrashSimple" size="1.2rem" />
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <app-empty-table-message />
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

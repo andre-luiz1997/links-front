@@ -27,6 +27,11 @@ export class SidebarComponent {
       route: '/account'
     },
     {
+      title: 'roles',
+      icon: 'phosphorFingerprint',
+      route: '/roles'
+    },
+    {
       title: 'exams',
       icon: 'phosphorFile',
       route: '/exams'

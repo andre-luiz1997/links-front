@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import type { DefaultPaginatedRequest } from '@shared/types';
-import { ExamTypesService } from 'src/app/services/exam-types.service';
+import { ExamTypesService } from '@shared/services/exam-types.service';
 
 @Component({
-  selector: 'app-examp-types-list',
-  templateUrl: './examp-types-list.component.html',
-  styleUrls: ['./examp-types-list.component.scss']
+  selector: 'app-exam-types-list',
+  templateUrl: './exam-types-list.component.html',
+  styleUrls: ['./exam-types-list.component.scss']
 })
-export class ExampTypesListComponent {
+export class ExamTypesListComponent {
   $exam_types = this.examTypesService.$examTypes;
   isLoading = false;
   totalRecords = 0;

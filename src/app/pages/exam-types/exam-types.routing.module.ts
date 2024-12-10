@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, type Routes } from "@angular/router";
 import { ExamTypesComponent } from "./exam-types.component";
-import { ExampTypesListComponent } from "./examp-types-list/examp-types-list.component";
+import { ExamTypesListComponent } from "./exam-types-list/exam-types-list.component";
 
 const examTypesRoutes: Routes = [
     {
@@ -14,7 +14,7 @@ const examTypesRoutes: Routes = [
         children: [
             {
                 path: '',
-                component: ExampTypesListComponent,
+                component: ExamTypesListComponent,
                 data: {
                     title: 'pages.exam-types.title',
                 }

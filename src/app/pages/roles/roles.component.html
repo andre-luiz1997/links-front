@@ -1,0 +1,8 @@
+<div class="page">
+    <h3 *ngIf="title" class="page-title">{{ title }}</h3>
+    <app-breadcrumbs />
+
+    <div class="page-content">
+        <router-outlet />
+    </div>
+</div>

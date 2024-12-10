@@ -4,10 +4,10 @@ import { convertToCamelCase } from "@shared/utils/common";
 
 @Pipe({
 	name: 'translate',
-	standalone: true,
+	standalone: true
 })
 export class TranslatePipe implements PipeTransform {
-	constructor(private langService: LangService) {}
+	constructor(private langService: LangService) { }
 
 	transform(query?: string, ...args: any[]): any {
 		if (!query) return query;

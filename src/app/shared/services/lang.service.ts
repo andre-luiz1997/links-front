@@ -67,7 +67,7 @@ const translation = {
 		empty_placeholder: 'Nenhum registro encontrado.',
 		you_are_about_to_delete: 'Você está prestes a excluir este registro',
 		are_you_sure: 'Deseja realmente continuar?',
-
+		is_default: 'Padrão',
 		//VERBS
 		close: 'Fechar',
 		confirm: 'Confirmar',
@@ -198,6 +198,14 @@ const translation = {
 			},
 			reports: {
 				title: 'Relatórios',
+			},
+			roles: {
+				title: 'Funções',
+				permissions: {
+					add: 'Adicionar função',
+					edit: 'Editar função',
+					delete: 'Excluir função',
+				}
 			},
 			signout: {
 				title: 'Sair',

@@ -6,7 +6,6 @@ import { SharedModule } from '@shared/shared.module';
 import { AccountFormComponent } from './account-form/account-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
-import { provideHttpClient } from '@angular/common/http';
 
 
 
