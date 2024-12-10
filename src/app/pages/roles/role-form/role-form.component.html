@@ -10,8 +10,11 @@
         <div class="col-12 md:col-1">
             <div class="form-group text-center">
                 <label for="isDefault" class="mb-2">{{ 'is_default' | translate }}</label>
-                <p-inputSwitch styleClass="custom-switch" formControlName="isDefault" />
+                <p-inputSwitch formControlName="isDefault" />
             </div>
+        </div>
+        <div class="col-12">
+            <ng-container *ngTemplateOutlet="permissionsList" />
         </div>
         <div class="col-12">
             <button type="button" class="btn btn-primary ml-auto" (click)="submitForm()">
@@ -20,3 +23,20 @@
         </div>
     </div>
 </form>
+
+<ng-template #permissionsList>
+    <ng-container *ngFor="let context of rolePermissions; let index = index; let last = last">
+        <ng-container *ngIf="context.permissions?.length">
+            <app-standalone-checkbox [isChecked]="context.isChecked" (onChange)="context.isChecked = $event; checkContextPermissions(index)"
+                [label]="('pages.' + context.context + '.title') | translate" />
+            <div class="context-permissions">
+                <ng-container *ngFor="let permission of context.permissions">
+                    <app-standalone-checkbox [isChecked]="permission.isChecked"
+                        (onChange)="permission.isChecked = $event; checkContext(index)"
+                        [label]="('pages.' + context.context + '.permissions.' + permission.name) | translate" />
+                </ng-container>
+            </div>
+            <hr *ngIf="!last" class="my-4" />
+        </ng-container>
+    </ng-container>
+</ng-template>

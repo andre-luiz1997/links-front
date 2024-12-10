@@ -32,7 +32,7 @@ small {
   text-decoration: none;
 
   &:hover {
-    color: $main_color_darker!important;
+    color: $main_color_darker !important;
   }
 }
 
@@ -44,7 +44,7 @@ small {
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1rem;
-  border-radius: calc($default_radius /2 );
+  border-radius: calc($default_radius /2);
   transition: all 0.3s ease-in-out;
   font-size: 1rem;
   font-weight: normal;
@@ -114,6 +114,7 @@ td.actions {
 .clickable {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+
   &:hover {
     opacity: .8;
   }
@@ -165,19 +166,34 @@ td.actions {
   color: $font_color_contrast;
 }
 
-.custom-switch {
-  &.p-inputswitch {
-      &.p-inputswitch-slider {
-          border-color: $main_color;
-          box-shadow: 0 0 0 1px $main_color;
-      }
-
-      .p-inputswitch-slider:before {
-          background-color: $background_color;
-      }
-
-      &.p-inputswitch-checked .p-inputswitch-slider {
-          background-color: $main_color;
-      }
+.p-inputswitch {
+  &.p-inputswitch-slider {
+    border-color: $main_color;
+    box-shadow: 0 0 0 1px $main_color;
   }
+
+  .p-inputswitch-slider:before {
+    background-color: $background_color;
+  }
+
+  &.p-inputswitch-checked .p-inputswitch-slider {
+    background-color: $main_color;
+  }
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: $main_color;
+  background: $main_color;
+}
+
+.p-checkbox:not(.p-disabled).p-focus {
+  border-color: $main_color;
+  box-shadow: 0 0 0 1px $main_color;
+}
+
+.p-checkbox .p-checkbox-box:focus-visible {
+  outline: none;
+}
+
+.p-checkbox .p-checkbox-box .p-icon {
+  color: $font_color_contrast;
 }

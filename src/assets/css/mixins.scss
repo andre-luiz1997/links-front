@@ -242,3 +242,13 @@ $directions: (
 .list-unstyled {
   list-style: none;
 }
+
+.flex-row-center {
+  @extend .flex-row;
+  @extend .align-center;
+}
+
+.flex-row-center-start {
+  @extend .flex-row-center;
+  @extend .justify-start;
+}

@@ -34,7 +34,7 @@ export class AccountFormComponent {
 
   setForm() {
     const user = this.authService.$signedUser.getValue();
-    this.form.patchValue(user);
+    if(user) this.form.patchValue(user);
   }
 
   submitForm() {

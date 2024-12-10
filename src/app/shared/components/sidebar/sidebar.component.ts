@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SidebarService } from '@shared/services/sidebar.service';
+import { IPermissions } from '@shared/types';
 import { STORAGE } from '@shared/utils/storage';
 
 export interface SidebarItem {
@@ -7,6 +8,7 @@ export interface SidebarItem {
   route: string;
   title: string;
   children?: SidebarItem[];
+  permissions?: string[];
 }
 
 @Component({
@@ -24,7 +26,8 @@ export class SidebarComponent {
     {
       title: 'account',
       icon: 'phosphorUser',
-      route: '/account'
+      route: '/account',
+      permissions: ['users']
     },
     {
       title: 'roles',

@@ -5,6 +5,7 @@ import { SharedService } from '@shared/services/shared.service';
 import { DefaultResponse, IUsers, SigninDTO, SigninResponse, SignupDTO, UpdateUserDTO } from '@shared/types';
 import { STORAGE } from '@shared/utils/storage';
 import { lastValueFrom } from 'rxjs';
+import { AuthGatewayService } from 'src/app/pages/auth/gateways/auth.gateway.service';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -19,9 +20,18 @@ export class AuthService {
 		private httpClient: HttpClient,
 		private sharedService: SharedService,
 		private router: Router,
+		private authGatewayService: AuthGatewayService,
 	) {
 		this.$signedUser.next(this.loadSignedUser());
 		this.$role.next(this.loadRole());
+
+		this.authGatewayService.getMessage('role').subscribe((role: any) => {
+			this.$role.next(role);
+		});
+	}
+
+	hasPermission(context: string, permission: string) {
+		return this.sharedService.hasPermission(context, permission);
 	}
 
 	private loadSignedUser() {
@@ -55,7 +65,7 @@ export class AuthService {
 				STORAGE.set(STORAGE.keys.USER, response.data.user);
 				STORAGE.set(STORAGE.keys.ROLE, response.data.user?.role);
 				this.$signedUser.next(response.data.user);
-				this.$role.next(response.data.user?.role);
+				this.$role.next(response.data.user?.role ?? null);
 			}
 			return response.data;
 		} catch (error) {
@@ -73,7 +83,7 @@ export class AuthService {
 				STORAGE.set(STORAGE.keys.USER, response.data.user);
 				STORAGE.set(STORAGE.keys.ROLE, response.data.user?.role);
 				this.$signedUser.next(response.data.user);
-				this.$role.next(response.data.user?.role);
+				this.$role.next(response.data.user?.role ?? null);
 			}
 			return response.data;
 		} catch (error) {

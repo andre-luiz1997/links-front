@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CRUDService, DefaultPaginatedRequest, DefaultPaginatedResponse, DefaultResponse, IRoles, serializeParams } from '@shared/types';
+import { CRUDService, DefaultPaginatedRequest, DefaultPaginatedResponse, DefaultResponse, IPermissions, IRoles, serializeParams } from '@shared/types';
 import { isEmpty } from '@shared/utils/common';
 import { environment } from 'src/environments/environment.development';
 
@@ -21,6 +21,10 @@ export class RoleService implements CRUDService {
 
   getAll(where?: DefaultPaginatedRequest) {
 		return this.httpClient.get<DefaultPaginatedResponse<IRoles[]>>(`${this.ENDPOINT}${where ? `?${serializeParams(where)}` : ''}`);
+  }
+
+  getPermissions() {
+    return this.httpClient.get<DefaultResponse<IPermissions[]>>(`${this.ENDPOINT}/permissions`);
   }
 
   create(data: any) {

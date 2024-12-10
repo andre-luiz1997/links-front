@@ -1,0 +1,4 @@
+<div class="flex-row-center-start gap-2" [formGroup]="form">
+    <p-checkbox styleClass="custom-checkbox" [inputId]="viewId" [binary]="true" formControlName="isChecked"/>
+    <label *ngIf="label" [for]="viewId" class="clickable">{{ label }}</label>
+</div>

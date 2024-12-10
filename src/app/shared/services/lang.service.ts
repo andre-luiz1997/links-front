@@ -177,7 +177,13 @@ const translation = {
 		},
 		pages: {
 			users: {
-				add: 'Adicionar usuário',
+				title: 'Usuários',
+				permissions: {
+					add: 'Adicionar usuário',
+					edit: 'Editar usuário',
+					delete: 'Excluir usuário',
+					view: 'Visualizar usuários',
+				}
 			},
 			plans: {
 				add: 'Adicionar plano',
@@ -205,6 +211,7 @@ const translation = {
 					add: 'Adicionar função',
 					edit: 'Editar função',
 					delete: 'Excluir função',
+					view: 'Visualizar funções',
 				}
 			},
 			signout: {

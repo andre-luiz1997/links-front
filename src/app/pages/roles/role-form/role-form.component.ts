@@ -1,10 +1,17 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LangService } from '@shared/services/lang.service';
 import { LoaderService } from '@shared/services/loader.service';
 import { RoleService } from '@shared/services/role.service';
 import { ToastService } from '@shared/services/toast.service';
+import { IPermissions, IRoles } from '@shared/types';
+
+interface IRolePermissions {
+  context: string;
+  isChecked: boolean;
+  permissions: { name: string, isChecked: boolean }[];
+}
 
 @Component({
   selector: 'app-role-form',
@@ -17,9 +24,11 @@ export class RoleFormComponent implements AfterViewInit {
     _id: new FormControl(''),
     name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
     isDefault: new FormControl(false),
-    permissions: new FormControl([]),
   })
+  role?: IRoles;
   isSubmitted = false;
+  permissions: IPermissions[] = [];
+  rolePermissions: IRolePermissions[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,35 +36,104 @@ export class RoleFormComponent implements AfterViewInit {
     private toastService: ToastService,
     private langService: LangService,
     private loaderService: LoaderService,
-    private router: Router
+    private router: Router,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngAfterViewInit(): void {
     const id = this.activatedRoute.snapshot.params?.['roleId'];
-    if (id) this.fetchRole(id);
+    const promises = [];
+    if (id) promises.push(this.fetchRole(id));
+    promises.push(this.fetchPermissions());
+    Promise.all(promises).then(() => {
+      this.mapRolePermissions();
+    });
+  }
+
+  checkContextPermissions(contextIndex: number) {
+    const context = this.rolePermissions[contextIndex];
+    context.permissions.forEach(p => {p.isChecked = context.isChecked});
+  }
+
+  checkContext(contextIndex: number) {
+    const context = this.rolePermissions[contextIndex];
+    if(context.permissions.every(p => p.isChecked)) {
+      context.isChecked = true;
+    } else {
+      context.isChecked = false;
+    }
+  }
+
+  private mapRolePermissions() {
+    this.rolePermissions = this.permissions.map(permission => {
+      const rolePermission = this.role?.permissions?.find(p => p.context === permission.context);
+      // isChecked if has all available permissions
+      let isChecked = rolePermission !== undefined;
+
+      const permissions = permission.permissions.map(p => {
+        const roleP = rolePermission?.permissions?.find(rp => rp === p);
+        if(!roleP) isChecked = false;
+        return {
+          name: p,
+          isChecked: roleP !== undefined
+        }
+      });
+
+      return {
+        context: permission.context,
+        isChecked,
+        permissions
+      }
+    });
+    this.changeDetector.detectChanges();
+  }
+
+  fetchPermissions() {
+    return new Promise<void>((resolve, reject) => {
+      this.roleService.getPermissions().subscribe({
+        next: (res) => {
+          if (res.data) {
+            this.permissions = res.data;
+          }
+          resolve();
+        },
+        error: (res) => {
+          this.toastService.show({
+            severity: 'error',
+            description: this.langService.getMessage('error_messages.error_occurred')
+          });
+          reject();
+        }
+      })
+    });
   }
 
   fetchRole(id: string) {
-    this.loaderService.show();
-    this.roleService.getOne(id).subscribe({
-      next: (res) => {
-        this.loaderService.hide();
-        if (res.data) {
-          this.form.patchValue({
-            _id: res.data._id,
-            name: res.data.name,
-            isDefault: res.data.isDefault,
+    return new Promise<void>((resolve, reject) => {
+      this.loaderService.show();
+      this.roleService.getOne(id).subscribe({
+        next: (res) => {
+          this.loaderService.hide();
+          if (res.data) {
+            this.form.patchValue({
+              _id: res.data._id,
+              name: res.data.name,
+              isDefault: res.data.isDefault,
+            });
+            this.role = res.data;
+          }
+          resolve();
+        },
+        error: (res) => {
+          this.loaderService.hide();
+          this.toastService.show({
+            severity: 'error',
+            description: this.langService.getMessage('error_messages.error_occurred')
           });
+          reject();
         }
-      },
-      error: (res) => {
-        this.loaderService.hide();
-        this.toastService.show({
-          severity: 'error',
-          description: this.langService.getMessage('error_messages.error_occurred')
-        });
-      }
-    })
+      })
+    });
   }
 
   submitForm() {
@@ -64,7 +142,13 @@ export class RoleFormComponent implements AfterViewInit {
     if (!this.form.valid) return;
     const data = this.form.getRawValue();
     this.loaderService.show();
-    this.roleService.save(data).subscribe({
+    const permissions = this.rolePermissions.filter(c => c.isChecked || c.permissions.some(p => p.isChecked)).map(c => {
+      return {
+        context: c.context,
+        permissions: c.permissions.filter(p => p.isChecked).map(p => p.name)
+      }
+    });
+    this.roleService.save({...data, permissions}).subscribe({
       next: (res) => {
         this.loaderService.hide();
         this.toastService.show({

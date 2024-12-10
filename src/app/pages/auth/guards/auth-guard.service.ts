@@ -43,8 +43,10 @@ export class AuthGuardService {
     if(route.data?.['permission']) {
       if(role?.permissions) {
         let valid = false;
-        route.data['permission'].map((permission: string) => {
-          const find = role.permissions.find((p: string) => p === permission);
+        route.data['permission'].map((_permission: string) => {
+          // const find = role.permissions.find((p: string) => p === permission);
+          const [context, permission] = _permission.split('.'); 
+          const find = this.authService.hasPermission(context, permission);
           if(find) valid = true;
         });
         if(!valid) {

@@ -8,7 +8,12 @@
     </div>
     <div class="sidebar-contents">
       <ng-container *ngFor="let item of items">
-        <app-sidebar-item [item]="item" />
+        <ng-container *ngIf="item.permissions && item.permissions?.length; else withoutPermissions">
+          <app-sidebar-item [item]="item" *permissions="item.permissions" />
+        </ng-container>
+        <ng-template #withoutPermissions>
+          <app-sidebar-item [item]="item" />
+        </ng-template>
       </ng-container>
     </div>
   </div>
