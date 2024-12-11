@@ -34,7 +34,7 @@ export class ExamTypesService implements CRUDService {
 	update(id: any, data: any): void {
 		throw new Error('Method not implemented.');
 	}
-	delete(id: any): void {
-		throw new Error('Method not implemented.');
+	delete(id: any) {
+		return this.httpClient.delete(`${this.ENDPOINT}/${id}`);
 	}
 }

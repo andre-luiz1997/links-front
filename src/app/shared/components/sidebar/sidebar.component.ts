@@ -40,7 +40,7 @@ export class SidebarComponent {
       route: '/exams'
     },
     {
-      title: 'exam-types',
+      title: 'exam_types',
       icon: 'phosphorExam',
       route: '/exam-types'
     },

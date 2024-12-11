@@ -9,6 +9,7 @@ import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, pho
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { EmptyTableMessageComponent } from './components/empty-table-message/empty-table-message.component';
 import { ErrorBlockComponent } from './components/error-block/error-block.component';
@@ -19,6 +20,7 @@ import { SidebarItemComponent } from './components/sidebar/sidebar-item/sidebar-
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { StandaloneCheckboxComponent } from './components/standalone-checkbox/standalone-checkbox.component';
 import { StandaloneSwitchComponent } from './components/standalone-switch/standalone-switch.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { StandaloneSwitchComponent } from './components/standalone-switch/standa
     InputPasswordComponent,
     LoaderComponent,
     StandaloneSwitchComponent,
-    StandaloneCheckboxComponent
+    StandaloneCheckboxComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +45,7 @@ import { StandaloneSwitchComponent } from './components/standalone-switch/standa
     TranslatePipe,
     InputSwitchModule,
     CheckboxModule,
+    DialogModule,
     NgIconsModule.withIcons({
       phosphorHouseSimple,
       phosphorUser,
@@ -67,7 +71,8 @@ import { StandaloneSwitchComponent } from './components/standalone-switch/standa
     LoaderComponent,
     StandaloneSwitchComponent,
     StandaloneCheckboxComponent,
-    PermissionsDirective
+    PermissionsDirective,
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule { }

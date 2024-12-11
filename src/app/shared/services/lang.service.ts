@@ -32,6 +32,10 @@ const translation = {
 			today: 'Hoje',
 			clear: 'Limpar',
 		},
+		delete_confirmation: {
+			title: 'Você está prestes a deletar este registro',
+			description: 'Esta ação não pode ser desfeita. Deseja realmente continuar?' 
+		},
 		validation_error: {
 			required: 'Campo obrigatório',
 			invalid_email: 'Insira um email válido',
@@ -192,9 +196,15 @@ const translation = {
 			exams: {
 				title: 'Exames',
 			},
-			'exam-types': {
+			exam_types: {
 				title: 'Tipos de exames',
 				list: 'Lista',
+				permissions: {
+					add: 'Adicionar tipo de exame',
+					edit: 'Editar tipo de exame',
+					delete: 'Excluir tipo de exame',
+					view: 'Visualizar tipos de exames',
+				}
 			},
 			home: {
 				title: 'Início',

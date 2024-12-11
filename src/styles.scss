@@ -67,6 +67,26 @@ small {
     }
   }
 
+  &.btn-danger {
+    background-color: $danger_color;
+    color: $font_color;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $danger_color_darker;
+    }
+  }
+
+  &.btn-default {
+    background-color: $default_color;
+    color: $font_color_contrast;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $default_color_darker;
+    }
+  }
+
   &.btn-circle {
     border-radius: 100%;
     padding: 0.5rem;
@@ -100,6 +120,14 @@ td.actions {
   background-color: $sidebar_color;
   border-radius: $default_radius;
   padding: 1rem 2rem;
+
+  .title-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 
   .page-title {
     font-size: 2rem;
@@ -143,6 +171,10 @@ td.actions {
     .p-icon-wrapper {
       color: $font_color;
     }
+
+    .p-dropdown-trigger .p-icon-wrapper {
+      color: $font_color_contrast;
+    }
   }
 }
 
@@ -180,6 +212,7 @@ td.actions {
     background-color: $main_color;
   }
 }
+
 .p-checkbox .p-checkbox-box.p-highlight {
   border-color: $main_color;
   background: $main_color;
@@ -197,3 +230,10 @@ td.actions {
 .p-checkbox .p-checkbox-box .p-icon {
   color: $font_color_contrast;
 }
+
+.p-custom-dialog {
+  .p-dialog-content {
+    padding: 0 5.5rem 4rem 5.5rem;
+  }
+}
+

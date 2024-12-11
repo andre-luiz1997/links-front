@@ -12,6 +12,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { RoleFormComponent } from './role-form/role-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { phosporDefaultIcons } from '@shared/index';
 
 
 
@@ -31,9 +32,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ReactiveFormsModule,
     InputSwitchModule,
     NgIconsModule.withIcons({
-      phosphorGear,
-      phosphorPencilSimple,
-      phosphorTrashSimple
+      ...phosporDefaultIcons
     })
   ]
 })

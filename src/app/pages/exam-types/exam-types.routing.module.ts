@@ -8,15 +8,15 @@ const examTypesRoutes: Routes = [
         path: '',
         component: ExamTypesComponent,
         data: {
-            title: 'pages.exam-types.title',
-            breadcrumb: 'pages.exam-types.title'
+            title: 'pages.exam_types.title',
+            breadcrumb: 'pages.exam_types.title'
         },
         children: [
             {
                 path: '',
                 component: ExamTypesListComponent,
                 data: {
-                    title: 'pages.exam-types.title',
+                    title: 'pages.exam_types.title',
                 }
             }
         ]

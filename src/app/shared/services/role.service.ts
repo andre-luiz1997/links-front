@@ -33,8 +33,8 @@ export class RoleService implements CRUDService {
   update(id: any, data: any) {
     return this.httpClient.patch<DefaultResponse<IRoles>>(`${this.ENDPOINT}/${id}`, data);
   }
-  delete(id: any): void {
-    throw new Error('Method not implemented.');
+  delete(id: any) {
+    return this.httpClient.delete<DefaultResponse<IRoles>>(`${this.ENDPOINT}/${id}`);
   }
 
   getOne(id: string) {

@@ -1,0 +1,17 @@
+<p-dialog [(visible)]="isShown" [modal]="true" [dismissableMask]="true" [draggable]="false" styleClass="p-custom-dialog">
+    <h2 class="header" *ngIf="title">{{ title | translate }}</h2>
+    <p>
+        {{ description | translate }}
+    </p>
+    <ng-template pTemplate="footer">
+        <div class="grid">
+            <div class="col-12 md:col-6">
+                <button (click)="cancelButton?.action()" type="button" class="btn btn-default mr-auto">{{ (cancelButton?.label ?? 'cancel') | translate }}</button>
+            </div>
+            <div class="col-12 md:col-6">
+                <button (click)="confirmButton?.action()" type="button" class="btn ml-auto" [ngClass]="confirmButtonClass">{{ (confirmButton?.label ?? 'confirm') | translate }}</button>
+            </div>
+        </div>
+
+    </ng-template>
+</p-dialog>
