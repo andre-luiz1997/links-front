@@ -25,8 +25,8 @@ export class ExamTypesComponent {
       }
 			while (currentRoute.firstChild) {
 				currentRoute = currentRoute.firstChild;
-				if (currentRoute.data?.['breadcrumb']) {
-					this.title = this.langService.getMessage(currentRoute.data['breadcrumb']);
+				if (currentRoute.data?.['title']) {
+					this.title = this.langService.getMessage(currentRoute.data['title']);
 				}
 			}
 		});

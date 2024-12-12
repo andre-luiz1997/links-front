@@ -1,5 +1,6 @@
 export type FilterOperators =
 	| 'LIKE'
+	| 'LIKE_ID'
 	| 'NOT LIKE'
 	| 'GREATER THAN'
 	| 'GREATER THAN OR EQUAL'
@@ -17,7 +18,7 @@ export type FilterOperators =
 export type SortOrder = -1 | 1;
 
 export interface PaginationFilter {
-	fields: string[];
+	field: string;
 	value: string | string[] | number | number[] | Date | Date[];
 	operator: FilterOperators;
 }

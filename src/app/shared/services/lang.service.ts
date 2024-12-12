@@ -220,6 +220,15 @@ const translation = {
 					view: 'Visualizar tipos de exames',
 				}
 			},
+			reference_values: {
+				title: 'Valores de referência',
+				permissions: {
+					add: 'Adicionar valor de referência',
+					edit: 'Editar valor de referência',
+					delete: 'Excluir valor de referência',
+					view: 'Visualizar valores de referência',
+				}
+			},
 			home: {
 				title: 'Início',
 			},

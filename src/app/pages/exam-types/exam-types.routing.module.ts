@@ -3,6 +3,7 @@ import { RouterModule, type Routes } from "@angular/router";
 import { ExamTypesComponent } from "./exam-types.component";
 import { ExamTypesListComponent } from "./exam-types-list/exam-types-list.component";
 import { ExamTypesFormComponent } from "./exam-types-form/exam-types-form.component";
+import { referenceValuesRoutes } from "./reference-values/reference-values.routing.module";
 
 const examTypesRoutes: Routes = [
     {
@@ -35,7 +36,8 @@ const examTypesRoutes: Routes = [
                     title: 'pages.exam_types.permissions.edit',
                     breadcrumb: 'pages.exam_types.permissions.edit'
                 }
-            }
+            },
+            ...referenceValuesRoutes
         ]
     }
 ]

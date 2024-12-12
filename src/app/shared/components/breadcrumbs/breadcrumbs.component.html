@@ -4,11 +4,11 @@
             <ng-icon class="link" name="phosphorHouseSimple" size="1.2rem" />
         </a>
         <ng-icon name="phosphorCaretRight" size="1rem" *ngIf="breadcrumbs.length" />
-        <li *ngFor="let item of breadcrumbs; let i = index" class="breadcrumb-item"
-            [ngClass]="{ active: item == lastItem, hide: item.label == '' || item.label == undefined }">
-            <a [routerLink]="[item.url.replace('#', '')]" *ngIf="item != lastItem">{{ item.label }}</a>
-            <span *ngIf="item == lastItem">{{ item.label }}</span>
-            <ng-icon name="phosphorCaretRight" size="1rem" *ngIf="item != lastItem" />
+        <li *ngFor="let item of breadcrumbs; let i = index; let lastItem = last" class="breadcrumb-item"
+            [ngClass]="{ active: lastItem, hide: item.label == '' || item.label == undefined }">
+            <a [routerLink]="[item.url]" *ngIf="!lastItem">{{ item.label }}</a>
+            <span *ngIf="lastItem">{{ item.label }}</span>
+            <ng-icon name="phosphorCaretRight" size="1rem" *ngIf="!lastItem" />
         </li>
     </ol>
 </nav>

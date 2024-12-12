@@ -6,6 +6,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
+                    <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}</th>
                     <th class="text-center">{{'is_default' | translate}}</th>
                     <th class="text-center w100px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
                 </tr>
@@ -13,6 +14,7 @@
             <ng-template pTemplate="body" let-role let-index="rowIndex">
                 <tr>
                     <td class="text-left">{{role.name}}</td>
+                    <td class="text-left">{{role.updatedAt | customDate:{time: true} }}</td>
                     <td class="text-center"><app-standalone-switch [isActive]="role.isDefault" (onChange)="toggleDefaultRole(role._id,$event)" /></td>
                     <td class="text-center actions w100px">
                         <a [routerLink]="['edit',role._id]" class="btn btn-circle table-btn" [pTooltip]="'pages.roles.permissions.edit' | translate" tooltipPosition="left">
