@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { CRUDService } from '@shared/types/services';
 import { BehaviorSubject } from 'rxjs';
-import { DefaultPaginatedResponse, IExamTypes } from '@shared/types';
+import { DefaultPaginatedResponse, DefaultResponse, IExamTypes } from '@shared/types';
 import { isEmpty } from '@shared/utils/common';
 
 @Injectable({
@@ -25,14 +25,14 @@ export class ExamTypesService implements CRUDService {
 		return this.httpClient.get<DefaultPaginatedResponse<IExamTypes[]>>(this.ENDPOINT);
 	}
 
-	getOne(id: any): void {
-		throw new Error('Method not implemented.');
+	getOne(id: any) {
+		return this.httpClient.get<DefaultResponse<IExamTypes>>(`${this.ENDPOINT}/${id}`);
 	}
-	create(data: any): void {
-		throw new Error('Method not implemented.');
+	create(data: any) {
+		return this.httpClient.post<DefaultResponse<IExamTypes>>(this.ENDPOINT, data);
 	}
-	update(id: any, data: any): void {
-		throw new Error('Method not implemented.');
+	update(id: any, data: any) {
+		return this.httpClient.put<DefaultResponse<IExamTypes>>(`${this.ENDPOINT}/${id}`, data);
 	}
 	delete(id: any) {
 		return this.httpClient.delete(`${this.ENDPOINT}/${id}`);

@@ -1,0 +1,73 @@
+<form [formGroup]="form">
+    <div class="grid">
+        <div class="col-12 md:col-3">
+            <div class="form-group">
+                <label for="country">{{ 'country' | translate }}</label>
+                <p-dropdown [filter]="true" filterBy="nome" requiredLabel="country" class="form-control"
+                    formControlName="country" [options]="countries" optionValue="iso3" optionLabel="nome"
+                    [placeholder]="'select.placeholder' | translate">
+                    <ng-template pTemplate="empty">
+                        <span>{{ 'select.empty' | translate }}.</span>
+                    </ng-template>
+                </p-dropdown>
+                <app-error-block formControlName="country" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-3">
+            <div class="form-group">
+                <label for="zipCode">{{ 'zipcode' | translate }}</label>
+                <input type="text" requiredLabel="zipCode" [mask]="zipCodeMask" [placeholder]="zipCodeMask ?? ''"
+                    formControlName="zipCode" class="form-control">
+                <app-error-block formControlName="zipCode" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-3">
+            <div class="form-group">
+                <label for="state">{{ 'state' | translate }}</label>
+                <p-dropdown [filter]="true" filterBy="name" *ngIf="isBRA" requiredLabel="state" class="form-control"
+                    formControlName="state" [options]="states" optionLabel="name" optionValue="code"
+                    [placeholder]="'select.placeholder' | translate">
+                    <ng-template pTemplate="empty">
+                        <span>{{ 'select.empty' | translate }}.</span>
+                    </ng-template>
+                </p-dropdown>
+                <input *ngIf="!isBRA" type="text" formControlName="state" class="form-control">
+                <app-error-block formControlName="state" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-3">
+            <div class="form-group">
+                <label for="city">{{ 'city' | translate }}</label>
+                <p-dropdown [filter]="true" *ngIf="isBRA" requiredLabel="city" class="form-control"
+                    formControlName="city" [options]="cities" [placeholder]="'select.placeholder' | translate">
+                    <ng-template pTemplate="empty">
+                        <span>{{ 'select.empty' | translate }}.</span>
+                    </ng-template>
+                </p-dropdown>
+                <input *ngIf="!isBRA" type="text" formControlName="city" class="form-control">
+                <app-error-block formControlName="city" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-3">
+            <div class="form-group">
+                <label for="neighborhood">{{ 'neighborhood' | translate }}</label>
+                <input type="text" requiredLabel="neighborhood" formControlName="neighborhood" class="form-control">
+                <app-error-block formControlName="neighborhood" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-6">
+            <div class="form-group">
+                <label for="street">{{ 'street' | translate }}</label>
+                <input type="text" requiredLabel="street" formControlName="street" class="form-control">
+                <app-error-block formControlName="street" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-3">
+            <div class="form-group">
+                <label for="number">{{ 'number' | translate }}</label>
+                <input type="text" requiredLabel="number" formControlName="number" class="form-control">
+                <app-error-block formControlName="number" [show]="isSubmitted" />
+            </div>
+        </div>
+    </div>
+</form>

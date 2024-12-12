@@ -10,9 +10,11 @@ import { phosphorGear, phosphorPencilSimple, phosphorPlus, phosphorTrashSimple }
 import { SharedModule } from '@shared/shared.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { phosporDefaultIcons } from '@shared/index';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ExamTypesFormComponent } from './exam-types-form/exam-types-form.component';
 
 @NgModule({
-	declarations: [ExamTypesComponent, ExamTypesListComponent],
+	declarations: [ExamTypesComponent, ExamTypesListComponent, ExamTypesFormComponent],
 	imports: [
 		CommonModule,
 		ExamTypesRoutingModule,
@@ -20,6 +22,7 @@ import { phosporDefaultIcons } from '@shared/index';
 		TableModule,
 		TranslatePipe,
 		TooltipModule,
+		ReactiveFormsModule,
 		NgIconsModule.withIcons({
 			...phosporDefaultIcons
 		}),

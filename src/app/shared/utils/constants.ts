@@ -20,3 +20,5 @@ export const CURRENCIES: {
 export const DEFAULT_CURRENCY_SYMBOL: CURRENCY_SYMBOLS = 'R$'
 export const DEFAULT_CURRENCY = 'BRL'
 export const CURRENCY_MASK = '0.000,00';
+
+export const ZIPCODE_MASK = '00000-000';

@@ -4,12 +4,12 @@
         <ng-container *ngIf="$exam_types | async as exam_types">
             <p-table #table [loading]="isLoading" [totalRecords]="totalRecords" [value]="exam_types"
                 [lazyLoadOnInit]="true" [lazy]="true" (onLazyLoad)="getAll($event)" [paginator]="true" [rows]="10"
-                [rowsPerPageOptions]="[10,50,100]" styleClass="p-datatable-striped p-datatable-dark">
+                [rowsPerPageOptions]="[10,50,100]" sortField="name" [sortOrder]="1"  styleClass="p-datatable-striped p-datatable-dark">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="text-left">{{'name' | translate}}</th>
-                        <th class="text-left">{{'description' | translate}}</th>
-                        <th class="text-left">{{'unit' | translate}}</th>
+                        <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
+                        <th pSortableColumn="description" class="text-left">{{'description' | translate}}<p-sortIcon field="description"/></th>
+                        <th pSortableColumn="unit" class="text-left">{{'unit' | translate}}<p-sortIcon field="unit"/></th>
                         <th class="text-left w100px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
                     </tr>
                 </ng-template>

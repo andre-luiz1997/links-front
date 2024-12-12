@@ -27,6 +27,10 @@ const routes: Routes = [
         path: 'account',
         loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule),
         canActivate: [AuthGuardService]
+      },{
+        path: 'labs',
+        loadChildren: () => import('./pages/labs/labs.module').then(m => m.LabsModule),
+        canActivate: [AuthGuardService]
       }
     ]
   }

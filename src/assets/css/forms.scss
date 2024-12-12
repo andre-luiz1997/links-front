@@ -13,11 +13,38 @@
     height: $default_control_height;
     color: $font_color;
     font-size: 1rem;
+    font-family: $main_font, sans-serif;
 
     &:focus-visible {
         outline: none;
         border-bottom-color: $main_color;
     }
+
+    &::placeholder {
+        color: $font_color;
+        opacity: .6;
+    }
+}
+
+p-dropdown.form-control {
+    border: none!important;
+    * {
+        font-family: $main_font, sans-serif;
+    }
+
+    .p-dropdown {
+        width: 100%;
+        height: $default_control_height;
+
+        .p-dropdown-label {
+            padding: calc(($default_control_height / 3) - 5px);
+        }
+    }
+}
+
+textarea.form-control {
+    height: auto;
+    min-height: 2rem;
 }
 
 .form-control-wrapper {

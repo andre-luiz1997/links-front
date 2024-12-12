@@ -116,6 +116,7 @@ const translation = {
 		mobile_phone: 'Celular',
 		group: 'Grupo',
 		created_at: 'Criado em',
+		updated_at: 'Última alteração',
 		currency: 'Moeda',
 		amount: 'Valor',
 		recurrency: 'Recorrência',
@@ -196,9 +197,22 @@ const translation = {
 			exams: {
 				title: 'Exames',
 			},
+			labs: {
+				title: 'Laboratórios',
+				permissions: {
+					add: 'Adicionar laboratório',
+					edit: 'Editar laboratório',
+					delete: 'Excluir laboratório',
+					view: 'Visualizar laboratórios',
+				}
+			},
 			exam_types: {
+				name_example: 'Colesterol LDL',
+				unit: 'Unidade de medida',
+				unit_example: 'mg/dl',
 				title: 'Tipos de exames',
 				list: 'Lista',
+				description_example: 'Exemplo: LDL calculado a partir da Fórmula de Martin.',
 				permissions: {
 					add: 'Adicionar tipo de exame',
 					edit: 'Editar tipo de exame',

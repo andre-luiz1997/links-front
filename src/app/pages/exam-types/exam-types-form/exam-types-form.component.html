@@ -1,0 +1,31 @@
+<form [formGroup]="form">
+    <div class="grid">
+        <div class="col-12 md:col-10">
+            <div class="form-group">
+                <label for="name">{{ 'name' | translate }}</label>
+                <input type="text" formControlName="name" requiredLabel class="form-control" [placeholder]="'pages.exam_types.name_example' | translate">
+                <app-error-block formControlName="name" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-2">
+            <div class="form-group">
+                <label for="unit">{{ 'pages.exam_types.unit' | translate }}</label>
+                <input type="text" formControlName="unit" requiredLabel class="form-control" [placeholder]="'pages.exam_types.unit_example' | translate">
+                <app-error-block formControlName="unit" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="description" class="mb-2">{{ 'description' | translate }}</label>
+                <textarea class="form-control" rows="5" requiredLabel formControlName="description" [placeholder]="'pages.exam_types.description_example' | translate"></textarea>
+                <app-error-block formControlName="description" [show]="isSubmitted" />
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <button type="button" class="btn btn-primary ml-auto" (click)="submitForm()">
+                {{ 'save' | translate }}
+            </button>
+        </div>
+    </div>
+</form>

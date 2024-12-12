@@ -164,6 +164,16 @@ td.actions {
     }
   }
 
+  .p-icon.p-sortable-column-icon {
+    color: $font_color;
+    opacity: .6;
+  }
+
+  .p-sortable-column.p-highlight .p-sortable-column-icon {
+    color: $main_color;
+    opacity: 1;
+  }
+
   .p-paginator {
     background: $sidebar_color;
     color: $font_color;

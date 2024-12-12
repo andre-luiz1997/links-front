@@ -40,6 +40,11 @@ export class SidebarComponent {
       route: '/exams'
     },
     {
+      title: 'labs',
+      icon: 'phosphorFlask',
+      route: '/labs'
+    },
+    {
       title: 'exam_types',
       icon: 'phosphorExam',
       route: '/exam-types'

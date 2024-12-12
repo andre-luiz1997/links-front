@@ -1,0 +1,49 @@
+<div class="grid">
+    <div class="col-12">
+        <p-table #table [loading]="isLoading" [totalRecords]="totalRecords" [value]="labs" [lazyLoadOnInit]="true"
+            [lazy]="true" (onLazyLoad)="getAll($event)" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[10,50,100]" sortField="name" [sortOrder]="1"
+            styleClass="p-datatable-striped p-datatable-dark">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name" /></th>
+                    <th pSortableColumn="address.state" class="text-left">{{'state' | translate}}<p-sortIcon
+                            field="address.state" /></th>
+                    <th pSortableColumn="address.city" class="text-left">{{'city' | translate}}<p-sortIcon
+                            field="address.city" /></th>
+                    <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}<p-sortIcon
+                            field="updatedAt" /></th>
+                    <th class="text-center">{{'status' | translate}}</th>
+                    <th class="text-left w100px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-lab let-index="rowIndex">
+                <tr>
+                    <td class="text-left">{{lab.name}}</td>
+                    <td class="text-left">{{lab.address?.state ?? "-"}}</td>
+                    <td class="text-left">{{lab.address?.city ?? "-"}}</td>
+                    <td class="text-left">{{lab.updatedAt | customDate:{time: true} }}</td>
+                    <td class="text-center"><app-standalone-switch [isActive]="lab.status"
+                            (onChange)="toggleStatus(lab._id,$event)" /></td>
+
+                    <td class="text-center actions w100px">
+                        <a [routerLink]="['edit',lab._id]" class="btn btn-circle table-btn"
+                            [pTooltip]="'pages.labs.permissions.edit' | translate" tooltipPosition="left">
+                            <ng-icon name="phosphorPencilSimple" size="1.2rem" />
+                        </a>
+                        <button type="button" class="btn btn-circle table-btn"
+                            [pTooltip]="'pages.labs.permissions.delete' | translate" tooltipPosition="left"
+                            (click)="deleteLab(lab._id)">
+                            <ng-icon name="phosphorTrashSimple" size="1.2rem" />
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <app-empty-table-message />
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
