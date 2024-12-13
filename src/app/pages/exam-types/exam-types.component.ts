@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, Scroll } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LangService } from '@shared/services/lang.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { LangService } from '@shared/services/lang.service';
 export class ExamTypesComponent {
   title?: string;
   showAddButton = false;
+  addButtonLink?: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,14 +21,15 @@ export class ExamTypesComponent {
     this.title = this.activatedRoute.snapshot.data['title'];
     this.router.events.subscribe((event) => {
 			let currentRoute = this.router.routerState.snapshot.root;
-      if (event instanceof NavigationEnd || event instanceof Scroll) {
-        this.showAddButton = this.router.url == '/exam-types';
-      }
 			while (currentRoute.firstChild) {
-				currentRoute = currentRoute.firstChild;
+        currentRoute = currentRoute.firstChild;
 				if (currentRoute.data?.['title']) {
-					this.title = this.langService.getMessage(currentRoute.data['title']);
+          this.title = this.langService.getMessage(currentRoute.data['title']);
 				}
+        if(!currentRoute.firstChild) {
+          this.showAddButton = currentRoute.data['showAddButton'];
+          this.addButtonLink = `${this.router.url}/${currentRoute.data['addButtonLink']}`;
+        }
 			}
 		});
   }

@@ -2,7 +2,7 @@
     <div class="title-row">
         <h3 *ngIf="title" class="page-title">{{ title }}</h3>
         <ng-container *ngIf="showAddButton">
-            <a *permissions="[]" [routerLink]="['add']" class="btn btn-primary btn-circle ml-auto"
+            <a *permissions="[]" [routerLink]="[addButtonLink]" class="btn btn-primary btn-circle ml-auto"
                 [pTooltip]="'pages.exam_types.permissions.add' | translate" tooltipPosition="left">
                 <ng-icon name="phosphorPlus" size="1.4rem" />
             </a>

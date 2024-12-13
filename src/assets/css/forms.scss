@@ -24,10 +24,21 @@
         color: $font_color;
         opacity: .6;
     }
+
+    &:disabled,
+    &.disabled {
+        opacity: .8;
+        user-select: none;
+    }
+}
+
+span.form-control {
+    padding: .5rem 0;
 }
 
 p-dropdown.form-control {
-    border: none!important;
+    border: none !important;
+
     * {
         font-family: $main_font, sans-serif;
     }

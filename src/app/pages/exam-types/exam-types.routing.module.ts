@@ -19,6 +19,8 @@ const examTypesRoutes: Routes = [
                 component: ExamTypesListComponent,
                 data: {
                     title: 'pages.exam_types.title',
+                    showAddButton: true,
+                    addButtonLink: 'add'
                 }
             },
             {

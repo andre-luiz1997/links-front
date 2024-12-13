@@ -8,13 +8,16 @@ import { NgIconsModule } from '@ng-icons/core';
 import { phosporDefaultIcons, SharedModule } from '@shared/index';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
+import { ReferenceValuesFormComponent } from './reference-values-form/reference-values-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
     ReferenceValuesComponent,
-    ReferenceValuesListComponent
+    ReferenceValuesListComponent,
+    ReferenceValuesFormComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +26,7 @@ import { TranslatePipe } from '@shared/pipes/translate.pipe';
     SharedModule,
     TooltipModule,
     TranslatePipe,
+    ReactiveFormsModule,
     NgIconsModule.withIcons({
       ...phosporDefaultIcons,
     })
