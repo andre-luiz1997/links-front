@@ -28,10 +28,10 @@ export class ExamTypesListComponent {
   getAll(event?: any) {
     this.isLoading = true;
     const props: DefaultPaginatedRequest = {
-      skip: event?.skip,
+      skip: event?.first,
       limit: event?.rows,
-      sortBy: event?.multiSortMeta?.at(0)?.field,
-      sortOrder: event?.multiSortMeta?.at(0)?.order ?? -1,
+      sortBy: event?.sortField,
+      sortOrder: event?.sortOrder ?? -1,
       globalFilter: event?.filters?.global?.value
     }
     this.examTypesService.getAll(props).subscribe({

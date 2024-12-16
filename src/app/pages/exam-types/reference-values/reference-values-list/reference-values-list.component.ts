@@ -6,6 +6,7 @@ import { LoaderService } from '@shared/services/loader.service';
 import { ReferenceValuesService } from '@shared/services/reference-values.service';
 import { ToastService } from '@shared/services/toast.service';
 import type { DefaultPaginatedRequest, IReferenceValues } from '@shared/types';
+import { getReferenceValuesAgeRange, getReferenceValuesString } from '@shared/utils/referenceValues';
 
 @Component({
   selector: 'app-reference-values-list',
@@ -19,12 +20,15 @@ export class ReferenceValuesListComponent {
   referenceValues: IReferenceValues[] = []
   examTypeId?: string;
 
+  getReferenceValuesString = getReferenceValuesString
+  getReferenceValuesAgeRange = getReferenceValuesAgeRange
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private loaderService: LoaderService,
     private toastService: ToastService,
-    private langService: LangService,
+    protected langService: LangService,
     private referenceValuesService: ReferenceValuesService
   ) {
     this.examTypeId = this.activatedRoute.snapshot.params['examTypeId'];
@@ -34,7 +38,7 @@ export class ReferenceValuesListComponent {
   getAll(event?: any) {
     this.isLoading = true;
     const props: DefaultPaginatedRequest = {
-      skip: event?.skip,
+      skip: event?.first,
       limit: event?.rows,
       sortBy: event?.multiSortMeta?.at(0)?.field,
       sortOrder: event?.multiSortMeta?.at(0)?.order ?? -1,
@@ -60,6 +64,41 @@ export class ReferenceValuesListComponent {
   }
 
   deleteReferenceValue(_id: string) {
-
+    this.confirmationService.show({
+      title: 'delete_confirmation.title',
+      description: 'delete_confirmation.description',
+      confirmButton: {
+        label: 'continue',
+        severity: 'danger',
+        action: () => {
+          this.loaderService.show();
+          this.referenceValuesService.delete(_id).subscribe({
+            next: (response) => {
+              this.confirmationService.hide();
+              this.referenceValues = this.referenceValues.filter(referenceValue => referenceValue._id !== _id);
+              this.totalRecords--;
+              this.loaderService.hide();
+              this.toastService.show({
+                description: this.langService.getMessage('success_messages.record_deleted_successfully'),
+                severity: 'success'
+              });
+            },
+            error: () => {
+              this.loaderService.hide();
+              this.toastService.show({
+                description: this.langService.getMessage('error_messages.error_occurred'),
+                severity: 'error'
+              });
+            }
+          });
+        }
+      },
+      cancelButton: {
+        label: 'cancel',
+        action: () => {
+          this.confirmationService.hide();
+        }
+      }
+    });
   }
 }

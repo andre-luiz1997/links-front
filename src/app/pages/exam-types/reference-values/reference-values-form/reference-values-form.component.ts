@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExamTypesService } from '@shared/services/exam-types.service';
 import { LangService } from '@shared/services/lang.service';
@@ -17,11 +17,20 @@ export class ReferenceValuesFormComponent implements AfterViewInit {
   form = new FormGroup({
     _id: new FormControl<string | undefined>(undefined),
     examType: new FormControl<string | undefined>(undefined),
-    ageRange: new FormControl<string | undefined>(undefined),
+    ageRange: new FormGroup({
+      ageRangeMin: new FormControl<number | undefined>(undefined),
+      ageRangeMax: new FormControl<number | undefined>(undefined),
+    }),
     fastingState: new FormControl<string | undefined>(undefined),
     category: new FormControl<string | undefined>(undefined),
-    minValue: new FormControl<number | undefined>(undefined),
-    maxValue: new FormControl<number | undefined>(undefined),
+    fastingValues: new FormGroup({
+      minValue: new FormControl<number | undefined>(undefined),
+      maxValue: new FormControl<number | undefined>(undefined),
+    }),
+    nonFastingValues: new FormGroup({
+      minValue: new FormControl<number | undefined>(undefined),
+      maxValue: new FormControl<number | undefined>(undefined),
+    }),
     description: new FormControl<string | undefined>(undefined)
   })
   examType?: IExamTypes;
@@ -40,11 +49,12 @@ export class ReferenceValuesFormComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const examTypeId = this.activatedRoute.snapshot.params?.['examTypeId'];
-    console.log("🚀 ~ ReferenceValuesFormComponent ~ ngAfterViewInit ~ examTypeId:", this.activatedRoute.snapshot.params)
     const id = this.activatedRoute.snapshot.params?.['referenceValueId'];
-    this.form.patchValue({ examType: examTypeId });
+    console.log("🚀 ~ ReferenceValuesFormComponent ~ ngAfterViewInit ~ id:", id)
+    
     const promises = [this.fetchExamType(examTypeId)];
     if (id) promises.push(this.fetchReferenceValue(id));
+    else this.form.patchValue({ examType: examTypeId });
     this.loaderService.show();
     Promise.all(promises).then(() => {
       this.loaderService.hide();
@@ -70,14 +80,18 @@ export class ReferenceValuesFormComponent implements AfterViewInit {
       this.referenceValuesService.getOne(id).subscribe({
         next: (res) => {
           if (res.data) {
+            console.log("🚀 ~ ReferenceValuesFormComponent ~ this.referenceValuesService.getOne ~ res.data:", res.data)
+            const ageRanges = res.data.ageRange?.split(',')?.map(value => value ? Number.parseInt(value) : undefined) ?? [];
             this.form.patchValue({
               _id: res.data._id,
               examType: res.data.examType._id,
-              ageRange: res.data.ageRange,
-              fastingState: res.data.fastingState,
+              ageRange: {
+                ageRangeMin: ageRanges[0],
+                ageRangeMax: ageRanges[1]
+              },
               category: res.data.category,
-              minValue: res.data.minValue,
-              maxValue: res.data.maxValue,
+              fastingValues: res.data.fastingValues,
+              nonFastingValues: res.data.nonFastingValues,
               description: res.data.description
             })
           }
@@ -100,14 +114,17 @@ export class ReferenceValuesFormComponent implements AfterViewInit {
     this.form.updateValueAndValidity();
     if (!this.form.valid) return;
     this.loaderService.show();
-    this.referenceValuesService.save(this.form.value).subscribe({
+    const values = this.form.value;
+    let ageRange: string | null = `${values.ageRange?.ageRangeMin ?? ''},${values.ageRange?.ageRangeMax ?? ''}`
+    if (ageRange == ',') ageRange = null;
+    this.referenceValuesService.save({ ...values, ageRange }).subscribe({
       next: (res) => {
         this.loaderService.hide();
         this.toastService.show({
           severity: 'success',
           description: this.langService.getMessage('success_messages.record_saved_successfully')
         });
-        this.router.navigate(['/', 'exam-types', this.form.value.examType, 'reference-values']);
+        this.router.navigate(['/', 'exam-types', 'reference-values', this.form.value.examType]);
       },
       error: (err) => {
         const description = this.langService.getMessage(err?.error?.message) ?? this.langService.getMessage('error_messages.error_occurred');

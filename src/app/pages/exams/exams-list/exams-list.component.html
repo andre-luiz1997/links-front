@@ -1,22 +1,21 @@
 <div class="grid">
-   
     <div class="col-12">
-        <ng-container *ngIf="$exam_types | async as exam_types">
-            <p-table #table [loading]="isLoading" [totalRecords]="totalRecords" [value]="exam_types"
-                [lazyLoadOnInit]="true" [lazy]="true" (onLazyLoad)="getAll($event)" [paginator]="true" [rows]="10"
-                [rowsPerPageOptions]="[10,50,100]" sortField="name" [sortOrder]="1"  styleClass="p-datatable-striped p-datatable-dark">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
+        <p-table #table [loading]="isLoading" [totalRecords]="totalRecords" [value]="exams" [lazyLoadOnInit]="true"
+            [lazy]="true" (onLazyLoad)="getAll($event)" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[10,50,100]" sortField="name" [sortOrder]="1"
+            styleClass="p-datatable-striped p-datatable-dark">
+            <ng-template pTemplate="header">
+                <tr>
+                    <!-- <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
                         <th pSortableColumn="description" class="text-left">{{'description' | translate}}<p-sortIcon field="description"/></th>
                         <th pSortableColumn="unit" class="text-left">{{'unit' | translate}}<p-sortIcon field="unit"/></th>
                         <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}<p-sortIcon field="updatedAt"/></th>
-                        <th class="text-center w150px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-exam_type let-index="rowIndex">
-                    <tr>
-                        <td class="text-left">{{exam_type.name}}</td>
+                        <th class="text-center w150px"><ng-icon name="phosphorGear" size="1.2rem" /></th> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-exam_type let-index="rowIndex">
+                <tr>
+                    <!-- <td class="text-left">{{exam_type.name}}</td>
                         <td class="text-left">{{exam_type.description ?? "-"}}</td>
                         <td class="text-left">{{exam_type.unit}}</td>
                         <td class="text-left">{{exam_type.updatedAt | customDate:{time: true} }}</td>
@@ -34,15 +33,14 @@
                                 (click)="deleteExamType(exam_type._id)">
                                 <ng-icon name="phosphorTrashSimple" size="1.2rem" />
                             </button>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <app-empty-table-message />
-                    </tr>
-                </ng-template>
-            </p-table>
-        </ng-container>
+                        </td> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <app-empty-table-message />
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 </div>

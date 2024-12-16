@@ -139,6 +139,10 @@ const translation = {
 		years: 'Anos',
 		total: 'Total',
 
+		min: 'Mínimo',
+		max: 'Máximo',
+		category: 'Categoria',
+
 		status: 'Status',
 		active: 'Ativo',
 		inactive: 'Inativo',
@@ -152,6 +156,14 @@ const translation = {
 		neighborhood: 'Bairro',
 		country: 'País',
 		street: 'Rua',
+
+		superiorThan: "Superior a",
+		inferiorThan: "Inferior a",
+		lessThan: "Menor que",
+		greaterThan: "Maior que",
+		to: 'a',
+
+		not_informed: 'Não informado',
 
 		password: 'Senha',
 		password_confirm: 'Confirmar senha', 
@@ -196,11 +208,28 @@ const translation = {
 			},
 			exams: {
 				title: 'Exames',
+				permissions: {
+					add: 'Adicionar exame',
+					edit: 'Editar exame',
+					delete: 'Excluir exame',
+					view: 'Visualizar exames',
+				},
+				form: {
+					lab: 'Selecione o laboratório que foi realizado o exame',
+					date: 'Qual a data da coleta do exame?',
+					results: 'Resultados do exame',
+					add_result: 'Adicionar resultado',
+					no_results: 'Nenhum resultado foi inserido. Clique no botão acima (+) para adicionar.',
+					exam_type: 'Selecione o tipo de exame',
+					value: 'Resultado',
+					material: 'Material utilizado',
+					method: 'Método utilizado',
+				}
 			},
 			labs: {
 				title: 'Laboratórios',
 				permissions: {
-					add: 'Adicionar laboratório',
+					add: 'Adicionar exame',
 					edit: 'Editar laboratório',
 					delete: 'Excluir laboratório',
 					view: 'Visualizar laboratórios',
@@ -227,7 +256,13 @@ const translation = {
 					edit: 'Editar valor de referência',
 					delete: 'Excluir valor de referência',
 					view: 'Visualizar valores de referência',
-				}
+				},
+				age_range: 'Faixa etária',
+				values: 'Valor de referência',
+				fasting: 'Com jejum',
+				non_fasting: 'Sem jejum',	
+				leave_non_fasting_empty: 'Deixe em branco se não houver diferença entre os valores com e sem jejum',
+				category_example: 'Exemplo: Risco baixo, Risco alto, Deficiência, Toxicidade',
 			},
 			home: {
 				title: 'Início',

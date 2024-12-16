@@ -30,7 +30,15 @@ export const referenceValuesRoutes: Routes = [
                     title: 'pages.reference_values.permissions.add',
                     breadcrumb: 'pages.reference_values.permissions.add'
                 }
-            }
+            },
+            {
+                path: 'edit/:referenceValueId',
+                component: ReferenceValuesFormComponent,
+                data: {
+                    title: 'pages.reference_values.permissions.edit',
+                    breadcrumb: 'pages.reference_values.permissions.edit'
+                }
+            },
         ]
     }
 ]

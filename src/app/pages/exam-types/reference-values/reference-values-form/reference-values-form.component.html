@@ -2,7 +2,7 @@
     <div class="grid">
         <div class="col-12 md:col-10">
             <div class="form-group">
-                <label for="examType">{{ 'examType' | translate }}</label>
+                <label for="examType">{{ 'pages.exam_types.title' | translate }}</label>
                 <span class="form-control disabled">{{examType?.name}}</span>
             </div>
         </div>
@@ -12,14 +12,122 @@
                 <span class="form-control disabled">{{examType?.unit}}</span>
             </div>
         </div>
+        <div class="col-12 md:col-6">
+            <section class="section" formGroupName="fastingValues">
+                <span class="section-title">{{ 'pages.reference_values.values' | translate }} ({{
+                    'pages.reference_values.fasting' | translate }})</span>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="minValue" class="mb-2">{{ 'min' | translate }}</label>
+                                <div class="input-group">
+                                    <input type="text" formControlName="minValue" class="form-control">
+                                    <div class="posfix">{{examType?.unit}}</div>
+                                </div>
+                                <app-error-block formControlName="minValue" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="maxValue" class="mb-2">{{ 'max' | translate }}</label>
+                                <div class="input-group">
+                                    <input type="text" formControlName="maxValue" class="form-control">
+                                    <div class="posfix">{{examType?.unit}}</div>
+                                </div>
+                                <app-error-block formControlName="maxValue" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-12 md:col-6">
+            <section class="section" formGroupName="nonFastingValues">
+                <span class="section-title">{{ 'pages.reference_values.values' | translate }} ({{
+                    'pages.reference_values.non_fasting' | translate }})</span>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="minValue" class="mb-2">{{ 'min' | translate }}</label>
+                                <div class="input-group">
+                                    <input type="text" formControlName="minValue" class="form-control">
+                                    <div class="posfix">{{examType?.unit}}</div>
+                                </div>
+                                <app-error-block formControlName="minValue" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="maxValue" class="mb-2">{{ 'max' | translate }}</label>
+                                <div class="input-group">
+                                    <input type="text" formControlName="maxValue" class="form-control">
+                                    <div class="posfix">{{examType?.unit}}</div>
+                                </div>
+                                <app-error-block formControlName="maxValue" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <small class="section-small">
+                    {{"pages.reference_values.leave_non_fasting_empty" | translate}}
+                </small>
+            </section>
+        </div>
+        <div class="col-12 md:col-6">
+            <section class="section" formGroupName="ageRange">
+                <span class="section-title">{{ 'pages.reference_values.age_range' | translate }} ({{ 'years' | translate | lowercase }})</span>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ageRangeMin" class="mb-2">{{ 'min' | translate }}</label>
+                                <p-inputNumber styleClass="form-control" formControlName="ageRangeMin"
+                                    [showButtons]="true" [min]="0" buttonLayout="horizontal" [step]="1">
+                                    <ng-template pTemplate="decrementbuttonicon">
+                                        <ng-icon name="phosphorMinus" size="1rem" />
+                                    </ng-template>
+                                    <ng-template pTemplate="incrementbuttonicon">
+                                        <ng-icon name="phosphorPlus" size="1rem" />
+                                    </ng-template>
+                                </p-inputNumber>
+                                <app-error-block formControlName="ageRangeMin" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ageRangeMax" class="mb-2">{{ 'max' | translate }}</label>
+                                <p-inputNumber styleClass="form-control" formControlName="ageRangeMax"
+                                    [showButtons]="true" [min]="0" buttonLayout="horizontal" [step]="1">
+                                    <ng-template pTemplate="decrementbuttonicon">
+                                        <ng-icon name="phosphorMinus" size="1rem" />
+                                    </ng-template>
+                                    <ng-template pTemplate="incrementbuttonicon">
+                                        <ng-icon name="phosphorPlus" size="1rem" />
+                                    </ng-template>
+                                </p-inputNumber>
+                                <app-error-block formControlName="ageRangeMax" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
         <div class="col-12">
             <div class="form-group">
-                <label for="description" class="mb-2">{{ 'description' | translate }}</label>
-                <textarea class="form-control" rows="5" requiredLabel formControlName="description" [placeholder]="'pages.exam_types.description_example' | translate"></textarea>
+                <label for="category">{{ 'category' | translate }}</label>
+                <input type="text" formControlName="category" class="form-control" [placeholder]="'pages.reference_values.category_example' | translate">
+                <app-error-block formControlName="category" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="description">{{ 'description' | translate }}</label>
+                <textarea class="form-control" rows="5" requiredLabel="description" formControlName="description"></textarea>
                 <app-error-block formControlName="description" [show]="isSubmitted" />
             </div>
         </div>
-        
         <div class="col-12">
             <button type="button" class="btn btn-primary ml-auto" (click)="submitForm()">
                 {{ 'save' | translate }}

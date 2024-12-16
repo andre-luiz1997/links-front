@@ -1,0 +1,64 @@
+@import 'variables';
+
+::ng-deep {
+    .p-dialog-lg {
+        .p-dialog {
+            @media (min-width: $lg-breakpoint) {
+                width: 80vw;
+            }
+            @media (max-width: calc($lg-breakpoint - 1px)) {
+                width: 95vw;
+            }
+            .p-dialog-header,
+            .p-dialog-content,
+            .p-dialog-footer {
+             background-color: $sidebar_color;   
+             color: $font_color;
+            }
+        }
+    }
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 1rem;
+    .card {
+        border: 1px solid $font_color;
+        padding: .8rem;
+        border-radius: $default_radius;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 10px 2px rgba(200, 200, 200, .2);
+        }
+    
+        .card-title {
+            font-size: 1.4rem;
+        }
+
+        .card-result {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            .value {
+                font-size: 2rem;
+                font-weight: bold;
+            }
+
+            .unit {
+                font-size: 1rem;
+                font-weight: bold;
+                margin-left: .5rem;
+            }
+        }
+    
+        .card-subtitle {
+            display: flex;
+            flex-direction: column;
+            font-size: .9rem;
+        }
+    }
+}

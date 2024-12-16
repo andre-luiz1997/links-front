@@ -10,6 +10,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { ReferenceValuesFormComponent } from './reference-values-form/reference-values-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { phosphorMinus, phosphorPlus } from '@ng-icons/phosphor-icons/regular';
 
 
 
@@ -26,9 +28,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     TooltipModule,
     TranslatePipe,
+    InputNumberModule,
     ReactiveFormsModule,
     NgIconsModule.withIcons({
       ...phosporDefaultIcons,
+      phosphorMinus,
+      phosphorPlus
     })
   ]
 })

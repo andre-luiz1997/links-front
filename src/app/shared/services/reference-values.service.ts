@@ -28,7 +28,7 @@ export class ReferenceValuesService implements CRUDService {
     return this.httpClient.post<DefaultResponse<IReferenceValues>>(this.ENDPOINT, data);
   }
   update(id: any, data: any) {
-    return this.httpClient.put<DefaultResponse<IReferenceValues>>(`${this.ENDPOINT}/${id}`, data);
+    return this.httpClient.patch<DefaultResponse<IReferenceValues>>(`${this.ENDPOINT}/${id}`, data);
   }
   delete(id: any) {
     return this.httpClient.delete(`${this.ENDPOINT}/${id}`);

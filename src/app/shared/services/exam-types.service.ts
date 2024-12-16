@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { CRUDService } from '@shared/types/services';
 import { BehaviorSubject } from 'rxjs';
-import { DefaultPaginatedResponse, DefaultResponse, IExamTypes } from '@shared/types';
+import { DefaultPaginatedResponse, DefaultResponse, IExamTypes, serializeParams } from '@shared/types';
 import { isEmpty } from '@shared/utils/common';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class ExamTypesService implements CRUDService {
 	}
 
 	getAll(where?: any) {
-		return this.httpClient.get<DefaultPaginatedResponse<IExamTypes[]>>(this.ENDPOINT);
+		return this.httpClient.get<DefaultPaginatedResponse<IExamTypes[]>>(`${this.ENDPOINT}${where ? `?${serializeParams(where)}` : ''}`);
 	}
 
 	getOne(id: any) {
