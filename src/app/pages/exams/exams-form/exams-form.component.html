@@ -23,18 +23,26 @@
             </div>
         </div>
     </div>
-    <section class="section mt-4">
-        <span class="section-title">{{ 'pages.exams.form.results' | translate }}</span>
+    <section class="section my-4">
+        <span class="section-title">{{ 'pages.exams.form.results.title' | translate }}</span>
         <div class="section-buttons">
             <button type="button" class="btn btn-primary btn-circle table-btn" (click)="openResultModal()"
-                [pTooltip]="'pages.exams.form.add_result' | translate" tooltipPosition="left">
+                [pTooltip]="'pages.exams.form.results.add' | translate" tooltipPosition="left">
                 <ng-icon name="phosphorPlus" size="1.2rem" />
             </button>
         </div>
         <div class="section-body py-4">
             <ng-container *ngIf="results?.length; else noResults">
                 <div class="results">
-                    <div class="result-card card" *ngFor="let result of results">
+                    <div class="result-card card" *ngFor="let result of results; let index = index">
+                        <div class="card-buttons">
+                            <button type="button" [pTooltip]="'pages.exams.form.results.edit' | translate" tooltipPosition="left" class="btn btn-default btn-circle table-btn" (click)="editResult(index)">
+                                <ng-icon name="phosphorPencilSimple" size="1.2rem" />
+                            </button>
+                            <button type="button" [pTooltip]="'pages.exams.form.results.delete' | translate" tooltipPosition="left" class="btn btn-default btn-circle table-btn" (click)="deleteResult(index)">
+                                <ng-icon name="phosphorTrashSimple" size="1.2rem" />
+                            </button>
+                        </div>
                         <div class="card-body">
                             <div class="grid">
                                 <div class="col-12 md:col-6">
@@ -72,6 +80,11 @@
             </ng-template>
         </div>
     </section>
+    <div class="col-12">
+        <button type="button" class="btn btn-primary ml-auto" (click)="submitForm()">
+            {{ 'save' | translate }}
+        </button>
+    </div>
 </form>
 
 <p-dialog [(visible)]="isResultModalShown" [modal]="true" [dismissableMask]="true" [draggable]="false"

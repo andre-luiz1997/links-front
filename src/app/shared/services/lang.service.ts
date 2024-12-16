@@ -217,8 +217,17 @@ const translation = {
 				form: {
 					lab: 'Selecione o laboratório que foi realizado o exame',
 					date: 'Qual a data da coleta do exame?',
-					results: 'Resultados do exame',
-					add_result: 'Adicionar resultado',
+					exam_date: 'Data do exame',
+					results: {
+						title: 'Resultados do exame',
+						add: 'Adicionar resultado',
+						edit: 'Editar resultado',
+						delete: 'Excluir resultado',
+						delete_confirmation: {
+							title: 'Você está prestes a excluir este resultado',
+							description: 'Deseja realmente continuar?' 
+						},
+					},
 					no_results: 'Nenhum resultado foi inserido. Clique no botão acima (+) para adicionar.',
 					exam_type: 'Selecione o tipo de exame',
 					value: 'Resultado',
@@ -227,6 +236,7 @@ const translation = {
 				}
 			},
 			labs: {
+				lab: 'Laboratório',
 				title: 'Laboratórios',
 				permissions: {
 					add: 'Adicionar exame',

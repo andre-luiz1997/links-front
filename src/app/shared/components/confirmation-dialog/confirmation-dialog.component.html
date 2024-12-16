@@ -1,6 +1,6 @@
 <p-dialog [(visible)]="isShown" [modal]="true" [dismissableMask]="true" [draggable]="false" styleClass="p-custom-dialog">
     <h2 class="header" *ngIf="title">{{ title | translate }}</h2>
-    <p>
+    <p class="text-center">
         {{ description | translate }}
     </p>
     <ng-template pTemplate="footer">

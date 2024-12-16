@@ -6,34 +6,29 @@
             styleClass="p-datatable-striped p-datatable-dark">
             <ng-template pTemplate="header">
                 <tr>
-                    <!-- <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
-                        <th pSortableColumn="description" class="text-left">{{'description' | translate}}<p-sortIcon field="description"/></th>
-                        <th pSortableColumn="unit" class="text-left">{{'unit' | translate}}<p-sortIcon field="unit"/></th>
-                        <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}<p-sortIcon field="updatedAt"/></th>
-                        <th class="text-center w150px"><ng-icon name="phosphorGear" size="1.2rem" /></th> -->
+                    <th pSortableColumn="date" class="text-left">{{'pages.exams.form.exam_date' | translate}}<p-sortIcon field="date" /></th>
+                    <th pSortableColumn="lab.name" class="text-left">{{'pages.labs.lab' | translate}}<p-sortIcon field="unit" /></th>
+                    <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}<p-sortIcon
+                            field="updatedAt" /></th>
+                    <th class="text-center w150px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-exam_type let-index="rowIndex">
+            <ng-template pTemplate="body" let-exam let-index="rowIndex">
                 <tr>
-                    <!-- <td class="text-left">{{exam_type.name}}</td>
-                        <td class="text-left">{{exam_type.description ?? "-"}}</td>
-                        <td class="text-left">{{exam_type.unit}}</td>
-                        <td class="text-left">{{exam_type.updatedAt | customDate:{time: true} }}</td>
-                        <td class="text-center actions w150px">
-                            <a [routerLink]="['reference-values',exam_type._id]" class="btn btn-circle table-btn"
-                                [pTooltip]="'pages.reference_values.title' | translate" tooltipPosition="left">
-                                <ng-icon name="phosphorFadersHorizontal" size="1.2rem" />
-                            </a>
-                            <a [routerLink]="['edit',exam_type._id]" class="btn btn-circle table-btn"
-                                [pTooltip]="'pages.exam_types.permissions.edit' | translate" tooltipPosition="left">
-                                <ng-icon name="phosphorPencilSimple" size="1.2rem" />
-                            </a>
-                            <button type="button" class="btn btn-circle table-btn"
-                                [pTooltip]="'pages.exam_types.permissions.delete' | translate" tooltipPosition="left"
-                                (click)="deleteExamType(exam_type._id)">
-                                <ng-icon name="phosphorTrashSimple" size="1.2rem" />
-                            </button>
-                        </td> -->
+                    <td class="text-left">{{exam.date | customDate }}</td>
+                    <td class="text-left">{{exam.lab?.name ?? "-"}}</td>
+                    <td class="text-left">{{exam.updatedAt | customDate:{time: true} }}</td>
+                    <td class="text-center actions w150px">
+                        <a [routerLink]="['edit',exam._id]" class="btn btn-circle table-btn"
+                            [pTooltip]="'pages.exams.permissions.edit' | translate" tooltipPosition="left">
+                            <ng-icon name="phosphorPencilSimple" size="1.2rem" />
+                        </a>
+                        <button type="button" class="btn btn-circle table-btn"
+                            [pTooltip]="'pages.exams.permissions.delete' | translate" tooltipPosition="left"
+                            (click)="deleteExam(exam._id)">
+                            <ng-icon name="phosphorTrashSimple" size="1.2rem" />
+                        </button>
+                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
