@@ -28,7 +28,7 @@ export class LabsService implements CRUDService {
     return this.httpClient.post<DefaultResponse<ILabs>>(this.ENDPOINT, data);
   }
   update(id: any, data: any) {
-    return this.httpClient.put<DefaultResponse<ILabs>>(`${this.ENDPOINT}/${id}`, data);
+    return this.httpClient.patch<DefaultResponse<ILabs>>(`${this.ENDPOINT}/${id}`, data);
   }
   delete(id: any) {
     return this.httpClient.delete(`${this.ENDPOINT}/${id}`);

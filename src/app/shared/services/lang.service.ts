@@ -227,6 +227,10 @@ const translation = {
 							title: 'Você está prestes a excluir este resultado',
 							description: 'Deseja realmente continuar?' 
 						},
+						warning: {
+							title: 'Você já adicionor um resultado para este tipo de exame',
+							description: 'Deseja realmente continuar?' 
+						}
 					},
 					no_results: 'Nenhum resultado foi inserido. Clique no botão acima (+) para adicionar.',
 					exam_type: 'Selecione o tipo de exame',
@@ -251,6 +255,10 @@ const translation = {
 				unit_example: 'mg/dl',
 				title: 'Tipos de exames',
 				list: 'Lista',
+				method: 'Método',
+				method_example: 'Exemplo: Enzimático',
+				material: 'Material',
+				material_example: 'Exemplo: Sangue',
 				description_example: 'Exemplo: LDL calculado a partir da Fórmula de Martin.',
 				permissions: {
 					add: 'Adicionar tipo de exame',

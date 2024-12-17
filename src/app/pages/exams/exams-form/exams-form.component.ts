@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from '@shared/services/confirmation.service';
@@ -10,7 +10,7 @@ import { LoaderService } from '@shared/services/loader.service';
 import { ToastService } from '@shared/services/toast.service';
 import { IExams, IExamTypes, ILabs, IResultEntry } from '@shared/types';
 import { CALENDAR_DATE_FORMAT_BR, CURRENCY_MASK, DATE_MASK_BR } from '@shared/utils/constants';
-import { PrimeNGConfig } from 'primeng/api';
+import { Message, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-exams-form',
@@ -41,6 +41,7 @@ export class ExamsFormComponent implements AfterViewInit {
   isSubmitted = false;
   isSubmittedResult = false;
   isResultModalShown = false;
+  messages: Message[] = [];
 
   resultModalTitle: 'pages.exams.form.results.add' | 'pages.exams.form.results.edit' = 'pages.exams.form.results.add';
 
@@ -54,7 +55,8 @@ export class ExamsFormComponent implements AfterViewInit {
     private toastService: ToastService,
     private loaderService: LoaderService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private changeDetector: ChangeDetectorRef
   ) {
     const lang = this.langService.getTranslation();
     const id = this.activatedRoute.snapshot.params['examId'];
@@ -69,6 +71,21 @@ export class ExamsFormComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.resultForm.get("examType")?.valueChanges.subscribe(value => {
       this.examType = this.examTypes.find(e => e._id === value);
+      if (this.isResultModalShown && this.examType) {
+        if (this.results.find(r => r.examType._id === this.examType?._id)) {
+          this.messages = [{
+            severity: 'warn',
+            summary: this.langService.getMessage('pages.exams.form.results.warning.title'),
+          }]
+        } else {
+          this.messages = [];
+        }
+        this.changeDetector.detectChanges();
+        this.resultForm.patchValue({
+          material: this.examType.material,
+          method: this.examType.method,
+        })
+      }
     })
   }
 

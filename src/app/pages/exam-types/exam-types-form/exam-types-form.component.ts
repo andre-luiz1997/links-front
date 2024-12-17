@@ -17,7 +17,9 @@ export class ExamTypesFormComponent implements AfterViewInit {
     _id: new FormControl(''),
     name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
     description: new FormControl<string | undefined>(undefined),
-    unit: new FormControl<string | undefined>(undefined, [Validators.required])
+    unit: new FormControl<string | undefined>(undefined, [Validators.required]),
+    method: new FormControl<string | undefined>(undefined),
+    material: new FormControl<string | undefined>(undefined),
   })
   examType?: IExamTypes;
   isSubmitted = false;
@@ -46,7 +48,9 @@ export class ExamTypesFormComponent implements AfterViewInit {
             _id: res.data._id,
             name: res.data.name,
             description: res.data.description,
-            unit: res.data.unit
+            unit: res.data.unit,
+            material: res.data.material,
+            method: res.data.method,
           })
         }
       },

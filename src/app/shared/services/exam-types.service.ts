@@ -32,7 +32,7 @@ export class ExamTypesService implements CRUDService {
 		return this.httpClient.post<DefaultResponse<IExamTypes>>(this.ENDPOINT, data);
 	}
 	update(id: any, data: any) {
-		return this.httpClient.put<DefaultResponse<IExamTypes>>(`${this.ENDPOINT}/${id}`, data);
+		return this.httpClient.patch<DefaultResponse<IExamTypes>>(`${this.ENDPOINT}/${id}`, data);
 	}
 	delete(id: any) {
 		return this.httpClient.delete(`${this.ENDPOINT}/${id}`);

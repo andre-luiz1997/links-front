@@ -13,6 +13,7 @@ import { ExamsFormComponent } from './exams-form/exams-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { MessagesModule } from 'primeng/messages';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -38,6 +39,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     NgxMaskDirective, NgxMaskPipe,
     DialogModule,
     InputNumberModule,
+    MessagesModule,
     NgIconsModule.withIcons({
       ...phosporDefaultIcons
     })

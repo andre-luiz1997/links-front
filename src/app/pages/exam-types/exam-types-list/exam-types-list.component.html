@@ -10,6 +10,8 @@
                         <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
                         <th pSortableColumn="description" class="text-left">{{'description' | translate}}<p-sortIcon field="description"/></th>
                         <th pSortableColumn="unit" class="text-left">{{'unit' | translate}}<p-sortIcon field="unit"/></th>
+                        <th pSortableColumn="material" class="text-left">{{'pages.exam_types.material' | translate}}<p-sortIcon field="material"/></th>
+                        <th pSortableColumn="method" class="text-left">{{'pages.exam_types.method' | translate}}<p-sortIcon field="method"/></th>
                         <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}<p-sortIcon field="updatedAt"/></th>
                         <th class="text-center w150px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
                     </tr>
@@ -19,6 +21,8 @@
                         <td class="text-left">{{exam_type.name}}</td>
                         <td class="text-left">{{exam_type.description ?? "-"}}</td>
                         <td class="text-left">{{exam_type.unit}}</td>
+                        <td class="text-left">{{exam_type.material ?? "-"}}</td>
+                        <td class="text-left">{{exam_type.method ?? "-"}}</td>
                         <td class="text-left">{{exam_type.updatedAt | customDate:{time: true} }}</td>
                         <td class="text-center actions w150px">
                             <a [routerLink]="['reference-values',exam_type._id]" class="btn btn-circle table-btn"
