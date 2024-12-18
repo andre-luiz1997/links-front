@@ -34,6 +34,11 @@ export class ExamTypesListComponent {
       sortOrder: event?.sortOrder ?? -1,
       globalFilter: event?.filters?.global?.value
     }
+    props.filters ??= []
+    props.filters.push({
+      field: 'parentGroups',
+      operator: 'IS NULL OR NOT EXISTS',
+    })
     this.examTypesService.getAll(props).subscribe({
       next: (response) => {
         this.isLoading = false;

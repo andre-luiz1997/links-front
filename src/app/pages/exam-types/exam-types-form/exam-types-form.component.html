@@ -40,6 +40,20 @@
                 <app-error-block formControlName="description" [show]="isSubmitted" />
             </div>
         </div>
+        <div class="col-12">
+            <section class="section unbordered">
+                <span class="section-title">{{ 'pages.exam_types.groups.title' | translate }}</span>
+                <div class="section-buttons">
+                    <button type="button" class="btn btn-primary btn-circle table-btn" (click)="addGroup()"
+                        [pTooltip]="'pages.exam_types.permissions.add' | translate" tooltipPosition="left">
+                        <ng-icon name="phosphorPlus" size="1.2rem" />
+                    </button>
+                </div>
+                <div class="section-body py-4">
+                    <ng-container *ngTemplateOutlet="group" />
+                </div>
+            </section>
+        </div>
 
         <div class="col-12">
             <button type="button" class="btn btn-primary ml-auto" (click)="submitForm()">
@@ -48,3 +62,92 @@
         </div>
     </div>
 </form>
+
+<ng-template #group>
+    <ng-container [formGroup]="form">
+        <div class="grid" *ngIf="!examTypesGroups?.controls?.length">
+            <div class="col-12 text-center">
+                <span>{{ 'pages.exam_types.no_group_found' | translate }}</span>
+            </div>
+        </div>
+        <div class="cards-container py-4">
+            <ng-container formArrayName="examTypesGroups">
+                <ng-container *ngFor="let group of examTypesGroups?.controls; let index = index;">
+                    <div class="card" [formGroupName]="index">
+                        <div class="card-buttons">
+                            <button type="button" [pTooltip]="'pages.exam_types.groups.delete' | translate"
+                                tooltipPosition="left" class="btn btn-default btn-circle table-btn"
+                                (click)="deleteGroup(index)">
+                                <ng-icon name="phosphorTrashSimple" size="1.2rem" />
+                            </button>
+                        </div>
+                        <div class="card-body grid">
+                            <div class="col-12 md:col-6 px-5">
+                                <div class="form-group">
+                                    <label for="name">{{ 'pages.exam_types.groups.name' | translate }}</label>
+                                    <input type="text" formControlName="name" class="form-control" requiredLabel="name">
+                                    <app-error-block formControlName="name" [show]="isSubmitted" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <section class="section unbordered">
+                                    <span class="section-title">{{ 'pages.exam_types.groups.exam_types' | translate
+                                        }}</span>
+                                    <div class="section-body py-2">
+                                        <ng-container formArrayName="examTypes">
+                                            <ng-container
+                                                *ngFor="let examTypeGroup of getExamTypes(index)?.controls; let jindex = index;"
+                                                [formGroupName]="jindex">
+                                                <div class="card bb no-hover">
+                                                    <div class="card-buttons card-buttons-top">
+                                                        <button type="button"
+                                                            [pTooltip]="'pages.exam_types.groups.delete_item' | translate"
+                                                            tooltipPosition="left"
+                                                            class="btn btn-default btn-circle"
+                                                            (click)="deleteGroupItem(index, jindex)">
+                                                            <ng-icon name="phosphorTrashSimple" size="1.2rem" />
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-body grid">
+                                                        <div class="col-12 md:col-10">
+                                                            <div class="form-group">
+                                                                <label for="name">{{ 'name' | translate }}</label>
+                                                                <input type="text" formControlName="name"
+                                                                    class="form-control" requiredLabel="name">
+                                                                <app-error-block formControlName="name"
+                                                                    [show]="isSubmitted" />
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 md:col-2">
+                                                            <div class="form-group">
+                                                                <label for="unit">{{ 'pages.exam_types.unit' | translate
+                                                                    }}</label>
+                                                                <input type="text" formControlName="unit"
+                                                                    class="form-control" requiredLabel="unit">
+                                                                <app-error-block formControlName="unit"
+                                                                    [show]="isSubmitted" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                        <div class="col-12">
+                                            <button class="btn btn-default btn-circle m-auto" type="button"
+                                                (click)="addGroupItem(index)"
+                                                [pTooltip]="'pages.exam_types.groups.add_item' | translate"
+                                                tooltipPosition="top">
+                                                <ng-icon name="phosphorPlus" size="1.2rem" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </ng-container>
+</ng-template>

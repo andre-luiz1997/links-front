@@ -260,6 +260,15 @@ const translation = {
 				material: 'Material',
 				material_example: 'Exemplo: Sangue',
 				description_example: 'Exemplo: LDL calculado a partir da Fórmula de Martin.',
+				no_group_found: 'Nenhum grupo foi inserido. Clique no botão acima (+) para adicionar.',
+				groups: {
+					title: 'Grupos de exames',
+					name: 'Nome do grupo',
+					delete: 'Excluir grupo',
+					exam_types: 'Tipos de exames no grupo',
+					delete_item: 'Excluir item',
+					add_item: 'Adicionar item',
+				},
 				permissions: {
 					add: 'Adicionar tipo de exame',
 					edit: 'Editar tipo de exame',

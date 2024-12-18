@@ -1,5 +1,10 @@
 import type { DBEntity } from "./entity";
 
+export interface IExamTypesGroup {
+  name?: string;
+  examTypes?: IExamTypes[];
+}
+
 export interface IExamTypes extends DBEntity {
   name: string;
   description?: string;
@@ -17,4 +22,5 @@ export interface IExamTypes extends DBEntity {
     * @example ELISA
     */
   method?: string;
+  examTypesGroups: IExamTypesGroup[];
 }

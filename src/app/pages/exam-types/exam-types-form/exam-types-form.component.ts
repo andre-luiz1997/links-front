@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExamTypesService } from '@shared/services/exam-types.service';
 import { LangService } from '@shared/services/lang.service';
@@ -14,12 +14,13 @@ import { IExamTypes } from '@shared/types';
 })
 export class ExamTypesFormComponent implements AfterViewInit {
   form = new FormGroup({
-    _id: new FormControl(''),
+    _id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
     description: new FormControl<string | undefined>(undefined),
     unit: new FormControl<string | undefined>(undefined, [Validators.required]),
     method: new FormControl<string | undefined>(undefined),
     material: new FormControl<string | undefined>(undefined),
+    examTypesGroups: new FormArray([])
   })
   examType?: IExamTypes;
   isSubmitted = false;
@@ -33,9 +34,43 @@ export class ExamTypesFormComponent implements AfterViewInit {
     private examTypesService: ExamTypesService
   ) { }
 
+  get examTypesGroups() {
+    return this.form.get("examTypesGroups") as FormArray;
+  }
+
+  getExamTypes(index: number) {
+    return this.examTypesGroups.at(index)?.get('examTypes') as FormArray;
+  }
+
   ngAfterViewInit(): void {
     const id = this.activatedRoute.snapshot.params?.['examTypeId'];
     if (id) this.fetchExamType(id);
+  }
+
+  addGroup() {
+    this.examTypesGroups.push(new FormGroup({
+      name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
+      examTypes: new FormArray([]),
+    }));
+    this.addGroupItem(this.examTypesGroups.length - 1);
+  }
+
+  deleteGroup(index: number) {
+    this.examTypesGroups.removeAt(index);
+  }
+
+  addGroupItem(index: number) {
+    this.getExamTypes(index).push(new FormGroup({
+      name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
+      unit: new FormControl<string | undefined>(undefined, [Validators.required]),
+    }))
+  }
+
+  deleteGroupItem(groupIndex: number, itemIndex: number) {
+    this.getExamTypes(groupIndex).removeAt(itemIndex);
+    if(this.getExamTypes(groupIndex).length === 0) {
+      this.deleteGroup(groupIndex);
+    }
   }
 
   fetchExamType(id: string) {
@@ -69,6 +104,7 @@ export class ExamTypesFormComponent implements AfterViewInit {
     this.form.updateValueAndValidity();
     if (!this.form.valid) return;
     this.loaderService.show();
+    console.log("🚀 ~ ExamTypesFormComponent ~ this.examTypesService.save ~ this.form.value:", this.form.value)
     this.examTypesService.save(this.form.value).subscribe({
       next: (res) => {
         this.loaderService.hide();

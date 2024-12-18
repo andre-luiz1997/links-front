@@ -17,12 +17,12 @@ export class RequiredLabelDirective implements AfterViewInit {
 		const control = this.formControlName.control;
 		const formControlName = this.formControlName.name; // Obtenha o nome do formControl
 		// Busca o rótulo associado usando o formControlName
-		let label = document.querySelector(`label[for="${formControlName}"]`);
+		// let label = document.querySelector(`label[for="${formControlName}"]`);
+		let label = this.el.nativeElement.closest('div')?.querySelector('label');
 
 		// Se o rótulo não for encontrado, procure como o primeiro <label> irmão do elemento
-		if (!label) {
-			label = this.el.nativeElement.closest('div')?.querySelector('label');
-		}
+		// if (!label) {
+		// }
 
 		// Adiciona o "*" no rótulo se o controle for obrigatório
 		if (control && label && control.hasValidator(Validators.required)) {

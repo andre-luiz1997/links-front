@@ -9,6 +9,7 @@ export type FilterOperators =
 	| 'IN'
 	| 'NOT IN'
 	| 'IS NULL'
+	| 'IS NULL OR NOT EXISTS'
 	| 'IS NOT NULL'
 	| 'BETWEEN'
 	| '%%'
@@ -19,7 +20,7 @@ export type SortOrder = -1 | 1;
 
 export interface PaginationFilter {
 	field: string;
-	value: string | string[] | number | number[] | Date | Date[];
+	value?: string | string[] | number | number[] | Date | Date[];
 	operator: FilterOperators;
 }
 
