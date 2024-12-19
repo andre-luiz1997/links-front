@@ -9,6 +9,7 @@ import { LangService } from '@shared/services/lang.service';
 import { LoaderService } from '@shared/services/loader.service';
 import { ToastService } from '@shared/services/toast.service';
 import { IExams, IExamTypes, ILabs, IResultEntry } from '@shared/types';
+import { isEmpty } from '@shared/utils/common';
 import { CALENDAR_DATE_FORMAT_BR, CURRENCY_MASK, DATE_MASK_BR } from '@shared/utils/constants';
 import { Message, PrimeNGConfig } from 'primeng/api';
 
@@ -24,12 +25,14 @@ export class ExamsFormComponent implements AfterViewInit {
     lab: new FormControl<string | undefined>(undefined, [Validators.required]),
   })
   results: IResultEntry[] = []
+  edittingResult?: number;
 
   resultForm = new FormGroup({
     examType: new FormControl<string | undefined>(undefined, [Validators.required]),
     value: new FormControl<number | undefined>(undefined, [Validators.required]),
     material: new FormControl<string | undefined>(undefined),
     method: new FormControl<string | undefined>(undefined),
+    entryGroups: new FormArray([]),
   })
   exam?: IExams;
   labs: ILabs[] = [];
@@ -68,11 +71,58 @@ export class ExamsFormComponent implements AfterViewInit {
     }
   }
 
+  get entryGroups() {
+    return this.resultForm.get('entryGroups') as FormArray
+  }
+
+  getExamTypes(index: number) {
+    return this.entryGroups.at(index).get('examTypes') as FormArray;
+  }
+
+  private createEntryGroup() {
+    if (!this.examType) return;
+    this.resultForm.patchValue({
+      material: this.examType.material,
+      method: this.examType.method,
+    })
+    if (this.examType?.examTypesGroups?.length) {
+      this.resultForm.get("value")?.clearValidators();
+      const resultExamType = !isEmpty(this.edittingResult) ? this.results?.at(this.edittingResult) : undefined;
+      this.examType?.examTypesGroups?.forEach(group => {
+        const groupControl = new FormGroup({
+          examTypeGroup: new FormControl(group._id),
+          name: new FormControl({ value: group.name, disabled: true }),
+          examTypes: new FormArray([])
+        });
+        const examTypeGroup = resultExamType?.examType.examTypesGroups?.find(e => e.name === group.name);
+        group.examTypes?.orderBy('name', 1)?.map(examType => {
+          const value = examTypeGroup?.examTypes?.find(e => e._id === examType._id);
+          const control = new FormGroup({
+            examType: new FormControl(examType._id),
+            name: new FormControl(examType.name),
+            unit: new FormControl(examType.unit),
+            value: new FormControl<number | undefined>(undefined),
+          });
+          (groupControl.get('examTypes') as FormArray).push(control);
+        });
+        console.log("🚀 ~ ExamsFormComponent ~ createEntryGroup ~ groupControl:", groupControl)
+        this.entryGroups?.push(groupControl);
+      });
+    } else {
+      this.resultForm.get("value")?.addValidators(Validators.required);
+    }
+
+  }
+
   ngAfterViewInit(): void {
     this.resultForm.get("examType")?.valueChanges.subscribe(value => {
       this.examType = this.examTypes.find(e => e._id === value);
+      const array = this.entryGroups;
+      array?.clear();
+      array?.reset([]);
       if (this.isResultModalShown && this.examType) {
-        if (this.results.find(r => r.examType._id === this.examType?._id)) {
+        const resultIndex = this.results.findIndex(r => r.examType._id === this.examType?._id);
+        if (resultIndex > -1 && this.edittingResult != resultIndex) {
           this.messages = [{
             severity: 'warn',
             summary: this.langService.getMessage('pages.exams.form.results.warning.title'),
@@ -81,10 +131,7 @@ export class ExamsFormComponent implements AfterViewInit {
           this.messages = [];
         }
         this.changeDetector.detectChanges();
-        this.resultForm.patchValue({
-          material: this.examType.material,
-          method: this.examType.method,
-        })
+        this.createEntryGroup();
       }
     })
   }
@@ -130,15 +177,20 @@ export class ExamsFormComponent implements AfterViewInit {
     this.isSubmitted = true;
     this.form.updateValueAndValidity();
     if (!this.form.valid) return;
-    this.loaderService.show();
-    this.examsService.save({
-      ...this.form.value, results: this.results?.map(result => ({
+    const saveData = {
+      ...this.form.value,
+      results: this.results?.map(result => ({
         examType: result.examType._id,
         value: result.value,
         material: result.material,
         method: result.method,
+        entryGroups: result.entryGroups
       }))
-    }).subscribe({
+    }
+    console.log("🚀 ~ ExamsFormComponent ~ submitForm ~ this.results:", this.results)
+    console.log(saveData);
+    this.loaderService.show();
+    this.examsService.save(saveData).subscribe({
       next: (res) => {
         this.loaderService.hide();
         this.toastService.show({
@@ -160,6 +212,7 @@ export class ExamsFormComponent implements AfterViewInit {
 
   openResultModal() {
     this.isResultModalShown = true;
+    this.resultForm.get("examType")?.setValue(undefined);
   }
 
   saveResult() {
@@ -168,10 +221,19 @@ export class ExamsFormComponent implements AfterViewInit {
     if (!this.resultForm.valid) return;
     const examType = this.examTypes.find(e => e._id === this.resultForm.value.examType);
     if (!examType) return;
+    console.log(this.resultForm.value);
     const result: IResultEntry = {
       examType,
       value: this.resultForm.value.value!,
-    };
+      entryGroups: this.resultForm.get("entryGroups")?.value?.map((group: any) => ({
+        examType: group.examTypeGroup,
+        value: group.value,
+        entryGroups: group.examTypes?.map((examType: any) => ({
+          examType: examType.examType,
+          value: examType.value
+        }))
+      }))
+    }
     this.results.push(result);
     this.isResultModalShown = false;
   }
@@ -179,14 +241,15 @@ export class ExamsFormComponent implements AfterViewInit {
   editResult(index: number) {
     this.resultModalTitle = 'pages.exams.form.results.edit';
     this.isSubmittedResult = false;
+    this.edittingResult = index;
     const result = this.results[index];
+    this.isResultModalShown = true;
     this.resultForm.reset({
       examType: result.examType._id,
       value: result.value,
       material: result.material,
       method: result.method,
     })
-    this.isResultModalShown = true;
   }
 
   deleteResult(index: number) {

@@ -1,6 +1,7 @@
 import type { DBEntity } from "./entity";
 
 export interface IExamTypesGroup {
+  _id: string;
   name?: string;
   examTypes?: IExamTypes[];
 }

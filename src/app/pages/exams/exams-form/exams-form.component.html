@@ -36,10 +36,14 @@
                 <div class="results">
                     <div class="result-card card" *ngFor="let result of results; let index = index">
                         <div class="card-buttons">
-                            <button type="button" [pTooltip]="'pages.exams.form.results.edit' | translate" tooltipPosition="left" class="btn btn-default btn-circle table-btn" (click)="editResult(index)">
+                            <button type="button" [pTooltip]="'pages.exams.form.results.edit' | translate"
+                                tooltipPosition="left" class="btn btn-default btn-circle table-btn"
+                                (click)="editResult(index)">
                                 <ng-icon name="phosphorPencilSimple" size="1.2rem" />
                             </button>
-                            <button type="button" [pTooltip]="'pages.exams.form.results.delete' | translate" tooltipPosition="left" class="btn btn-default btn-circle table-btn" (click)="deleteResult(index)">
+                            <button type="button" [pTooltip]="'pages.exams.form.results.delete' | translate"
+                                tooltipPosition="left" class="btn btn-default btn-circle table-btn"
+                                (click)="deleteResult(index)">
                                 <ng-icon name="phosphorTrashSimple" size="1.2rem" />
                             </button>
                         </div>
@@ -108,7 +112,8 @@
                         <app-error-block formControlName="examType" [show]="isSubmittedResult" />
                     </div>
                 </div>
-                <div class="col-12 md:col-6" [ngClass]="{disabled: !resultForm.get('examType')?.value}">
+                <div class="col-12 md:col-6"
+                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !examType.unit}">
                     <div class="form-group">
                         <label for="value">{{ 'pages.exams.form.value' | translate }}</label>
                         <div class="input-group w100">
@@ -121,14 +126,16 @@
                 </div>
             </div>
             <div class="grid">
-                <div class="col-12 md:col-6" [ngClass]="{disabled: !resultForm.get('examType')?.value}">
+                <div class="col-12 md:col-6"
+                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !examType.unit}">
                     <div class="form-group">
                         <label for="material">{{ 'pages.exams.form.material' | translate }}</label>
                         <input type="text" formControlName="material" class="form-control" requiredLabel="material" />
                         <app-error-block formControlName="material" [show]="isSubmittedResult" />
                     </div>
                 </div>
-                <div class="col-12 md:col-6" [ngClass]="{disabled: !resultForm.get('examType')?.value}">
+                <div class="col-12 md:col-6"
+                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !examType.unit}">
                     <div class="form-group">
                         <label for="material">{{ 'pages.exams.form.method' | translate }}</label>
                         <input type="text" formControlName="method" class="form-control" requiredLabel="method" />
@@ -136,6 +143,9 @@
                     </div>
                 </div>
             </div>
+            <ng-container *ngIf="entryGroups.controls?.length">
+                <ng-container *ngTemplateOutlet="examTypeGroups" />
+            </ng-container>
             <p-messages [(value)]="messages" [enableService]="false" [closable]="true" />
         </form>
     </ng-template>
@@ -152,3 +162,41 @@
         </div>
     </ng-template>
 </p-dialog>
+
+<ng-template #examTypeGroups>
+    <ng-container [formGroup]="resultForm">
+        <ng-container formArrayName="entryGroups">
+            <ng-container *ngFor="let group of entryGroups.controls; let index = index">
+                <ng-container [formGroupName]="index">
+                    <div class="grid">
+                        <div class="col-12 py-4">
+                            <section class="section">
+                                <span class="section-title">{{ group.get("name")?.value }}</span>
+                                <div class="section-body">
+                                    <div class="types-grid" formArrayName="examTypes">
+                                        <ng-container
+                                            *ngFor="let examType of getExamTypes(index).controls; let jindex = index">
+                                            <ng-container [formGroupName]="jindex">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="value">{{ examType.get("name")?.value }}</label>
+                                                        <div class="input-group">
+                                                            <input type="text" formControlName="value"
+                                                                mask="separator.2" thousandSeparator="."
+                                                                decimalMarker="," class="form-control">
+                                                            <div class="posfix">{{ examType.get("unit")?.value }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</ng-template>

@@ -14,7 +14,6 @@ import type { DefaultPaginatedRequest, IExams } from '@shared/types';
 export class ExamsListComponent {
   isLoading = false;
   totalRecords = 0;
-  filteredRecords = 0;
   exams: IExams[] = [];
 
   constructor(
@@ -40,7 +39,6 @@ export class ExamsListComponent {
         if (response.data) {
           this.exams = response.data.records;
           this.totalRecords = response.data.totalRecords ?? 0;
-          this.filteredRecords = response.data.filteredRecords ?? 0;
         }
       },
       error: (error) => {

@@ -373,7 +373,7 @@ export class LangService {
 	}
 
 	getMessage(path: string) {
-		if (!path) return;
+		if (isEmpty(path) || typeof path !== 'string') return;
 		const fields = path.split('.');
 		const result = this.navigate(this.translation, fields);
 		return result ?? path;

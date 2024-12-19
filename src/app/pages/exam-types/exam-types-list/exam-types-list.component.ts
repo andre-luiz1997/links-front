@@ -15,7 +15,6 @@ export class ExamTypesListComponent {
   $exam_types = this.examTypesService.$examTypes;
   isLoading = false;
   totalRecords = 0;
-  filteredRecords = 0;
 
   constructor(
     private examTypesService: ExamTypesService,
@@ -45,7 +44,6 @@ export class ExamTypesListComponent {
         if (response.data) {
           this.$exam_types.next(response.data.records);
           this.totalRecords = response.data.totalRecords ?? 0;
-          this.filteredRecords = response.data.filteredRecords ?? 0;
         }
       },
       error: (error) => {

@@ -16,7 +16,6 @@ export class RolesListComponent {
   roles: IRoles[] = [];
   isLoading = false;
   totalRecords = 0;
-  filteredRecords = 0;
 
   constructor(
     private roleService: RoleService,
@@ -41,7 +40,6 @@ export class RolesListComponent {
         if (response.data) {
           this.roles = response.data.records;
           this.totalRecords = response.data.totalRecords ?? 0;
-          this.filteredRecords = response.data.filteredRecords ?? 0;
         }
       },
       error: (error) => {

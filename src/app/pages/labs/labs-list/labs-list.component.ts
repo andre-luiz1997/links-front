@@ -15,7 +15,6 @@ export class LabsListComponent {
   labs: ILabs[] = [];
   isLoading = false;
   totalRecords = 0;
-  filteredRecords = 0;
 
   constructor(
     private labsService: LabsService,
@@ -44,7 +43,6 @@ export class LabsListComponent {
         if (response.data) {
           this.labs = response.data.records;
           this.totalRecords = response.data.totalRecords ?? 0;
-          this.filteredRecords = response.data.filteredRecords ?? 0;
         }
       },
       error: (error) => {

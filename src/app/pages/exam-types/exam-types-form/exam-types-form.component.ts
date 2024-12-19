@@ -5,7 +5,7 @@ import { ExamTypesService } from '@shared/services/exam-types.service';
 import { LangService } from '@shared/services/lang.service';
 import { LoaderService } from '@shared/services/loader.service';
 import { ToastService } from '@shared/services/toast.service';
-import { IExamTypes } from '@shared/types';
+import { IExamTypes, IExamTypesGroup } from '@shared/types';
 
 @Component({
   selector: 'app-exam-types-form',
@@ -17,7 +17,7 @@ export class ExamTypesFormComponent implements AfterViewInit {
     _id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
     description: new FormControl<string | undefined>(undefined),
-    unit: new FormControl<string | undefined>(undefined, [Validators.required]),
+    unit: new FormControl<string | undefined>(undefined),
     method: new FormControl<string | undefined>(undefined),
     material: new FormControl<string | undefined>(undefined),
     examTypesGroups: new FormArray([])
@@ -47,28 +47,35 @@ export class ExamTypesFormComponent implements AfterViewInit {
     if (id) this.fetchExamType(id);
   }
 
-  addGroup() {
+  addGroup(group?: IExamTypesGroup) {
     this.examTypesGroups.push(new FormGroup({
-      name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
+      _id: new FormControl<string | undefined>(group?._id),
+      name: new FormControl<string | undefined>(group?.name, [Validators.required, Validators.minLength(3)]),
       examTypes: new FormArray([]),
     }));
-    this.addGroupItem(this.examTypesGroups.length - 1);
+    if (group?.examTypes) {
+      group.examTypes.forEach((item) => {
+        this.addGroupItem(this.examTypesGroups.length - 1, item);
+      });
+    } else {
+      this.addGroupItem(this.examTypesGroups.length - 1);
+    }
   }
 
   deleteGroup(index: number) {
     this.examTypesGroups.removeAt(index);
   }
 
-  addGroupItem(index: number) {
+  addGroupItem(index: number, item?: IExamTypes) {
     this.getExamTypes(index).push(new FormGroup({
-      name: new FormControl<string | undefined>(undefined, [Validators.required, Validators.minLength(3)]),
-      unit: new FormControl<string | undefined>(undefined, [Validators.required]),
+      name: new FormControl<string | undefined>(item?.name, [Validators.required, Validators.minLength(3)]),
+      unit: new FormControl<string | undefined>(item?.unit, [Validators.required]),
     }))
   }
 
   deleteGroupItem(groupIndex: number, itemIndex: number) {
     this.getExamTypes(groupIndex).removeAt(itemIndex);
-    if(this.getExamTypes(groupIndex).length === 0) {
+    if (this.getExamTypes(groupIndex).length === 0) {
       this.deleteGroup(groupIndex);
     }
   }
@@ -87,6 +94,9 @@ export class ExamTypesFormComponent implements AfterViewInit {
             material: res.data.material,
             method: res.data.method,
           })
+          res.data.examTypesGroups?.forEach((group) => {
+            this.addGroup(group);
+          });
         }
       },
       error: (res) => {
@@ -104,8 +114,11 @@ export class ExamTypesFormComponent implements AfterViewInit {
     this.form.updateValueAndValidity();
     if (!this.form.valid) return;
     this.loaderService.show();
-    console.log("🚀 ~ ExamTypesFormComponent ~ this.examTypesService.save ~ this.form.value:", this.form.value)
-    this.examTypesService.save(this.form.value).subscribe({
+    const saveData = this.form.value;
+    if(!saveData.examTypesGroups?.length) {
+      saveData.examTypesGroups = undefined;
+    }
+    this.examTypesService.save(saveData).subscribe({
       next: (res) => {
         this.loaderService.hide();
         this.toastService.show({

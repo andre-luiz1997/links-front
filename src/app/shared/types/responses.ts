@@ -4,4 +4,4 @@ export interface DefaultResponse<T> {
 }
 
 export interface DefaultPaginatedResponse<T>
-	extends DefaultResponse<{ records: T; totalRecords: number; filteredRecords: number; summary?: any }> {}
+	extends DefaultResponse<{ records: T; totalRecords: number;summary?: any }> {}
