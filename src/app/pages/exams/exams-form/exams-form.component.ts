@@ -89,14 +89,16 @@ export class ExamsFormComponent implements AfterViewInit {
       this.resultForm.get("value")?.clearValidators();
       const resultExamType = !isEmpty(this.edittingResult) ? this.results?.at(this.edittingResult) : undefined;
       this.examType?.examTypesGroups?.forEach(group => {
+        const examTypeGroup = resultExamType?.examType.examTypesGroups?.find(e => e.name === group.name);
         const groupControl = new FormGroup({
           examTypeGroup: new FormControl(group._id),
-          name: new FormControl({ value: group.name, disabled: true }),
+          name: new FormControl({ value: examTypeGroup?.name, disabled: true }),
           examTypes: new FormArray([])
         });
-        const examTypeGroup = resultExamType?.examType.examTypesGroups?.find(e => e.name === group.name);
+        console.log("🚀 ~ ExamsFormComponent ~ createEntryGroup ~ examTypeGroup:", examTypeGroup)
         group.examTypes?.orderBy('name', 1)?.map(examType => {
           const value = examTypeGroup?.examTypes?.find(e => e._id === examType._id);
+          console.log("🚀 ~ ExamsFormComponent ~ group.examTypes?.orderBy ~ value:", value)
           const control = new FormGroup({
             examType: new FormControl(examType._id),
             name: new FormControl(examType.name),
@@ -105,7 +107,6 @@ export class ExamsFormComponent implements AfterViewInit {
           });
           (groupControl.get('examTypes') as FormArray).push(control);
         });
-        console.log("🚀 ~ ExamsFormComponent ~ createEntryGroup ~ groupControl:", groupControl)
         this.entryGroups?.push(groupControl);
       });
     } else {
