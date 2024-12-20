@@ -2,6 +2,11 @@ interface Objeto {
     [key: string]: any;
 }
 
+function removeAcentos(str: string) {
+    return str.replace(/\s+/g, ' ').trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+
 export {};
 
 declare global {
@@ -37,6 +42,9 @@ Array.prototype.orderBy = function (key?: string, order: 1 | -1 = 1, key2?: stri
     return this.sort((a: Objeto, b: Objeto) => {
         const valorA = key ? getKeyValue(a, key) : a;
         const valorB = key ? getKeyValue(b, key) : b;
+        if (typeof valorA === 'string' && typeof valorB === 'string') {
+            return removeAcentos(valorA).localeCompare(removeAcentos(valorB), 'pt-BR');
+        }
         if (valorA < valorB) {
             return order * -1;
         }
@@ -46,7 +54,7 @@ Array.prototype.orderBy = function (key?: string, order: 1 | -1 = 1, key2?: stri
         const valorA2 = key2 ? getKeyValue(a, key2) : a;
         const valorB2 = key2 ? getKeyValue(b, key2) : b;
         if (typeof valorA2 === 'string' && typeof valorB2 === 'string') {
-            return valorA2.localeCompare(valorB2);
+            return removeAcentos(valorA2).localeCompare(removeAcentos(valorB2), 'pt-BR');
         }
 
         if (valorA2 < valorB2) {

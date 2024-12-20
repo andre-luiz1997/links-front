@@ -11,6 +11,7 @@ export interface IExams extends DBEntity {
 }
 
 export interface IResultEntry {
+    _id?: string;
     examType: IExamTypes;
     value: number;
     observations?: string;

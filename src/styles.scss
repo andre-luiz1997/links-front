@@ -149,6 +149,12 @@ td.actions {
 }
 
 .p-datatable-dark {
+  .p-datatable-header {
+    border-top: none;
+    background: $sidebar_color;
+    color: $font_color;
+  }
+
   .p-datatable-thead {
     th {
       background: $sidebar_color;
@@ -337,6 +343,7 @@ section.section {
     right: 0;
     bottom: -1rem;
     gap: .5rem;
+
     &.card-buttons-top {
       top: 0;
       bottom: unset;
@@ -370,4 +377,11 @@ section.section {
     flex-direction: column;
     font-size: .9rem;
   }
+}
+
+td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 250px;
 }

@@ -25,6 +25,7 @@ export class ExamTypesListComponent {
   ) { }
 
   getAll(event?: any) {
+    console.log("🚀 ~ ExamTypesListComponent ~ getAll ~ event:", event)
     this.isLoading = true;
     const props: DefaultPaginatedRequest = {
       skip: event?.first,
@@ -38,6 +39,13 @@ export class ExamTypesListComponent {
       field: 'parentGroups',
       operator: 'IS NULL OR NOT EXISTS',
     })
+    if(props.globalFilter) {
+      props.filters.push({
+        field: 'name',
+        operator: '%%',
+        value: props.globalFilter
+      })
+    }
     this.examTypesService.getAll(props).subscribe({
       next: (response) => {
         this.isLoading = false;

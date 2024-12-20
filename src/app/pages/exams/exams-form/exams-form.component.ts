@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from '@shared/services/confirmation.service';
 import { ExamTypesService } from '@shared/services/exam-types.service';
@@ -26,6 +26,7 @@ export class ExamsFormComponent implements AfterViewInit {
   })
   results: IResultEntry[] = []
   edittingResult?: number;
+  isEmpty = isEmpty
 
   resultForm = new FormGroup({
     examType: new FormControl<string | undefined>(undefined, [Validators.required]),
@@ -59,7 +60,7 @@ export class ExamsFormComponent implements AfterViewInit {
     private loaderService: LoaderService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
   ) {
     const lang = this.langService.getTranslation();
     const id = this.activatedRoute.snapshot.params['examId'];
@@ -81,38 +82,59 @@ export class ExamsFormComponent implements AfterViewInit {
 
   private createEntryGroup() {
     if (!this.examType) return;
+
+    // Atualiza valores principais do formulário
     this.resultForm.patchValue({
       material: this.examType.material,
       method: this.examType.method,
-    })
+    });
+
+    // Verifica se há grupos de exame
     if (this.examType?.examTypesGroups?.length) {
       this.resultForm.get("value")?.clearValidators();
-      const resultExamType = !isEmpty(this.edittingResult) ? this.results?.at(this.edittingResult) : undefined;
-      this.examType?.examTypesGroups?.forEach(group => {
-        const examTypeGroup = resultExamType?.examType.examTypesGroups?.find(e => e.name === group.name);
+
+      const resultExamType = !isEmpty(this.edittingResult)
+        ? this.results?.at(this.edittingResult)
+        : undefined;
+
+      // Certifique-se de que o `entryGroups` existe no `resultForm`
+      if (!this.resultForm.get('entryGroups')) {
+        this.resultForm.addControl('entryGroups', new FormArray([]));
+      }
+
+      const entryGroups = this.resultForm.get('entryGroups') as FormArray;
+
+      // Processa os grupos de exames
+      this.examType.examTypesGroups.forEach(group => {
+        const resultEntryGroup = resultExamType?.entryGroups?.find(e => e.examType._id === group._id);
+
         const groupControl = new FormGroup({
-          examTypeGroup: new FormControl(group._id),
-          name: new FormControl({ value: examTypeGroup?.name, disabled: true }),
-          examTypes: new FormArray([])
+          _id: new FormControl(resultEntryGroup?._id),
+          examType: new FormControl(group._id),
+          name: new FormControl({ value: group?.name, disabled: true }),
+          examTypes: new FormArray([]),
         });
-        console.log("🚀 ~ ExamsFormComponent ~ createEntryGroup ~ examTypeGroup:", examTypeGroup)
-        group.examTypes?.orderBy('name', 1)?.map(examType => {
-          const value = examTypeGroup?.examTypes?.find(e => e._id === examType._id);
-          console.log("🚀 ~ ExamsFormComponent ~ group.examTypes?.orderBy ~ value:", value)
+        const groupControlExamTypes = groupControl.get('examTypes') as FormArray;
+        group.examTypes?.orderBy('name', 1)?.forEach(examType => {
+          const value = resultEntryGroup?.entryGroups?.find(e => e.examType._id === examType._id);
+
           const control = new FormGroup({
+            _id: new FormControl(value?._id),
             examType: new FormControl(examType._id),
             name: new FormControl(examType.name),
             unit: new FormControl(examType.unit),
-            value: new FormControl<number | undefined>(undefined),
+            value: new FormControl<number | undefined>(value?.value),
           });
-          (groupControl.get('examTypes') as FormArray).push(control);
+
+          groupControlExamTypes.push(control);
         });
-        this.entryGroups?.push(groupControl);
+        entryGroups.push(groupControl);
       });
+
     } else {
       this.resultForm.get("value")?.addValidators(Validators.required);
     }
-
+    this.changeDetector.detectChanges();
   }
 
   ngAfterViewInit(): void {
@@ -132,7 +154,9 @@ export class ExamsFormComponent implements AfterViewInit {
           this.messages = [];
         }
         this.changeDetector.detectChanges();
-        this.createEntryGroup();
+        setTimeout(() => {
+          this.createEntryGroup();
+        }, 10);
       }
     })
   }
@@ -150,7 +174,7 @@ export class ExamsFormComponent implements AfterViewInit {
         this.loaderService.hide();
         if (res.data) {
           this.exam = res.data;
-          this.results = res.data.results;
+          this.results = res.data.results.orderBy('examType.name',1);
           this.form.patchValue({
             _id: res.data._id,
             date: new Date(res.data.date),
@@ -185,11 +209,16 @@ export class ExamsFormComponent implements AfterViewInit {
         value: result.value,
         material: result.material,
         method: result.method,
-        entryGroups: result.entryGroups
+        entryGroups: result.entryGroups?.map(group => ({
+          ...group,
+          examType: typeof group.examType === 'string' ? group.examType : group.examType._id,
+          entryGroups: group.entryGroups?.map(subGroup => ({
+            ...subGroup,
+            examType: typeof subGroup.examType === 'string' ? subGroup.examType : subGroup.examType._id
+          }))
+        }))
       }))
     }
-    console.log("🚀 ~ ExamsFormComponent ~ submitForm ~ this.results:", this.results)
-    console.log(saveData);
     this.loaderService.show();
     this.examsService.save(saveData).subscribe({
       next: (res) => {
@@ -216,26 +245,87 @@ export class ExamsFormComponent implements AfterViewInit {
     this.resultForm.get("examType")?.setValue(undefined);
   }
 
+  private updateResults(): void {
+    if (isEmpty(this.edittingResult) || !this.results) return;
+
+    // Obtém o resultado a ser editado
+    const resultToUpdate = this.results.at(this.edittingResult);
+    if (!resultToUpdate) return;
+    // Atualiza os valores principais do resultado
+    const examType = this.examTypes.find(e => e._id === this.resultForm.value.examType);
+
+    const formValue = this.resultForm.value;
+    resultToUpdate.examType = examType!;
+    resultToUpdate.material = formValue.material!;
+    resultToUpdate.method = formValue.method!;
+    resultToUpdate.value = formValue.value!;
+
+    // Atualiza os grupos de entradas, se existirem
+    const entryGroups = this.resultForm.get('entryGroups') as FormArray;
+    if (entryGroups && entryGroups.length) {
+      resultToUpdate.entryGroups = [];
+
+      // @ts-ignore
+      entryGroups.controls.forEach((groupControl: FormGroup) => {
+        const groupValue = groupControl.value;
+        const entryGroup: IResultEntry = {
+          _id: groupValue._id,
+          examType: { _id: groupValue.examType } as IExamTypes,
+          value: groupValue.value, // Valor default caso não seja usado neste nível
+          entryGroups: [],
+        };
+
+        // Processa os subgrupos de tipos de exame
+        const examTypesArray = groupControl.get('examTypes') as FormArray;
+        if (examTypesArray && examTypesArray.length) {
+          // @ts-ignore
+          examTypesArray.controls.forEach((examTypeControl: FormGroup) => {
+            const examTypeValue = examTypeControl.value;
+            const subEntry: IResultEntry = {
+              _id: examTypeValue._id,
+              examType: { _id: examTypeValue.examType } as IExamTypes,
+              value: examTypeValue.value,
+            };
+
+            entryGroup.entryGroups?.push(subEntry);
+          });
+        }
+
+        resultToUpdate.entryGroups?.push(entryGroup);
+      });
+    }
+
+    console.log("🚀 ~ ExamsFormComponent ~ updateResults ~ resultToUpdate:", resultToUpdate)
+    // Atualiza a lista de resultados com o resultado editado
+    this.results[this.edittingResult] = resultToUpdate;
+    this.results = this.results.orderBy('examType.name',1);
+  }
+
   saveResult() {
     this.isSubmittedResult = true;
     this.resultForm.updateValueAndValidity();
     if (!this.resultForm.valid) return;
     const examType = this.examTypes.find(e => e._id === this.resultForm.value.examType);
     if (!examType) return;
-    console.log(this.resultForm.value);
-    const result: IResultEntry = {
-      examType,
-      value: this.resultForm.value.value!,
-      entryGroups: this.resultForm.get("entryGroups")?.value?.map((group: any) => ({
-        examType: group.examTypeGroup,
-        value: group.value,
-        entryGroups: group.examTypes?.map((examType: any) => ({
-          examType: examType.examType,
-          value: examType.value
+    if (this.edittingResult !== undefined) {
+      this.updateResults();
+      this.edittingResult = undefined;
+    } else {
+      const result: IResultEntry = {
+        examType,
+        value: this.resultForm.value.value!,
+        entryGroups: this.resultForm.get("entryGroups")?.value?.map((group: any) => ({
+          examType: group.examTypeGroup,
+          value: group.value,
+          entryGroups: group.examTypes?.map((examType: any) => ({
+            examType: examType.examType,
+            value: examType.value
+          }))
         }))
-      }))
+      }
+      this.results.push(result);
+      this.results = this.results.orderBy('examType.name',1);
     }
-    this.results.push(result);
     this.isResultModalShown = false;
   }
 

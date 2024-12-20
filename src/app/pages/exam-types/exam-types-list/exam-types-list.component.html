@@ -1,18 +1,39 @@
 <div class="grid">
-   
+
     <div class="col-12">
         <ng-container *ngIf="$exam_types | async as exam_types">
             <p-table #table [loading]="isLoading" [totalRecords]="totalRecords" [value]="exam_types"
                 [lazyLoadOnInit]="true" [lazy]="true" (onLazyLoad)="getAll($event)" [paginator]="true" [rows]="10"
-                [rowsPerPageOptions]="[10,50,100]" sortField="name" [sortOrder]="1"  styleClass="p-datatable-striped p-datatable-dark">
+                [rowsPerPageOptions]="[10,50,100]" sortField="name" [sortOrder]="1" [globalFilterFields]="['name']"
+                styleClass="p-datatable-striped p-datatable-dark">
+                <ng-template pTemplate="caption">
+                    <div class="grid">
+                        <div class="col-12 md:col-3 md:col-offset-9">
+                            <span class="input-group block">
+                                <input #searchInput class="form-control" style="padding-left: 33px" type="text"
+                                    (input)="table.filterGlobal(searchInput.value, 'contains')"
+                                    placeholder="Pesquisar" />
+                                <div class="posfix">
+                                    <ng-icon name="phosphorMagnifyingGlass" class="mr-2" size="1.2em"></ng-icon>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
-                        <th pSortableColumn="description" class="text-left">{{'description' | translate}}<p-sortIcon field="description"/></th>
-                        <th pSortableColumn="unit" class="text-left">{{'unit' | translate}}<p-sortIcon field="unit"/></th>
-                        <th pSortableColumn="material" class="text-left">{{'pages.exam_types.material' | translate}}<p-sortIcon field="material"/></th>
-                        <th pSortableColumn="method" class="text-left">{{'pages.exam_types.method' | translate}}<p-sortIcon field="method"/></th>
-                        <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}<p-sortIcon field="updatedAt"/></th>
+                        <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name" />
+                        </th>
+                        <th pSortableColumn="description" class="text-left">{{'description' | translate}}<p-sortIcon
+                                field="description" /></th>
+                        <th pSortableColumn="unit" class="text-left">{{'unit' | translate}}<p-sortIcon field="unit" />
+                        </th>
+                        <th pSortableColumn="material" class="text-left">{{'pages.exam_types.material' |
+                            translate}}<p-sortIcon field="material" /></th>
+                        <th pSortableColumn="method" class="text-left">{{'pages.exam_types.method' |
+                            translate}}<p-sortIcon field="method" /></th>
+                        <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}<p-sortIcon
+                                field="updatedAt" /></th>
                         <th class="text-center w150px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
                     </tr>
                 </ng-template>
@@ -20,7 +41,7 @@
                     <tr>
                         <td class="text-left">{{exam_type.name}}</td>
                         <td class="text-left">{{exam_type.description ?? "-"}}</td>
-                        <td class="text-left">{{exam_type.unit}}</td>
+                        <td class="text-left">{{exam_type.unit ?? "-"}}</td>
                         <td class="text-left">{{exam_type.material ?? "-"}}</td>
                         <td class="text-left">{{exam_type.method ?? "-"}}</td>
                         <td class="text-left">{{exam_type.updatedAt | customDate:{time: true} }}</td>

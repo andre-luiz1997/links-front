@@ -105,6 +105,12 @@
                         <p-dropdown [filter]="true" filterBy="nome" requiredLabel="examType" class="form-control"
                             formControlName="examType" [options]="examTypes" optionValue="_id" optionLabel="name"
                             [placeholder]="'select.placeholder' | translate" appendTo="body">
+                            <ng-template let-examType pTemplate="item">
+                                <div class="flex flex-row align-items-center gap-2 justify-content-start">
+                                    <span>{{ examType.name }}</span>
+                                    <span *ngIf="examType.method">({{ examType.method }})</span>
+                                </div>
+                            </ng-template>
                             <ng-template pTemplate="empty">
                                 <span>{{ 'select.empty' | translate }}.</span>
                             </ng-template>
@@ -113,11 +119,11 @@
                     </div>
                 </div>
                 <div class="col-12 md:col-6"
-                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !examType.unit}">
+                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !isEmpty(examType.examTypesGroups)}">
                     <div class="form-group">
                         <label for="value">{{ 'pages.exams.form.value' | translate }}</label>
                         <div class="input-group w100">
-                            <input type="text" formControlName="value" mask="separator.2" thousandSeparator="."
+                            <input type="text" formControlName="value" mask="separator.3" thousandSeparator="."
                                 decimalMarker="," class="form-control">
                             <div class="posfix">{{examType?.unit}}</div>
                         </div>
@@ -127,7 +133,7 @@
             </div>
             <div class="grid">
                 <div class="col-12 md:col-6"
-                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !examType.unit}">
+                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !isEmpty(examType.examTypesGroups)}">
                     <div class="form-group">
                         <label for="material">{{ 'pages.exams.form.material' | translate }}</label>
                         <input type="text" formControlName="material" class="form-control" requiredLabel="material" />
@@ -135,7 +141,7 @@
                     </div>
                 </div>
                 <div class="col-12 md:col-6"
-                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !examType.unit}">
+                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !isEmpty(examType.examTypesGroups)}">
                     <div class="form-group">
                         <label for="material">{{ 'pages.exams.form.method' | translate }}</label>
                         <input type="text" formControlName="method" class="form-control" requiredLabel="method" />
@@ -171,7 +177,7 @@
                     <div class="grid">
                         <div class="col-12 py-4">
                             <section class="section">
-                                <span class="section-title">{{ group.get("name")?.value }}</span>
+                                <span class="section-title">{{ group.get("name")?.getRawValue() }}</span>
                                 <div class="section-body">
                                     <div class="types-grid" formArrayName="examTypes">
                                         <ng-container
@@ -179,7 +185,8 @@
                                             <ng-container [formGroupName]="jindex">
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="value">{{ examType.get("name")?.value }}</label>
+                                                        <label for="value">{{ examType.get("name")?.getRawValue()
+                                                            }}</label>
                                                         <div class="input-group">
                                                             <input type="text" formControlName="value"
                                                                 mask="separator.2" thousandSeparator="."

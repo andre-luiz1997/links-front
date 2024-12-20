@@ -22,7 +22,7 @@ export class ExamsListComponent {
     private loaderService: LoaderService,
     private toastService: ToastService,
     private langService: LangService
-  ) {}
+  ) { }
 
   getAll(event?: any) {
     this.isLoading = true;
@@ -47,8 +47,42 @@ export class ExamsListComponent {
     });
   }
 
-  deleteExam(exam: IExams) {
-
-
+  deleteExam(_id: string) {
+    this.confirmationService.show({
+      title: 'delete_confirmation.title',
+      description: 'delete_confirmation.description',
+      confirmButton: {
+        label: 'continue',
+        severity: 'danger',
+        action: () => {
+          this.loaderService.show();
+          this.examsService.delete(_id).subscribe({
+            next: (response) => {
+              this.confirmationService.hide();
+              this.exams = this.exams.filter((item) => item._id !== _id);
+              this.totalRecords--;
+              this.loaderService.hide();
+              this.toastService.show({
+                description: this.langService.getMessage('success_messages.record_deleted_successfully'),
+                severity: 'success'
+              });
+            },
+            error: () => {
+              this.loaderService.hide();
+              this.toastService.show({
+                description: this.langService.getMessage('error_messages.error_occurred'),
+                severity: 'error'
+              });
+            }
+          });
+        }
+      },
+      cancelButton: {
+        label: 'cancel',
+        action: () => {
+          this.confirmationService.hide();
+        }
+      }
+    });
   }
 }
