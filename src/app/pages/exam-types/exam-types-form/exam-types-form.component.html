@@ -16,22 +16,6 @@
                 <app-error-block formControlName="unit" [show]="isSubmitted" />
             </div>
         </div>
-        <div class="col-12 md:col-6">
-            <div class="form-group">
-                <label for="material" class="mb-2">{{ 'pages.exam_types.material' | translate }}</label>
-                <input type="text" formControlName="material" class="form-control"
-                    [placeholder]="'pages.exam_types.material_example' | translate" />
-                <app-error-block formControlName="material" [show]="isSubmitted" />
-            </div>
-        </div>
-        <div class="col-12 md:col-6">
-            <div class="form-group">
-                <label for="method" class="mb-2">{{ 'pages.exam_types.method' | translate }}</label>
-                <input type="text" formControlName="method" class="form-control"
-                    [placeholder]="'pages.exam_types.method_example' | translate" />
-                <app-error-block formControlName="method" [show]="isSubmitted" />
-            </div>
-        </div>
         <div class="col-12">
             <div class="form-group">
                 <label for="description" class="mb-2">{{ 'description' | translate }}</label>

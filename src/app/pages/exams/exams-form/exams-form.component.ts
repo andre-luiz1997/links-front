@@ -32,8 +32,6 @@ export class ExamsFormComponent implements AfterViewInit {
     _id: new FormControl<string | undefined>(undefined),
     examType: new FormControl<string | undefined>(undefined, [Validators.required]),
     value: new FormControl<number | undefined>(undefined, [Validators.required]),
-    material: new FormControl<string | undefined>(undefined),
-    method: new FormControl<string | undefined>(undefined),
     entryGroups: new FormArray([]),
   })
   exam?: IExams;
@@ -83,12 +81,6 @@ export class ExamsFormComponent implements AfterViewInit {
 
   private createEntryGroup() {
     if (!this.examType) return;
-
-    // Atualiza valores principais do formulário
-    this.resultForm.patchValue({
-      material: this.examType.material,
-      method: this.examType.method,
-    });
 
     // Verifica se há grupos de exame
     if (this.examType?.examTypesGroups?.length) {
@@ -208,8 +200,6 @@ export class ExamsFormComponent implements AfterViewInit {
       results: this.results?.map(result => ({
         examType: result.examType._id,
         value: result.value,
-        material: result.material,
-        method: result.method,
         entryGroups: result.entryGroups?.map(group => ({
           ...group,
           examType: typeof group.examType === 'string' ? group.examType : group.examType._id,
@@ -257,8 +247,6 @@ export class ExamsFormComponent implements AfterViewInit {
 
     const formValue = this.resultForm.value;
     resultToUpdate.examType = examType!;
-    resultToUpdate.material = formValue.material!;
-    resultToUpdate.method = formValue.method!;
     resultToUpdate.value = formValue.value!;
 
     // Atualiza os grupos de entradas, se existirem
@@ -341,9 +329,7 @@ export class ExamsFormComponent implements AfterViewInit {
     this.isResultModalShown = true;
     this.resultForm.reset({
       examType: result.examType._id,
-      value: result.value,
-      material: result.material,
-      method: result.method,
+      value: result.value
     })
   }
 

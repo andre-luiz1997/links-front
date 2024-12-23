@@ -60,18 +60,6 @@
                                         <span class="unit">{{ result.examType.unit }}</span>
                                     </div>
                                 </div>
-                                <div class="col-12 md:col-6">
-                                    <span class="card-subtitle">
-                                        <strong>{{ 'pages.exams.form.material' | translate }}</strong>
-                                        <span>{{ result.material ?? ('not_informed' | translate) }}</span>
-                                    </span>
-                                </div>
-                                <div class="col-12 md:col-6">
-                                    <span class="card-subtitle">
-                                        <strong>{{ 'pages.exams.form.method' | translate }}</strong>
-                                        <span>{{ result.method ?? ('not_informed' | translate) }}</span>
-                                    </span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,12 +93,6 @@
                         <p-dropdown [filter]="true" filterBy="nome" requiredLabel="examType" class="form-control"
                             formControlName="examType" [options]="examTypes" optionValue="_id" optionLabel="name"
                             [placeholder]="'select.placeholder' | translate" appendTo="body">
-                            <ng-template let-examType pTemplate="item">
-                                <div class="flex flex-row align-items-center gap-2 justify-content-start">
-                                    <span>{{ examType.name }}</span>
-                                    <span *ngIf="examType.method">({{ examType.method }})</span>
-                                </div>
-                            </ng-template>
                             <ng-template pTemplate="empty">
                                 <span>{{ 'select.empty' | translate }}.</span>
                             </ng-template>
@@ -128,24 +110,6 @@
                             <div class="posfix">{{examType?.unit}}</div>
                         </div>
                         <app-error-block formControlName="value" [show]="isSubmittedResult" />
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-12 md:col-6"
-                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !isEmpty(examType.examTypesGroups)}">
-                    <div class="form-group">
-                        <label for="material">{{ 'pages.exams.form.material' | translate }}</label>
-                        <input type="text" formControlName="material" class="form-control" requiredLabel="material" />
-                        <app-error-block formControlName="material" [show]="isSubmittedResult" />
-                    </div>
-                </div>
-                <div class="col-12 md:col-6"
-                    [ngClass]="{disabled: !resultForm.get('examType')?.value, hide: examType && !isEmpty(examType.examTypesGroups)}">
-                    <div class="form-group">
-                        <label for="material">{{ 'pages.exams.form.method' | translate }}</label>
-                        <input type="text" formControlName="method" class="form-control" requiredLabel="method" />
-                        <app-error-block formControlName="method" [show]="isSubmittedResult" />
                     </div>
                 </div>
             </div>
