@@ -29,6 +29,7 @@ export class ExamsFormComponent implements AfterViewInit {
   isEmpty = isEmpty
 
   resultForm = new FormGroup({
+    _id: new FormControl<string | undefined>(undefined),
     examType: new FormControl<string | undefined>(undefined, [Validators.required]),
     value: new FormControl<number | undefined>(undefined, [Validators.required]),
     material: new FormControl<string | undefined>(undefined),
@@ -94,8 +95,8 @@ export class ExamsFormComponent implements AfterViewInit {
       this.resultForm.get("value")?.clearValidators();
 
       const resultExamType = !isEmpty(this.edittingResult)
-        ? this.results?.at(this.edittingResult)
-        : undefined;
+      ? this.results?.at(this.edittingResult)
+      : undefined;
 
       // Certifique-se de que o `entryGroups` existe no `resultForm`
       if (!this.resultForm.get('entryGroups')) {
@@ -106,7 +107,7 @@ export class ExamsFormComponent implements AfterViewInit {
 
       // Processa os grupos de exames
       this.examType.examTypesGroups.forEach(group => {
-        const resultEntryGroup = resultExamType?.entryGroups?.find(e => e.examType._id === group._id);
+        const resultEntryGroup = resultExamType?.entryGroups?.find(e => (e.examType._id ?? e.examType) === group._id);
 
         const groupControl = new FormGroup({
           _id: new FormControl(resultEntryGroup?._id),
@@ -116,7 +117,7 @@ export class ExamsFormComponent implements AfterViewInit {
         });
         const groupControlExamTypes = groupControl.get('examTypes') as FormArray;
         group.examTypes?.orderBy('name', 1)?.forEach(examType => {
-          const value = resultEntryGroup?.entryGroups?.find(e => e.examType._id === examType._id);
+          const value = resultEntryGroup?.entryGroups?.find(e => (e.examType._id ?? e.examType) === (examType._id ?? examType));
 
           const control = new FormGroup({
             _id: new FormControl(value?._id),
@@ -144,7 +145,7 @@ export class ExamsFormComponent implements AfterViewInit {
       array?.clear();
       array?.reset([]);
       if (this.isResultModalShown && this.examType) {
-        const resultIndex = this.results.findIndex(r => r.examType._id === this.examType?._id);
+        const resultIndex = this.results?.findIndex(r => r.examType._id === this.examType?._id);
         if (resultIndex > -1 && this.edittingResult != resultIndex) {
           this.messages = [{
             severity: 'warn',
@@ -174,7 +175,7 @@ export class ExamsFormComponent implements AfterViewInit {
         this.loaderService.hide();
         if (res.data) {
           this.exam = res.data;
-          this.results = res.data.results.orderBy('examType.name',1);
+          this.results = res.data.results?.orderBy('examType.name', 1) ?? [];
           this.form.patchValue({
             _id: res.data._id,
             date: new Date(res.data.date),
@@ -295,10 +296,9 @@ export class ExamsFormComponent implements AfterViewInit {
       });
     }
 
-    console.log("🚀 ~ ExamsFormComponent ~ updateResults ~ resultToUpdate:", resultToUpdate)
     // Atualiza a lista de resultados com o resultado editado
     this.results[this.edittingResult] = resultToUpdate;
-    this.results = this.results.orderBy('examType.name',1);
+    this.results = this.results.orderBy('examType.name', 1);
   }
 
   saveResult() {
@@ -312,19 +312,23 @@ export class ExamsFormComponent implements AfterViewInit {
       this.edittingResult = undefined;
     } else {
       const result: IResultEntry = {
+        _id: this.resultForm.value._id!,
         examType,
         value: this.resultForm.value.value!,
-        entryGroups: this.resultForm.get("entryGroups")?.value?.map((group: any) => ({
-          examType: group.examTypeGroup,
-          value: group.value,
-          entryGroups: group.examTypes?.map((examType: any) => ({
-            examType: examType.examType,
-            value: examType.value
-          }))
-        }))
+        entryGroups: this.resultForm.get("entryGroups")?.value?.map((group: any) => {
+          return {
+            _id: group._id,
+            examType: group.examType,
+            value: group.value,
+            entryGroups: group.examTypes?.map((examType: any) => ({
+              examType: examType.examType,
+              value: examType.value
+            }))
+          }
+        })
       }
       this.results.push(result);
-      this.results = this.results.orderBy('examType.name',1);
+      this.results = this.results.orderBy('examType.name', 1);
     }
     this.isResultModalShown = false;
   }
