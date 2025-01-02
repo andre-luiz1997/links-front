@@ -24,8 +24,10 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { RequiredLabelDirective } from './directives';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { ChartModule } from 'primeng/chart';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
+import { DataChartComponent } from './components/data-chart/data-chart.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
     StandaloneCheckboxComponent,
     ConfirmationDialogComponent,
     AddressFormComponent,
-    CustomDatePipe
+    CustomDatePipe,
+    DataChartComponent
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,7 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
     DialogModule,
     DropdownModule,
     NgxMaskDirective, NgxMaskPipe,
+    ChartModule,
     NgIconsModule.withIcons({
       phosphorHouseSimple,
       phosphorUser,
@@ -86,7 +90,8 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
     RequiredLabelDirective,
     ConfirmationDialogComponent,
     AddressFormComponent,
-    CustomDatePipe
+    CustomDatePipe,
+    DataChartComponent
   ],
   providers: [
     provideNgxMask()

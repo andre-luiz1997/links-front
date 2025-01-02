@@ -30,7 +30,7 @@ export class AuthSocket extends Socket {
 @NgModule({
   declarations: [
     AppComponent,
-    TemplateComponent
+    TemplateComponent,
   ],
   imports: [
     BrowserModule,

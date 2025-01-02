@@ -10,11 +10,11 @@ export function emptyToUndefined(value: any) {
 	return isEmpty(value) ? undefined : value;
 }
 
-export function convertToCamelCase (key: string): string {
+export function convertToCamelCase(key: string): string {
 	return key.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
 };
 
-export function isEmailValid (email: string): boolean {
+export function isEmailValid(email: string): boolean {
 	const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
 	if (email && regex.test(email.toLowerCase())) return true;
 	return false;
@@ -44,3 +44,38 @@ export function getErrorMessage(langService: LangService, error: string, options
 	return message;
 }
 
+export function getDateRange(
+	start: Date,
+	end: Date,
+	type: 'days' | 'months',
+): string[] {
+	const startDate = dayjs(start);
+	const endDate = dayjs(end);
+
+	if (!startDate.isValid() || !endDate.isValid()) {
+		throw new Error('Invalid date format');
+	}
+
+	if (startDate.isAfter(endDate)) {
+		throw new Error('Start date must be before or equal to end date');
+	}
+
+	const result: string[] = [];
+
+	if (type === 'days') {
+		let current = startDate;
+		while (current.isBefore(endDate) || current.isSame(endDate)) {
+			result.push(current.format('YYYY-MM-DD'));
+			current = current.add(1, 'day');
+		}
+	} else if (type === 'months') {
+		let current = startDate.startOf('month');
+		const endMonth = endDate.startOf('month');
+		while (current.isBefore(endMonth) || current.isSame(endMonth)) {
+			result.push(current.format('YYYY-MM'));
+			current = current.add(1, 'month');
+		}
+	}
+
+	return result;
+}

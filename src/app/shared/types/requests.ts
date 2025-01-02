@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export type FilterOperators =
 	| 'LIKE'
 	| 'LIKE_ID'
@@ -34,10 +36,10 @@ export interface DefaultPaginatedRequest {
 }
 
 // Helper function to serialize the url object
-export function serializeParams(params: DefaultPaginatedRequest): string {
+export function serializeParams(params: any): string {
 	const query = new URLSearchParams();
 
-	Object.entries(params).forEach(([key, value]) => {
+	Object.entries(params).forEach(([key, value]: [string, any]) => {
 		if (Array.isArray(value)) {
 			// If the value is an array, convert it to a JSON string
 			query.append(key, JSON.stringify(value));

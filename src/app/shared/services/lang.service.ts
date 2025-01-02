@@ -138,6 +138,9 @@ const translation = {
 		year: 'Ano',
 		years: 'Anos',
 		total: 'Total',
+		legend: 'Legenda',
+
+		drag_to_reorder: 'Segure e arraste para reordenar',
 
 		min: 'Mínimo',
 		max: 'Máximo',
@@ -193,6 +196,10 @@ const translation = {
 			CARD: 'Cartão',
 		},
 		pages: {
+			dashboard: {
+				title: 'Início',
+				configure_dashboard: 'Configure seu dashboard',
+			},
 			users: {
 				title: 'Usuários',
 				permissions: {

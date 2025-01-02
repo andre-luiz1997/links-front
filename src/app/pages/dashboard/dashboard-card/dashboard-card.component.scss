@@ -1,0 +1,47 @@
+@import 'variables';
+
+$card_color: $secondary_color;
+
+.card {
+    background-color: darken($card_color, 40%);
+    // border: 1px solid $main_color_darker;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+
+    .card-icon {
+        position: absolute;
+        height: 100%;
+        right: 50px;
+        opacity: 0.3;
+        top: 0;
+        transform: rotate(50grad);
+        filter: blur(3px);
+        color: $card_color;
+    }
+
+    .card-value {
+        text-align: center;
+        .value {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .unit {
+            font-size: 1rem;
+        }
+    }
+
+    ::ng-deep {
+
+        ng-icon.card-icon,
+        ng-icon.card-icon svg {
+            height: 100%;
+        }
+    }
+}
