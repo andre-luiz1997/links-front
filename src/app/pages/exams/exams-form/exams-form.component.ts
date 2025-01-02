@@ -11,7 +11,8 @@ import { ToastService } from '@shared/services/toast.service';
 import { IExams, IExamTypes, ILabs, IResultEntry } from '@shared/types';
 import { isEmpty } from '@shared/utils/common';
 import { CALENDAR_DATE_FORMAT_BR, CURRENCY_MASK, DATE_MASK_BR } from '@shared/utils/constants';
-import { Message, PrimeNGConfig } from 'primeng/api';
+import { ToastMessageOptions } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
   selector: 'app-exams-form',
@@ -44,14 +45,14 @@ export class ExamsFormComponent implements AfterViewInit {
   isSubmitted = false;
   isSubmittedResult = false;
   isResultModalShown = false;
-  messages: Message[] = [];
+  messages: ToastMessageOptions[] = [];
 
   resultModalTitle: 'pages.exams.form.results.add' | 'pages.exams.form.results.edit' = 'pages.exams.form.results.add';
 
   constructor(
     private langService: LangService,
     private labsService: LabsService,
-    private primeNGConfig: PrimeNGConfig,
+    private primeNGConfig: PrimeNG,
     private examTypesService: ExamTypesService,
     private examsService: ExamsService,
     private confirmationService: ConfirmationService,

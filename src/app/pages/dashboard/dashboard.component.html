@@ -10,7 +10,7 @@
         </ng-container>
     </div>
     <div class="page-content">
-        <div class="cards-container" cdkDropList cdkDropListOrientation="horizontal" id="selectedSection"
+        <div class="cards-container" cdkDropList cdkDropListOrientation="mixed" id="selectedSection"
             [cdkDropListData]="items" (cdkDropListDropped)="onItemDrop($event)">
             <div cdkDrag *ngFor="let item of items">
                 <div class="card-buttons">

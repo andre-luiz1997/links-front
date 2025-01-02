@@ -3,5 +3,6 @@
         "/src/app/shared/types/entities",
         "/src/app/shared/types",
         "/src/app/shared/directives"
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

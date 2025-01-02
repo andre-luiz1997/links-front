@@ -11,6 +11,24 @@
     gap: 1rem;
 }
 
+@media (max-width: $lg-breakpoint) {
+    .cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(calc(100% / 3), 1fr));
+    }
+}
+
+@media (max-width: $md-breakpoint) {
+    .cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(calc(100% / 2), 1fr));
+    }
+}
+
+@media (max-width: $sm-breakpoint) {
+    .cards-container {
+        grid-template-columns: repeat(auto-fit, 1fr);
+    }
+}
+
 
 ::ng-deep {
     .p-dialog-lg {

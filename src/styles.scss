@@ -1,4 +1,3 @@
-@import "primeng/resources/primeng.css";
 @import 'variables';
 @import 'mixins';
 @import 'fonts';
@@ -385,3 +384,17 @@ td {
   white-space: nowrap;
   max-width: 250px;
 }
+
+// .p-tooltip {
+//   background-color: $sidebar_color;
+//   font-size: .9rem;
+//   padding: .5rem;
+// }
+
+// .p-tooltip-text {
+//   padding: .5rem;
+// }
+
+// .p-tooltip-arrow {
+//   color: $sidebar_color;
+// }
