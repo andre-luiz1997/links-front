@@ -142,6 +142,9 @@ const translation = {
 
 		drag_to_reorder: 'Segure e arraste para reordenar',
 
+		last_exam_at: 'Último exame em',
+		last_exam_not_found: 'Último exame não cadastrado',
+
 		min: 'Mínimo',
 		max: 'Máximo',
 		category: 'Categoria',
@@ -199,6 +202,7 @@ const translation = {
 			dashboard: {
 				title: 'Início',
 				configure_dashboard: 'Configure seu dashboard',
+				indicators: 'Indicadores'
 			},
 			users: {
 				title: 'Usuários',

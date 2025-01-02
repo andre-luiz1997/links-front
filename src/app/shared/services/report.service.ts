@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DefaultResponse, IResultEntry, serializeParams } from '@shared/types';
 import { DATE_MASK_US } from '@shared/utils/constants';
 import dayjs from 'dayjs';
+import { DashboardItem } from 'src/app/pages/dashboard/dashboard.component';
 import { environment } from 'src/environments/environment.development';
 
 
@@ -15,6 +16,10 @@ export class ReportService {
   constructor(
     private httpClient: HttpClient
   ) { }
+
+  getDashboardIndicators() {
+    return this.httpClient.get<DefaultResponse<DashboardItem[]>>(`${this.ENDPOINT}/dashboard-indicators`);
+  }
 
   getExamTypeReport(examTypeId: string, props: { start: Date, end: Date }) {
     const serializedParams = serializeParams({ start: dayjs(props.start).format(DATE_MASK_US), end: dayjs(props.end).format(DATE_MASK_US) })

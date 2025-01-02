@@ -24,4 +24,8 @@ export class SharedService {
     if(!permissions.length) return false;
     return permissions.some(p => p.context === context);
   }
+
+  getUserSettings() {
+    return this.$signedUser.value?.settings ?? [];
+  }
 }

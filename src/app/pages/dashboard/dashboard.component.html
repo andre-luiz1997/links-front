@@ -1,81 +1,28 @@
 <div class="page">
     <div class="title-row">
         <h3 class="page-title">{{ 'pages.dashboard.title' | translate }}</h3>
-        <ng-container>
-            <button class="btn btn-primary btn-circle ml-auto"
-                [pTooltip]="'pages.dashboard.configure_dashboard' | translate" tooltipPosition="left"
-                (click)="isDashboardConfigurationPanelVisible = true">
-                <ng-icon name="phosphorGear" size="1.4rem" />
-            </button>
-        </ng-container>
     </div>
     <div class="page-content">
+        <div class="grid">
+            <div class="col-12">
+                <h3>{{ 'pages.dashboard.indicators' | translate }}</h3>
+            </div>
+        </div>
         <div class="cards-container" cdkDropList cdkDropListOrientation="mixed" id="selectedSection"
             [cdkDropListData]="items" (cdkDropListDropped)="onItemDrop($event)">
-            <div cdkDrag *ngFor="let item of items">
+            <div cdkDrag *ngFor="let item of items; let index = index">
                 <div class="card-buttons">
                     <button type="button" class="btn btn-default btn-circle table-btn"
                         [pTooltip]="'drag_to_reorder' | translate" [autoHide]="false" tooltipPosition="top">
                         <ng-icon cdkDragHandle name="phosphorArrowsOut" size="1.2rem" />
                     </button>
                     <button type="button" class="btn btn-default btn-circle table-btn"
-                        [pTooltip]="'delete' | translate" [autoHide]="false" tooltipPosition="top">
+                        [pTooltip]="'delete' | translate" [autoHide]="false" tooltipPosition="top" (click)="removeItem(index)">
                         <ng-icon name="phosphorTrashSimple" size="1.2rem" />
                     </button>
                 </div>
-                <app-dashboard-card [title]="item.examType.name" [value]="item.value" [unit]="item.examType.unit">
-                </app-dashboard-card>
+                <app-dashboard-card [title]="item.examType.name" [value]="item.value" [unit]="item.examType.unit" [date]="item.date" />
             </div>
         </div>
     </div>
 </div>
-
-<!-- <p-dialog #configurationPanel [(visible)]="isDashboardConfigurationPanelVisible" [modal]="true" [dismissableMask]="true"
-    [draggable]="false" class="p-dialog-lg">
-    <ng-template pTemplate="header">
-        <h1>{{ 'pages.dashboard.configure_dashboard' | translate }}</h1>
-    </ng-template>
-    <ng-template pTemplate="content">
-        <div class="container">
-            <div class="list-container">
-                <h3>Lista de Itens</h3>
-                <p-dropdown [filter]="true" filterBy="nome" requiredLabel="examType" class="form-control"
-                    [(ngModel)]="selectedExamType" (ngModelChange)="selectExamType($event)" [options]="examTypes"
-                    optionLabel="name" [placeholder]="'select.placeholder' | translate" appendTo="body">
-                    <ng-template pTemplate="empty">
-                        <span>{{ 'select.empty' | translate }}.</span>
-                    </ng-template>
-                </p-dropdown>
-            </div>
-
-            <div class="section-container" >
-                <h3>Seção Selecionada (máx: 4 itens)</h3>
-                <div #previewContainer cdkDropList cdkDropListOrientation="horizontal" id="selectedSection"
-                    [cdkDropListData]="selectedItems" (cdkDropListDropped)="onItemDrop($event)" class="section-list">
-                    <div cdkDrag cdkDragBoundary=".section-list" [cdkDragPreviewContainer]="previewContainer">
-                        <app-dashboard-card 
-                            *ngFor="let item of selectedItems" [title]="item.name" [value]="0" [unit]="item.unit" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <form [formGroup]="configurationForm">
-
-
-        </form>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <div class="grid">
-            <div class="col-12 md:col-6">
-                <button (click)="configurationPanel.close($event)" type="button" class="btn btn-default mr-auto">{{
-                    'close' |
-                    translate }}</button>
-            </div>
-            <div class="col-12 md:col-6">
-                <button (click)="saveConfiguration()" type="button" class="btn btn-primary ml-auto">{{ 'save' |
-                    translate
-                    }}</button>
-            </div>
-        </div>
-    </ng-template>
-</p-dialog> -->

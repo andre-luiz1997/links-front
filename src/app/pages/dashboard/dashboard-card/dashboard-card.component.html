@@ -1,10 +1,14 @@
 <div class="card">
     <ng-icon class="card-icon" name="phosphorDna" />
-    <div class="card-title">{{ title }}</div>
-    <div class="card-body">
-        <div class="card-value">
-            <div class="value">{{ value }}</div>
-            <div class="unit">{{ sanitizedUnit ?? '&nbsp;' }}</div>
+    <div class="card-row">
+        <div class="card-title">{{ title }}</div>
+        <div class="card-body">
+            <div class="card-value">
+                <div class="value">{{ sanitizedValue ?? 0 }}</div>
+                <div class="unit">{{ sanitizedUnit ?? '&nbsp;' }}</div>
+            </div>
         </div>
     </div>
+    <div class="card-date" *ngIf="date">{{ 'last_exam_at' | translate }} {{ date | customDate }}</div>
+    <div class="card-date" *ngIf="sanitizedValue === undefined">{{ 'last_exam_not_found' | translate }}</div>
 </div>

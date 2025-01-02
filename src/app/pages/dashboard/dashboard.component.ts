@@ -6,13 +6,14 @@ import { DataChartProps } from '@shared/components/data-chart/data-chart.compone
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { ExamTypesService } from '@shared/services/exam-types.service';
 import { ReportService } from '@shared/services/report.service';
+import { UserService } from '@shared/services/user.service';
 import { SharedModule } from '@shared/shared.module';
 import { IExamTypes, IResultEntry } from '@shared/types';
 import { getDateRange, isEmpty } from '@shared/utils/common';
-import { DATE_MASK_BR } from '@shared/utils/constants';
+import { DATE_MASK_BR, SettingsEnum } from '@shared/utils/constants';
 import dayjs from 'dayjs';
 
-type DashboardItem = IResultEntry & { date: Date }
+export type DashboardItem = IResultEntry & { date: Date }
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,6 @@ export class DashboardComponent implements AfterViewInit {
   end = new Date()
   selectedExamType: IExamTypes | null = null
   examTypes: IExamTypes[] = []
-  selectedItems: IExamTypes[] = []
 
   items: DashboardItem[] = []
 
@@ -34,16 +34,27 @@ export class DashboardComponent implements AfterViewInit {
 
   constructor(
     private reportService: ReportService,
-    private examTypesService: ExamTypesService
+    private userService: UserService
   ) { }
 
-  saveConfiguration() {
-
+  saveConfiguration(key: SettingsEnum,value: any) {
+    this.userService.updateSetting({
+      key,
+      value
+    }).then((res) => {
+      console.log(res)
+    })
   }
 
   // Método para reordenar itens na seção
   onItemDrop(event: CdkDragDrop<DashboardItem[]>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+    this.saveConfiguration(SettingsEnum.DASHBOARD_INDICATORS, this.items.map((item) => item.examType._id))
+  }
+
+  removeItem(index: number) {
+    this.items.splice(index, 1)
+    this.saveConfiguration(SettingsEnum.DASHBOARD_INDICATORS, this.items.map((item) => item.examType._id))
   }
 
 
@@ -52,52 +63,21 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   selectExamType($event: any) {
-    if(this.selectedExamType) this.items.push({
+    if (this.selectedExamType) this.items.push({
       examType: this.selectedExamType,
       date: new Date(),
       value: 0
     })
-      this.selectedExamType = null
+    this.selectedExamType = null
   }
 
   ngAfterViewInit(): void {
-    this.examTypesService.getAll().subscribe({
+    this.reportService.getDashboardIndicators().subscribe({
       next: (res) => {
-        this.examTypes = res.data.records.orderBy('name', 1)
-        this.items = [
-          {
-            examType: this.examTypes[0],
-            value: 10,
-            date: new Date('2021-01-01')
-          },
-          {
-            examType: this.examTypes[1],
-            value: 19.9,
-            date: new Date('2022-10-21')
-          },
-          {
-            examType: this.examTypes[2],
-            value: 19.9,
-            date: new Date('2022-10-21')
-          },
-          {
-            examType: this.examTypes[3],
-            value: 19.9,
-            date: new Date('2022-10-21')
-          },
-          {
-            examType: this.examTypes[4],
-            value: 19.9,
-            date: new Date('2022-10-21')
-          },
-          {
-            examType: this.examTypes[5],
-            value: 19.9,
-            date: new Date('2022-10-21')
-          }
-        ]
+        this.items = res.data
       }
-    })
+
+    });
 
     this.reportService.getExamTypesReport(['6765bc1f6dfbc5d0f48390f0'], { start: this.start, end: this.end }).subscribe({
       next: (res) => {

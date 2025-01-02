@@ -14,12 +14,16 @@ export const CURRENCIES: {
   symbol: CURRENCY_SYMBOLS,
   label: string
 }[] = [
-  { value: 'BRL',symbol: 'R$', label: 'Real brasileiro - R$' },
-  { value: 'USD',symbol: '$', label: 'Dollar - US$' },
-  { value: 'EUR',symbol: '€', label: 'Euro - €' },
-]
+    { value: 'BRL', symbol: 'R$', label: 'Real brasileiro - R$' },
+    { value: 'USD', symbol: '$', label: 'Dollar - US$' },
+    { value: 'EUR', symbol: '€', label: 'Euro - €' },
+  ]
 export const DEFAULT_CURRENCY_SYMBOL: CURRENCY_SYMBOLS = 'R$'
 export const DEFAULT_CURRENCY = 'BRL'
 export const CURRENCY_MASK = '9.000,00';
 
 export const ZIPCODE_MASK = '00000-000';
+
+export enum SettingsEnum {
+  DASHBOARD_INDICATORS = 'DASHBOARD_INDICATORS',
+}

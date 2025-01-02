@@ -11,14 +11,22 @@ export class DashboardCardComponent implements OnChanges {
   @Input() subtitle: string = '';
   @Input() value: number | undefined = undefined;
   @Input() unit?: string = '';
+  @Input() date?: Date;
 
   sanitizedUnit?: string;
+  sanitizedValue?: number;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['unit']?.currentValue) {
       this.sanitizedUnit = this.unit?.trim();
       if (isEmpty(this.sanitizedUnit) || (this.sanitizedUnit.length === 1 && /^[^a-zA-Z0-9]$/.test(this.sanitizedUnit))) {
         this.sanitizedUnit = undefined;
+      }
+    }
+    if (changes['value']?.currentValue) {
+      this.sanitizedValue = this.value;
+      if (isEmpty(this.sanitizedValue)) {
+        this.sanitizedValue = undefined;
       }
     }
   }
