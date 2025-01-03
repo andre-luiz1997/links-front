@@ -17,8 +17,8 @@
         <div class="col-12 md:col-4">
             <div class="form-group">
                 <label for="date">{{ 'pages.exams.form.date' | translate }}</label>
-                <p-calendar formControlName="date" [dateFormat]="dateFormat" requiredLabel="date"
-                    [placeholder]="DATE_MASK_BR" />
+                <p-datepicker formControlName="date" [dateFormat]="dateFormat" requiredLabel="date"
+                    [placeholder]="DATE_MASK_BR" [readonlyInput]="true" />
                 <app-error-block formControlName="date" [show]="isSubmitted" />
             </div>
         </div>

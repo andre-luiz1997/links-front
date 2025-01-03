@@ -17,6 +17,7 @@ import { MessagesModule } from 'primeng/messages';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DatePickerModule } from 'primeng/datepicker';
 
 
 
@@ -40,6 +41,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     DialogModule,
     InputNumberModule,
     MessagesModule,
+    DatePickerModule,
     NgIconsModule.withIcons({
       ...phosporDefaultIcons
     })

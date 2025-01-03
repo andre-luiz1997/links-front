@@ -50,6 +50,11 @@ export class SidebarComponent {
       route: '/exam-types'
     },
     {
+      title: 'health_indicators',
+      icon: 'phosphorHeartbeat',
+      route: '/health-indicators'
+    },
+    {
       title: 'reports',
       icon: 'phosphorChartLine',
       route: '/reports'

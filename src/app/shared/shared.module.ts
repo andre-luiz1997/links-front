@@ -5,7 +5,7 @@ import { PermissionsDirective } from './directives/permissions.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
-import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight } from '@ng-icons/phosphor-icons/regular';
+import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight, phosphorHeartbeat } from '@ng-icons/phosphor-icons/regular';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -82,7 +82,8 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
       phosphorEye,
       phosphorFingerprint,
       phosphorFlask,
-      phosphorArrowCircleRight
+      phosphorArrowCircleRight,
+      phosphorHeartbeat
     }),
   ],
   exports: [

@@ -110,6 +110,7 @@ const translation = {
 		prices: 'Preços',
 		calendar: 'Calendário',
 		name: 'Nome',
+		birthDate: 'Data de nascimento',
 		description: 'Descrição',
 		unit: 'Unidade',
 		email: 'Email',
@@ -262,6 +263,15 @@ const translation = {
 					edit: 'Editar laboratório',
 					delete: 'Excluir laboratório',
 					view: 'Visualizar laboratórios',
+				}
+			},
+			health_indicators: {
+				title: 'Indicadores de saúde',
+				permissions: {
+					add: 'Adicionar indicador de saúde',
+					edit: 'Editar indicador de saúde',
+					delete: 'Excluir indicador de saúde',
+					view: 'Visualizar indicadores de saúde',
 				}
 			},
 			exam_types: {

@@ -25,6 +25,11 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
       },
       {
+        path: 'health-indicators',
+        loadChildren: () => import('./pages/health-indicators/health-indicators.module').then(m => m.HealthIndicatorsModule),
+        canActivate: [AuthGuardService]
+      },
+      {
         path: 'roles',
         loadChildren: () => import('./pages/roles/roles.module').then(m => m.RolesModule),
         canActivate: [AuthGuardService]

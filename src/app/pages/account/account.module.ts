@@ -6,6 +6,7 @@ import { SharedModule } from '@shared/shared.module';
 import { AccountFormComponent } from './account-form/account-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
+import { DatePickerModule } from 'primeng/datepicker';
 
 
 
@@ -19,7 +20,8 @@ import { TranslatePipe } from '@shared/pipes/translate.pipe';
     AccountRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    TranslatePipe
+    TranslatePipe,
+    DatePickerModule
   ]
 })
 export class AccountModule { }

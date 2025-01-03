@@ -1,17 +1,25 @@
 <form [formGroup]="form">
     <div class="grid">
-        <div class="col-12 md:col-6">
+        <div class="col-12 md:col-4">
             <div class="form-group">
                 <label for="name">{{'name' | translate}}</label>
                 <input type="text" formControlName="name" class="form-control">
                 <app-error-block formControlName="name" [show]="isSubmitted" />
             </div>
         </div>
-        <div class="col-12 md:col-6">
+        <div class="col-12 md:col-4">
             <div class="form-group">
                 <label for="email">{{'email' | translate}}</label>
                 <input type="email" formControlName="email" class="form-control">
                 <app-error-block formControlName="email" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-4">
+            <div class="form-group">
+                <label for="birthDate">{{'birthDate' | translate}}</label>
+                <p-datepicker formControlName="birthDate" [dateFormat]="dateFormat" requiredLabel="date"
+                    [placeholder]="DATE_MASK_BR" [readonlyInput]="true" />
+                <app-error-block formControlName="birthDate" [show]="isSubmitted" />
             </div>
         </div>
     </div>
