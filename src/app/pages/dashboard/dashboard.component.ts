@@ -1,8 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataChartProps } from '@shared/components/data-chart/data-chart.component';
+import { IndicatorReportComponent } from '@shared/components/indicator-report/indicator-report.component';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { ExamTypesService } from '@shared/services/exam-types.service';
 import { LangService } from '@shared/services/lang.service';
@@ -24,15 +25,16 @@ export type DashboardItem = IResultEntry & { date: Date }
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit {
-  data: DataChartProps = { labels: [], datasets: [] }
-  start = new Date('2020-01-01')
-  end = new Date()
+
   examTypes: IExamTypes[] = []
   filteredExamTypes: IExamTypes[] = []
 
   items: DashboardItem[] = []
 
   isIndicatorModalShown = false
+
+  @ViewChild('indicatorReport') indicatorReport!: IndicatorReportComponent;
+
   isSubmittedIndicatorForm = false
   indicatorForm = new FormGroup({
     examType: new FormControl<string | null>(null, [Validators.required])
@@ -121,6 +123,11 @@ export class DashboardComponent implements AfterViewInit {
     });
   }
 
+  onDashboardCardClick(item: DashboardItem) {
+    this.indicatorReport.show(item.examType);
+    
+  }
+
   ngAfterViewInit(): void {
     this.examTypesService.getAll({
       filters: [{
@@ -135,25 +142,5 @@ export class DashboardComponent implements AfterViewInit {
       error: (err) => { }
     })
     this.fetchIndicators();
-
-    // this.reportService.getExamTypesReport(['6765bc1f6dfbc5d0f48390f0'], { start: this.start, end: this.end }).subscribe({
-    //   next: (res) => {
-    //     this.data = {
-    //       labels: getDateRange(this.start, this.end, 'days').map((date) => (dayjs(date).format(DATE_MASK_BR))),
-    //       datasets: res.data.map((item) => {
-    //         return {
-    //           label: item.examTypeId,
-    //           tension: .4,
-    //           data: item.values?.map((value) => value.values?.value ?? null),
-    //           spanGaps: true, // Habilita a interpolação (preenchendo os gaps com uma linha contínua)
-    //         }
-    //       })
-    //     }
-    //     console.log(this.data)
-    //   },
-    //   error: (error) => {
-
-    //   }
-    // })
   }
 }

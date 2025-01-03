@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LangService } from '@shared/services/lang.service';
+import { getCssVariableValue } from '@shared/utils/common';
 
 
 export type DataChartProps = {
@@ -14,23 +15,12 @@ export type DataChartProps = {
   }[]
 }
 
-// export type DataChartProps = {
-//   name: any;
-//   series: {
-//     name: any,
-//     value: number | null | undefined
-//   }[]
-// } | {
-//   name: any;
-//   value: string;
-// }
-
 @Component({
   selector: 'app-data-chart',
   templateUrl: './data-chart.component.html',
   styleUrls: ['./data-chart.component.scss']
 })
-export class DataChartComponent {
+export class DataChartComponent implements OnChanges {
   @Input('data') data!: DataChartProps;
   @Input('xAxisLabel') xAxisLabel: string = '';
   @Input('yAxisLabel') yAxisLabel: string = '';
@@ -46,6 +36,25 @@ export class DataChartComponent {
         labels: {
           color: '#ffffff', // Cor da legenda no tema dark
         }
+      },
+      tooltip: {
+        callbacks: {
+          // Customização do texto do tooltip
+          label: (context: any) => {
+            const value = context.raw; // Valor do ponto do gráfico
+            const name = context.dataset.label || ''; // Unidade, utilizando o label do dataset
+            const unit = this.yAxisLabel || ''; // Unidade, utilizando o label do dataset
+            return `${name}: ${value} ${unit}`; // Formatação no formato [valor] [unit]
+          }
+        },
+        bodyFont: {
+          family: 'Poppins',
+          size: 14
+        },
+        titleFont: {
+          family: 'Poppins',
+          size: 16
+        }
       }
     },
     elements: {
@@ -53,7 +62,7 @@ export class DataChartComponent {
         borderWidth: 2 // Espessura da linha
       },
       point: {
-        radius: 4 // Tamanho dos pontos
+        radius: 10 // Tamanho dos pontos
       }
     },
     layout: {
@@ -70,17 +79,24 @@ export class DataChartComponent {
         title: {
           display: true,
           text: this.xAxisLabel,
-          color: '#ffffff'
-        },
-        ticks: {
-          autoSkip: true, // Exibe todos os dias, se necessário
-          maxRotation: 45,
-          minRotation: 30,
-          maxTicksLimit: 10,
+          color: getCssVariableValue('--font-color'),
           font: {
             family: 'Poppins',
             size: 12, // Tamanho da fonte dos rótulos,
-            color: '#ffffff'
+            color: getCssVariableValue('--font-color'),
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          autoSkip: true, // Exibe todos os dias, se necessário
+          maxRotation: 0,
+          minRotation: 0,
+          maxTicksLimit: 10,
+          color: getCssVariableValue('--font-color'),
+          font: {
+            family: 'Poppins',
+            size: 12, // Tamanho da fonte dos rótulos,
+            color: getCssVariableValue('--font-color')
           }
         }
       },
@@ -89,13 +105,20 @@ export class DataChartComponent {
         title: {
           display: true,
           text: this.yAxisLabel,
-          color: '#ffffff'
-        },
-        ticks: {
+          color: getCssVariableValue('--font-color'),
           font: {
             family: 'Poppins',
             size: 12, // Tamanho da fonte dos rótulos,
-            color: '#ffffff',
+            color: getCssVariableValue('--font-color'),
+            weight: 'bold'
+          }
+        },
+        ticks: {
+          color: getCssVariableValue('--font-color'),
+          font: {
+            family: 'Poppins',
+            size: 12, // Tamanho da fonte dos rótulos,
+            color: getCssVariableValue('--font-color'),
             opacity: 1
           }
         },
@@ -109,6 +132,15 @@ export class DataChartComponent {
     private langService: LangService
   ) {
     this.legendTitle = this.langService.getMessage('legend');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['xAxisLabel']?.currentValue) {
+      this.options.scales.x.title.text = this.xAxisLabel;
+    }
+    if(changes['yAxisLabel']?.currentValue) {
+      this.options.scales.y.title.text = this.yAxisLabel;
+    }
   }
 
 }

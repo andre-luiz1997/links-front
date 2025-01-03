@@ -5,7 +5,7 @@ import { PermissionsDirective } from './directives/permissions.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
-import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask } from '@ng-icons/phosphor-icons/regular';
+import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight } from '@ng-icons/phosphor-icons/regular';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -25,9 +25,13 @@ import { RequiredLabelDirective } from './directives';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TimelineModule } from 'primeng/timeline';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { DataChartComponent } from './components/data-chart/data-chart.component';
+import { IndicatorReportComponent } from './components/indicator-report/indicator-report.component';
+import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,9 @@ import { DataChartComponent } from './components/data-chart/data-chart.component
     ConfirmationDialogComponent,
     AddressFormComponent,
     CustomDatePipe,
-    DataChartComponent
+    DataChartComponent,
+    IndicatorReportComponent,
+    DashboardCardComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +66,8 @@ import { DataChartComponent } from './components/data-chart/data-chart.component
     DropdownModule,
     NgxMaskDirective, NgxMaskPipe,
     ChartModule,
+    SkeletonModule,
+    TimelineModule,
     NgIconsModule.withIcons({
       phosphorHouseSimple,
       phosphorUser,
@@ -73,7 +81,8 @@ import { DataChartComponent } from './components/data-chart/data-chart.component
       phosphorEyeSlash,
       phosphorEye,
       phosphorFingerprint,
-      phosphorFlask
+      phosphorFlask,
+      phosphorArrowCircleRight
     }),
   ],
   exports: [
@@ -91,7 +100,9 @@ import { DataChartComponent } from './components/data-chart/data-chart.component
     ConfirmationDialogComponent,
     AddressFormComponent,
     CustomDatePipe,
-    DataChartComponent
+    DataChartComponent,
+    IndicatorReportComponent,
+    DashboardCardComponent
   ],
   providers: [
     provideNgxMask()

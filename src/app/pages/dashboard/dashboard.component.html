@@ -29,11 +29,13 @@
                     </button>
                 </div>
                 <app-dashboard-card [title]="item.examType.name" [value]="item.value" [unit]="item.examType.unit"
-                    [date]="item.date" />
+                    [date]="item.date" (click)="onDashboardCardClick(item)" />
             </div>
         </div>
     </div>
 </div>
+
+<app-indicator-report #indicatorReport />
 
 <p-dialog [(visible)]="isIndicatorModalShown" [modal]="true" [dismissableMask]="true" [draggable]="false"
     class="p-dialog-lg" (onHide)="closeIndicatorModal()">
@@ -47,8 +49,8 @@
                     <div class="form-group">
                         <label for="examType">{{ 'pages.dashboard.form.select_indicator' | translate }}</label>
                         <p-dropdown [filter]="true" filterBy="nome" requiredLabel="examType" class="form-control"
-                            formControlName="examType" [options]="filteredExamTypes" optionValue="_id" optionLabel="name"
-                            [placeholder]="'select.placeholder' | translate" appendTo="body">
+                            formControlName="examType" [options]="filteredExamTypes" optionValue="_id"
+                            optionLabel="name" [placeholder]="'select.placeholder' | translate" appendTo="body">
                             <ng-template pTemplate="empty">
                                 <span>{{ 'select.empty' | translate }}.</span>
                             </ng-template>

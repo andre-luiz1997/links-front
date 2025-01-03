@@ -8,6 +8,7 @@ import utc from 'dayjs/plugin/utc';
 dayjs.extend(relativeTime);
 dayjs.extend(timezone);
 dayjs.extend(utc);
+dayjs.locale('pt-BR');
 @Pipe({
 	name: 'customDate',
 })

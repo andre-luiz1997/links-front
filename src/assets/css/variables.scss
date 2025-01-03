@@ -37,4 +37,11 @@ $default_radius: 20px;
 $default_button_height: 2.5rem;
 $default_control_height: 40px;
 
+:root {
+    --main-color: #{$main_color};
+    --secondary-color: #{$secondary_color};
+    --font-color: #{$font_color};
+    --font-color-contrast: #{$font_color_contrast};
+}
+
 

@@ -33,6 +33,14 @@ $directions: (
     padding-top: $value;
     padding-bottom: $value;
   }
+
+  .m#{$i} {
+    margin: $value;
+  }
+
+  .p#{$i} {
+    padding: $value;
+  }
 }
 
 .text-center {

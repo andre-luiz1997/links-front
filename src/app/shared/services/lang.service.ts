@@ -205,7 +205,8 @@ const translation = {
 				indicators: 'Indicadores',
 				form: {
 					select_indicator: 'Selecione um indicador abaixo',
-				}
+				},
+				results_history: 'Histórico de resultados',
 			},
 			users: {
 				title: 'Usuários',

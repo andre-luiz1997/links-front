@@ -2,3 +2,10 @@
     display: block;
     width: 100%;
 }
+
+::ng-deep {
+    p-chart > div {
+        display: flex;
+        justify-content: center;
+    }
+}

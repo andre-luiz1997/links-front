@@ -79,3 +79,7 @@ export function getDateRange(
 
 	return result;
 }
+
+export function getCssVariableValue(variableName: string): string {
+	return getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
+}

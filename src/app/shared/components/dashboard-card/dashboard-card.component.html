@@ -1,7 +1,7 @@
-<div class="card">
+<div class="card no-hover">
     <ng-icon class="card-icon" name="phosphorDna" />
     <div class="card-row">
-        <div class="card-title">{{ title }}</div>
+        <div class="card-title" [innerHTML]="title"></div>
         <div class="card-body">
             <div class="card-value">
                 <div class="value">{{ sanitizedValue ?? 0 }}</div>
