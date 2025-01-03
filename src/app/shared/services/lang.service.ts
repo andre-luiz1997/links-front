@@ -201,7 +201,7 @@ const translation = {
 		pages: {
 			dashboard: {
 				title: 'Início',
-				configure_dashboard: 'Configure seu dashboard',
+				add_indicator: 'Adicionar indicador',
 				indicators: 'Indicadores'
 			},
 			users: {

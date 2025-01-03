@@ -3,7 +3,6 @@
 $card_color: $secondary_color;
 
 .card {
-    // background-color: darken($card_color, 40%);
     border: 1px solid $card_color;
     // border: none;
     position: relative;
@@ -34,7 +33,6 @@ $card_color: $secondary_color;
         opacity: 0.3;
         top: 0;
         transform: rotate(50grad);
-        // filter: blur(1px);
         color: $card_color;
     }
 
