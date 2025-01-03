@@ -1,4 +1,5 @@
-<a class="sidebar-item-container" [routerLink]="item.route" [ngClass]="{isToggled}" [pTooltip]="isToggled ? (item.title | translate) : null">
+<a class="sidebar-item-container" [routerLink]="item.route" [ngClass]="{isToggled}"
+  [pTooltip]="isToggled ? (('pages.' + item.title + '.title')| translate) : null">
   <ng-icon size="1.4rem" *ngIf="item.icon" [name]="item.icon" />
   <span>{{ ('pages.' + item.title + '.title') | translate }}</span>
 </a>

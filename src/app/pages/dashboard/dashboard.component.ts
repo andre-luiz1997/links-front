@@ -1,11 +1,14 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataChartProps } from '@shared/components/data-chart/data-chart.component';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { ExamTypesService } from '@shared/services/exam-types.service';
+import { LangService } from '@shared/services/lang.service';
+import { LoaderService } from '@shared/services/loader.service';
 import { ReportService } from '@shared/services/report.service';
+import { ToastService } from '@shared/services/toast.service';
 import { UserService } from '@shared/services/user.service';
 import { SharedModule } from '@shared/shared.module';
 import { IExamTypes, IResultEntry } from '@shared/types';
@@ -24,25 +27,36 @@ export class DashboardComponent implements AfterViewInit {
   data: DataChartProps = { labels: [], datasets: [] }
   start = new Date('2020-01-01')
   end = new Date()
-  selectedExamType: IExamTypes | null = null
   examTypes: IExamTypes[] = []
+  filteredExamTypes: IExamTypes[] = []
 
   items: DashboardItem[] = []
 
-  isDashboardConfigurationPanelVisible = false
-  configurationForm = new FormGroup({})
+  isIndicatorModalShown = false
+  isSubmittedIndicatorForm = false
+  indicatorForm = new FormGroup({
+    examType: new FormControl<string | null>(null, [Validators.required])
+  })
 
   constructor(
+    private examTypesService: ExamTypesService,
     private reportService: ReportService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService,
+    private loaderService: LoaderService,
+    private langService: LangService
   ) { }
 
-  saveConfiguration(key: SettingsEnum,value: any) {
-    this.userService.updateSetting({
-      key,
-      value
-    }).then((res) => {
-      console.log(res)
+  async saveConfiguration(key: SettingsEnum, value: any) {
+    return new Promise((resolve, reject) => {
+      this.userService.updateSetting({
+        key,
+        value
+      }).then((res) => {
+        resolve(res);
+      }).catch((err) => {
+        reject(err);
+      })
     })
   }
 
@@ -55,6 +69,7 @@ export class DashboardComponent implements AfterViewInit {
   removeItem(index: number) {
     this.items.splice(index, 1)
     this.saveConfiguration(SettingsEnum.DASHBOARD_INDICATORS, this.items.map((item) => item.examType._id))
+    this.setFilteredExamTypes()
   }
 
 
@@ -62,41 +77,83 @@ export class DashboardComponent implements AfterViewInit {
     return dayjs(value).format(DATE_MASK_BR)
   }
 
-  selectExamType($event: any) {
-    if (this.selectedExamType) this.items.push({
-      examType: this.selectedExamType,
-      date: new Date(),
-      value: 0
-    })
-    this.selectedExamType = null
+  closeIndicatorModal() {
+    this.isIndicatorModalShown = false
+    this.indicatorForm.reset()
   }
 
-  ngAfterViewInit(): void {
+  addIndicator() {
+    this.isSubmittedIndicatorForm = true
+    this.indicatorForm.updateValueAndValidity()
+    if (!this.indicatorForm.valid) return;
+    this.loaderService.show()
+    const items = this.items.map((item) => item.examType._id);
+    items.push(this.indicatorForm.value.examType!)
+    this.saveConfiguration(SettingsEnum.DASHBOARD_INDICATORS, items)
+      .then(() => {
+        this.fetchIndicators()
+        this.isIndicatorModalShown = false
+        this.isSubmittedIndicatorForm = false
+        this.loaderService.hide()
+      })
+      .catch(() => {
+        this.loaderService.hide()
+        this.toastService.show({
+          severity: 'error',
+          title: this.langService.getMessage('error_messages.error_occurred')
+        })
+      })
+  }
+
+  setFilteredExamTypes() {
+    this.filteredExamTypes = this.examTypes.filter(examType => {
+      return this.items.find(item => item.examType._id === examType._id) === undefined
+    })
+  }
+
+  fetchIndicators() {
     this.reportService.getDashboardIndicators().subscribe({
       next: (res) => {
         this.items = res.data
+        this.setFilteredExamTypes()
       }
 
     });
+  }
 
-    this.reportService.getExamTypesReport(['6765bc1f6dfbc5d0f48390f0'], { start: this.start, end: this.end }).subscribe({
+  ngAfterViewInit(): void {
+    this.examTypesService.getAll({
+      filters: [{
+        field: 'parentGroups',
+        operator: 'IS NULL OR NOT EXISTS',
+      }]
+    }).subscribe({
       next: (res) => {
-        this.data = {
-          labels: getDateRange(this.start, this.end, 'days').map((date) => (dayjs(date).format(DATE_MASK_BR))),
-          datasets: res.data.map((item) => {
-            return {
-              label: item.examTypeId,
-              tension: .4,
-              data: item.values?.map((value) => value.values?.value ?? null),
-              spanGaps: true, // Habilita a interpolação (preenchendo os gaps com uma linha contínua)
-            }
-          })
-        }
-        console.log(this.data)
+        this.examTypes = res.data.records.orderBy('name', 1)
+        this.setFilteredExamTypes()
       },
-      error: (error) => {
-
-      }
+      error: (err) => { }
     })
+    this.fetchIndicators();
+
+    // this.reportService.getExamTypesReport(['6765bc1f6dfbc5d0f48390f0'], { start: this.start, end: this.end }).subscribe({
+    //   next: (res) => {
+    //     this.data = {
+    //       labels: getDateRange(this.start, this.end, 'days').map((date) => (dayjs(date).format(DATE_MASK_BR))),
+    //       datasets: res.data.map((item) => {
+    //         return {
+    //           label: item.examTypeId,
+    //           tension: .4,
+    //           data: item.values?.map((value) => value.values?.value ?? null),
+    //           spanGaps: true, // Habilita a interpolação (preenchendo os gaps com uma linha contínua)
+    //         }
+    //       })
+    //     }
+    //     console.log(this.data)
+    //   },
+    //   error: (error) => {
+
+    //   }
+    // })
   }
 }

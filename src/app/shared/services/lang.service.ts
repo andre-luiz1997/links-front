@@ -202,7 +202,10 @@ const translation = {
 			dashboard: {
 				title: 'Início',
 				add_indicator: 'Adicionar indicador',
-				indicators: 'Indicadores'
+				indicators: 'Indicadores',
+				form: {
+					select_indicator: 'Selecione um indicador abaixo',
+				}
 			},
 			users: {
 				title: 'Usuários',

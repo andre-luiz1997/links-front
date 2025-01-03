@@ -4,7 +4,7 @@ $card_color: $secondary_color;
 
 .card {
     border: 1px solid $card_color;
-    // border: none;
+    background-color: $sidebar_color;
     position: relative;
     overflow: hidden;
     padding: 1rem 2rem;
