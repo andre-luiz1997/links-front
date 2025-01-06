@@ -1,6 +1,10 @@
 <div class="page">
     <div class="title-row">
         <h3 class="page-title">{{ 'pages.dashboard.title' | translate }}</h3>
+        <button type="button" class="btn btn-primary btn-circle btn-large table-btn"
+            [pTooltip]="'pages.dashboard.add_indicator' | translate" tooltipPosition="left">
+            <ng-icon name="phosphorPlus" size="1.5rem" />
+        </button>
     </div>
     <div class="page-content">
         <div class="grid">
@@ -8,10 +12,10 @@
                 <h3>{{ 'pages.dashboard.indicators' | translate }}</h3>
             </div>
             <div class="col-12 md:col-1 flex flex-row justify-content-end align-items-center">
-                <button type="button" class="btn btn-primary btn-circle table-btn"
-                    [pTooltip]="'pages.dashboard.add_indicator' | translate" tooltipPosition="left"
+                <button type="button" class="btn btn-secondary btn-circle table-btn"
+                    [pTooltip]="'pages.dashboard.configure_indicator' | translate" tooltipPosition="left"
                     (click)="isIndicatorModalShown = true">
-                    <ng-icon name="phosphorPlus" size="1.2rem" />
+                    <ng-icon name="phosphorPencilSimple" size="1.2rem" />
                 </button>
             </div>
         </div>

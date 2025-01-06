@@ -203,6 +203,7 @@ const translation = {
 			dashboard: {
 				title: 'Início',
 				add_indicator: 'Adicionar indicador',
+				configure_indicator: 'Configurar indicadores',
 				indicators: 'Indicadores',
 				form: {
 					select_indicator: 'Selecione um indicador abaixo',
@@ -272,7 +273,11 @@ const translation = {
 					edit: 'Editar indicador de saúde',
 					delete: 'Excluir indicador de saúde',
 					view: 'Visualizar indicadores de saúde',
-				}
+				},
+				unit: 'Unidade de medida',
+				unit_example: 'kg',
+				name_example: 'Peso',
+				description_example: 'Exemplo: Peso corporal',
 			},
 			exam_types: {
 				name_example: 'Colesterol LDL',

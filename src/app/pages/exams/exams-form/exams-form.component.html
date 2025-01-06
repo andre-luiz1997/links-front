@@ -37,12 +37,12 @@
                     <div class="result-card card" *ngFor="let result of results; let index = index">
                         <div class="card-buttons">
                             <button type="button" [pTooltip]="'pages.exams.form.results.edit' | translate"
-                                tooltipPosition="left" class="btn btn-default btn-circle table-btn"
+                                tooltipPosition="left" class="btn btn-primary btn-circle table-btn"
                                 (click)="editResult(index)">
                                 <ng-icon name="phosphorPencilSimple" size="1.2rem" />
                             </button>
                             <button type="button" [pTooltip]="'pages.exams.form.results.delete' | translate"
-                                tooltipPosition="left" class="btn btn-default btn-circle table-btn"
+                                tooltipPosition="left" class="btn btn-primary btn-circle table-btn"
                                 (click)="deleteResult(index)">
                                 <ng-icon name="phosphorTrashSimple" size="1.2rem" />
                             </button>

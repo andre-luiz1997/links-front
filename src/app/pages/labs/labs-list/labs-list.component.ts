@@ -25,7 +25,20 @@ export class LabsListComponent {
   ) { }
 
   toggleStatus(_id: string, value?: boolean) {
-
+    this.labsService.update(_id, { status: value }).subscribe({
+      next: (res) => {
+        this.toastService.show({
+          severity: 'success',
+          description: this.langService.getMessage('success_messages.record_saved_successfully')
+        })
+      },
+      error: (res) => {
+        this.toastService.show({
+          severity: 'error',
+          description: this.langService.getMessage('error_messages.error_occurred')
+        })
+      }
+    });
   }
 
   getAll(event?: any) {

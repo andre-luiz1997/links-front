@@ -7,4 +7,5 @@ export interface IHealthIndicators extends DBEntity {
      * @example mg/dl
      */
     unit?: string;
+    status: boolean;
   }

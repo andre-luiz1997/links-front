@@ -25,7 +25,6 @@ export class ExamTypesListComponent {
   ) { }
 
   getAll(event?: any) {
-    console.log("🚀 ~ ExamTypesListComponent ~ getAll ~ event:", event)
     this.isLoading = true;
     const props: DefaultPaginatedRequest = {
       skip: event?.first,

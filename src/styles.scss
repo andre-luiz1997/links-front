@@ -66,6 +66,16 @@ small {
     }
   }
 
+  &.btn-secondary {
+    background-color: $secondary_color;
+    color: $font_color_contrast;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $secondary_color_darker;
+    }
+  }
+
   &.btn-danger {
     background-color: $danger_color;
     color: $font_color;
@@ -91,17 +101,17 @@ small {
     padding: 0.5rem;
   }
 
+  &.btn-large {
+    border-radius: 100%;
+    padding: 1rem;
+  }
+
   &.table-btn {
-    background-color: $main_color;
     color: $font_color_contrast;
     cursor: pointer;
 
     ng-icon {
       color: $font_color_contrast
-    }
-
-    &:hover {
-      background-color: $main_color_darker;
     }
   }
 }
