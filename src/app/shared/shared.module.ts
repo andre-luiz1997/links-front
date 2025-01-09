@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
 import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight, phosphorHeartbeat } from '@ng-icons/phosphor-icons/regular';
+import { phosphorBarbellFill, phosphorDropFill, phosphorFireFill } from '@ng-icons/phosphor-icons/fill';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -32,6 +33,10 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { DataChartComponent } from './components/data-chart/data-chart.component';
 import { IndicatorReportComponent } from './components/indicator-report/indicator-report.component';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
+import { HealthIndicatorCardComponent } from './components/health-indicator-card/health-indicator-card.component';
+import { PlaceholderChartComponent } from './components/placeholder-chart/placeholder-chart.component';
+import { phosporDefaultIcons } from '.';
+import { HealthIndicatorModalComponent } from './components/health-indicator-modal/health-indicator-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +57,10 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
     CustomDatePipe,
     DataChartComponent,
     IndicatorReportComponent,
-    DashboardCardComponent
+    DashboardCardComponent,
+    HealthIndicatorCardComponent,
+    PlaceholderChartComponent,
+    HealthIndicatorModalComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +77,7 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
     SkeletonModule,
     TimelineModule,
     NgIconsModule.withIcons({
+      ...phosporDefaultIcons,
       phosphorHouseSimple,
       phosphorUser,
       phosphorFile,
@@ -83,7 +92,10 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
       phosphorFingerprint,
       phosphorFlask,
       phosphorArrowCircleRight,
-      phosphorHeartbeat
+      phosphorHeartbeat,
+      phosphorDropFill,
+      phosphorBarbellFill,
+      phosphorFireFill
     }),
   ],
   exports: [
@@ -103,7 +115,10 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
     CustomDatePipe,
     DataChartComponent,
     IndicatorReportComponent,
-    DashboardCardComponent
+    DashboardCardComponent,
+    HealthIndicatorCardComponent,
+    PlaceholderChartComponent,
+    HealthIndicatorModalComponent
   ],
   providers: [
     provideNgxMask()

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CURRENCY_MASK } from '@shared/utils/constants';
 import { isEmpty } from '@shared/utils/common';
+import { HealthIndicatorEnum } from '@shared/types';
 type langs = 'pt-BR';
 // {[key in langs]: {[x: string]: string | {[x: string]: string}}}
 const translation = {
@@ -34,7 +35,7 @@ const translation = {
 		},
 		delete_confirmation: {
 			title: 'Você está prestes a deletar este registro',
-			description: 'Esta ação não pode ser desfeita. Deseja realmente continuar?' 
+			description: 'Esta ação não pode ser desfeita. Deseja realmente continuar?'
 		},
 		validation_error: {
 			required: 'Campo obrigatório',
@@ -173,7 +174,7 @@ const translation = {
 		not_informed: 'Não informado',
 
 		password: 'Senha',
-		password_confirm: 'Confirmar senha', 
+		password_confirm: 'Confirmar senha',
 		forgot_password: 'Esqueceu a senha?',
 		show_password: 'Mostrar senha',
 		hide_password: 'Ocultar senha',
@@ -205,6 +206,7 @@ const translation = {
 				add_indicator: 'Adicionar indicador',
 				configure_indicator: 'Configurar indicadores',
 				indicators: 'Indicadores',
+				your_health_indicators: 'Seus parâmetros de saúde',
 				form: {
 					select_indicator: 'Selecione um indicador abaixo',
 				},
@@ -242,11 +244,11 @@ const translation = {
 						delete: 'Excluir resultado',
 						delete_confirmation: {
 							title: 'Você está prestes a excluir este resultado',
-							description: 'Deseja realmente continuar?' 
+							description: 'Deseja realmente continuar?'
 						},
 						warning: {
 							title: 'Você já adicionor um resultado para este tipo de exame',
-							description: 'Deseja realmente continuar?' 
+							description: 'Deseja realmente continuar?'
 						}
 					},
 					no_results: 'Nenhum resultado foi inserido. Clique no botão acima (+) para adicionar.',
@@ -278,6 +280,11 @@ const translation = {
 				unit_example: 'kg',
 				name_example: 'Peso',
 				description_example: 'Exemplo: Peso corporal',
+				enum: {
+					"blood-pressure": 'Pressão arterial',
+					weight: 'Peso',
+					calories: 'Calorias',
+				} as Record<HealthIndicatorEnum, string>
 			},
 			exam_types: {
 				name_example: 'Colesterol LDL',
@@ -317,7 +324,7 @@ const translation = {
 				age_range: 'Faixa etária',
 				values: 'Valor de referência',
 				fasting: 'Com jejum',
-				non_fasting: 'Sem jejum',	
+				non_fasting: 'Sem jejum',
 				leave_non_fasting_empty: 'Deixe em branco se não houver diferença entre os valores com e sem jejum',
 				category_example: 'Exemplo: Risco baixo, Risco alto, Deficiência, Toxicidade',
 			},

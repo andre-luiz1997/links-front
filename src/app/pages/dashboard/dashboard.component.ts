@@ -12,7 +12,7 @@ import { ReportService } from '@shared/services/report.service';
 import { ToastService } from '@shared/services/toast.service';
 import { UserService } from '@shared/services/user.service';
 import { SharedModule } from '@shared/shared.module';
-import { IExamTypes, IResultEntry } from '@shared/types';
+import { HealthIndicatorEnum, IExamTypes, IResultEntry } from '@shared/types';
 import { getDateRange, isEmpty } from '@shared/utils/common';
 import { DATE_MASK_BR, SettingsEnum } from '@shared/utils/constants';
 import dayjs from 'dayjs';
@@ -25,7 +25,7 @@ export type DashboardItem = IResultEntry & { date: Date }
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit {
-
+  health_indicators: HealthIndicatorEnum[] = [HealthIndicatorEnum.WEIGHT, HealthIndicatorEnum.BLOOD_PRESSURE, HealthIndicatorEnum.CALORIES]
   examTypes: IExamTypes[] = []
   filteredExamTypes: IExamTypes[] = []
 

@@ -1,0 +1,56 @@
+@import 'variables';
+
+$chart-padding: 2rem;
+
+.chart {
+    min-height: 200px;
+    width: 100%;
+    position: relative;
+
+    .chart-x {
+        background: #{$font_color}3A;
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        bottom: $chart-padding;
+        left: 0;
+    }
+
+    .chart-y {
+        background: #{$font_color}3A;
+        width: 2px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: $chart-padding;
+    }
+
+    .chart-items {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        padding: $chart-padding calc(2 * $chart-padding);
+        align-items: flex-end;
+
+        .item {
+            background-color: white;
+            width: 100%;
+            border-top-left-radius: $default_radius;
+            border-top-right-radius: $default_radius;
+            animation: height-animation 1s ease;
+            opacity: .3;
+        }
+    }
+}
+
+@keyframes height-animation {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 100%;
+    }
+}

@@ -1,0 +1,19 @@
+@import 'variables';
+
+.card {
+    background-color: $background_color;
+    border: none;
+
+    .card-icon {
+        padding: 1rem;
+        border-radius: $default_radius;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .placeholder-chart {
+        padding: 20px;
+    }
+}
+

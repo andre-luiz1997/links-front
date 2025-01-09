@@ -1,0 +1,7 @@
+<div class="chart">
+    <div class="chart-x"></div>
+    <div class="chart-y"></div>
+    <div class="chart-items">
+        <div *ngFor="let item of items" class="item" [ngStyle]="{'height': item.height + 'px'}"></div>
+    </div>
+</div>

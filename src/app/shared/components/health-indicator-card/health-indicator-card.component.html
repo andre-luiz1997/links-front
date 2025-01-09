@@ -1,0 +1,21 @@
+<div class="card flex flex-column p-4">
+    <div class="card-header flex flex-row align-items-start justify-content-between">
+        <div class="card-title">{{ ('pages.health_indicators.enum.' + indicator) | translate }}</div>
+        <div class="card-icon font-large" *ngIf="icon"
+            [ngStyle]="{'background-color': icon.background ? (icon.background + '23') : (icon.color + '23')}"><ng-icon
+                [name]="icon.name" [color]="icon.color" /></div>
+    </div>
+    <div class="card-body">
+        <div class="placeholder-chart">
+            <app-placeholder-chart />
+        </div>
+    </div>
+    <div class="card-buttons">
+        <button type="button" class="btn btn-default btn-circle table-btn"
+            [pTooltip]="'add' | translate" [autoHide]="false" tooltipPosition="left" (click)="openIndicatorModal()">
+            <ng-icon name="phosphorPlus" size="1.2rem" />
+        </button>
+    </div>
+</div>
+
+<app-health-indicator-modal #healthIndicatorModal />

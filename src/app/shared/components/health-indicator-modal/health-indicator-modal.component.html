@@ -1,0 +1,21 @@
+<p-dialog [(visible)]="isIndicatorModalOpen" [modal]="true" [dismissableMask]="true" [draggable]="false"
+    class="p-dialog-lg" (onHide)="close()">
+    <ng-template pTemplate="header">
+        <h1>{{ ('pages.health_indicators.enum.' + indicator) | translate }}</h1>
+    </ng-template>
+    <ng-template pTemplate="content">
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="grid">
+            <div class="col-12 md:col-6">
+                <button (click)="close()" type="button" class="btn btn-default mr-auto">{{ 'close' |
+                    translate }}</button>
+            </div>
+            <div class="col-12 md:col-6">
+                <button (click)="save()" type="button" class="btn btn-primary ml-auto">{{ 'save' | translate
+                    }}</button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
