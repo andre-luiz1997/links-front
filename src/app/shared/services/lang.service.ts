@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CURRENCY_MASK } from '@shared/utils/constants';
+import { CALENDAR_DATE_FORMAT_BR, CALENDAR_DATETIME_FORMAT_BR, CURRENCY_MASK } from '@shared/utils/constants';
 import { isEmpty } from '@shared/utils/common';
 import { HealthIndicatorEnum } from '@shared/types';
 type langs = 'pt-BR';
@@ -131,6 +131,7 @@ const translation = {
 			trial_period_days: 'Dias de teste',
 			trial_period_days_info: 'Quantidades de dias que o cliente tem para testar o plano antes de ser cobrado',
 		},
+		date: 'Data',
 		day: 'Dia',
 		days: 'Dias',
 		week: 'Semana',
@@ -150,6 +151,15 @@ const translation = {
 		min: 'Mínimo',
 		max: 'Máximo',
 		category: 'Categoria',
+
+		last_24_hours: 'Últimas 24 horas',
+		last_3_days: 'Últimos 3 dias',
+		last_week: 'Última semana',
+		last_month: 'Último mês',
+		last_3_months: 'Últimos 3 meses',
+		last_6_months: 'Últimos 6 meses',
+		last_year: 'Último ano',
+		all_time: 'Tudo',
 
 		status: 'Status',
 		active: 'Ativo',
@@ -280,11 +290,33 @@ const translation = {
 				unit_example: 'kg',
 				name_example: 'Peso',
 				description_example: 'Exemplo: Peso corporal',
+				date: 'Data da medição',
 				enum: {
-					"blood-pressure": 'Pressão arterial',
-					weight: 'Peso',
-					calories: 'Calorias',
-				} as Record<HealthIndicatorEnum, string>
+					[HealthIndicatorEnum.BLOOD_PRESSURE]: {
+						title: 'Pressão arterial',
+						question: 'Qual o valor da sua última medição de pressão?',
+						unit: 'mmHg',
+						mask: '00/00',
+					},
+					[HealthIndicatorEnum.WEIGHT]: {
+						title: 'Peso',
+						question: 'Qual o seu peso atual?',
+						unit: 'kg',
+						mask: '000,0',
+					},
+					[HealthIndicatorEnum.CALORIES]: {
+						title: 'Calorias',
+						question: 'Informe sua última contagem de calorias diárias',
+						unit: 'kcal',
+						mask: '0000',
+					},
+					[HealthIndicatorEnum.SLEEPING_HOURS]: {
+						title: 'Horas de sono',
+						question: 'Quantas horas você dormiu na última noite?',
+						unit: 'horas',
+						mask: '00:00',
+					},
+				} as Record<HealthIndicatorEnum, any>
 			},
 			exam_types: {
 				name_example: 'Colesterol LDL',

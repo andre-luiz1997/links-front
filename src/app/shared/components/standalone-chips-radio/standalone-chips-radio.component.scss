@@ -1,0 +1,22 @@
+@import 'variables';
+
+.chip {
+    border: 1px solid $default_color;
+    border-radius: $default_radius;
+    padding: .5rem 1rem;
+    font-size: .8rem;
+    opacity: .6;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $main_color;
+        opacity: 1;
+    }
+
+    &.selected {
+        background-color: $main_color;
+        color: $font_color_contrast;
+        opacity: 1;
+    }
+}

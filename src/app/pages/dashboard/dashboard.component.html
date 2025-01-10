@@ -1,10 +1,6 @@
 <div class="page">
     <div class="title-row">
         <h3 class="page-title">{{ 'pages.dashboard.title' | translate }}</h3>
-        <!-- <button type="button" class="btn btn-primary btn-circle btn-large table-btn"
-            [pTooltip]="'pages.dashboard.add_indicator' | translate" tooltipPosition="left">
-            <ng-icon name="phosphorPlus" size="1.5rem" />
-        </button> -->
     </div>
     <div class="page-content">
         <div class="grid">
@@ -36,12 +32,14 @@
                     [date]="item.date" (click)="onDashboardCardClick(item)" />
             </div>
         </div>
-        <div class="grid">
-            <div class="col-12">
+        <div class="grid mt-6">
+            <div class="col-12 flex flex-sm-column flex-md-row align-items-center justify-content-between">
                 <h3>{{ 'pages.dashboard.your_health_indicators' | translate }}</h3>
+                <app-standalone-chips-radio [(selectedIndex)]="selectedPeriod" (selectedIndexChange)="onSelectedPeriodChange($event)" [values]="periodOptions" />
             </div>
-            <div class="col-12 cards-container">
-                <app-health-indicator-card *ngFor="let health_indicator of health_indicators" [indicator]="health_indicator" />
+            <div class="col-12 health-indicators-container">
+                <app-health-indicator-card *ngFor="let health_indicator of health_indicators"
+                    [indicator]="health_indicator" [period]="periodOptions[selectedPeriod].value" />
             </div>
         </div>
     </div>

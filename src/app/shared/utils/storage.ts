@@ -8,6 +8,7 @@ const STORAGE_KEYS = {
 	USER: 'user',
 	ROLE: 'role',
     TOGGLE_SIDEBAR: 'toggle_sidebar',
+	DASHBOARD_PERIOD: 'dashboard_period',
 };
 
 function setStorage(key: string, value: any) {

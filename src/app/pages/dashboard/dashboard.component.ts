@@ -4,6 +4,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataChartProps } from '@shared/components/data-chart/data-chart.component';
 import { IndicatorReportComponent } from '@shared/components/indicator-report/indicator-report.component';
+import { ChipsRadioValue } from '@shared/components/standalone-chips-radio/standalone-chips-radio.component';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { ExamTypesService } from '@shared/services/exam-types.service';
 import { LangService } from '@shared/services/lang.service';
@@ -15,6 +16,7 @@ import { SharedModule } from '@shared/shared.module';
 import { HealthIndicatorEnum, IExamTypes, IResultEntry } from '@shared/types';
 import { getDateRange, isEmpty } from '@shared/utils/common';
 import { DATE_MASK_BR, SettingsEnum } from '@shared/utils/constants';
+import { STORAGE } from '@shared/utils/storage';
 import dayjs from 'dayjs';
 
 export type DashboardItem = IResultEntry & { date: Date }
@@ -25,13 +27,49 @@ export type DashboardItem = IResultEntry & { date: Date }
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit {
-  health_indicators: HealthIndicatorEnum[] = [HealthIndicatorEnum.WEIGHT, HealthIndicatorEnum.BLOOD_PRESSURE, HealthIndicatorEnum.CALORIES]
+  health_indicators: HealthIndicatorEnum[] = [HealthIndicatorEnum.WEIGHT, HealthIndicatorEnum.BLOOD_PRESSURE, HealthIndicatorEnum.CALORIES, HealthIndicatorEnum.SLEEPING_HOURS]
   examTypes: IExamTypes[] = []
   filteredExamTypes: IExamTypes[] = []
 
   items: DashboardItem[] = []
 
   isIndicatorModalShown = false
+
+  periodOptions: ChipsRadioValue[] = [
+    {
+      label: 'last_24_hours',
+      value: [24, 'hours']
+    },
+    {
+      label: 'last_3_days',
+      value: [3 * 24, 'hours']
+    },
+    {
+      label: 'last_week',
+      value: [1, 'week']
+    },
+    {
+      label: 'last_month',
+      value: [1, 'month']
+    },
+    {
+      label: 'last_3_months',
+      value: [3, 'months']
+    },
+    {
+      label: 'last_6_months',
+      value: [6, 'months']
+    },
+    {
+      label: 'last_year',
+      value: [1, 'year']
+    },
+    {
+      label: 'all_time',
+      value: null
+    }
+  ]
+  selectedPeriod: number = STORAGE.get(STORAGE.keys.DASHBOARD_PERIOD) ?? 0;
 
   @ViewChild('indicatorReport') indicatorReport!: IndicatorReportComponent;
 
@@ -62,6 +100,10 @@ export class DashboardComponent implements AfterViewInit {
     })
   }
 
+  onSelectedPeriodChange(value: number) {
+    STORAGE.set(STORAGE.keys.DASHBOARD_PERIOD, value)
+  }
+ 
   // Método para reordenar itens na seção
   onItemDrop(event: CdkDragDrop<DashboardItem[]>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
@@ -125,7 +167,7 @@ export class DashboardComponent implements AfterViewInit {
 
   onDashboardCardClick(item: DashboardItem) {
     this.indicatorReport.show(item.examType);
-    
+
   }
 
   ngAfterViewInit(): void {

@@ -1,0 +1,5 @@
+<div class="flex flex-row align-items-center justify-content-center gap-2">
+    <div class="chip" *ngFor="let chip of values; let index = index" [ngClass]="{selected: selectedIndex === index}" (click)="setSelectedChip(index)">
+        {{ chip.label | translate }}
+    </div>
+</div>

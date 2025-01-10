@@ -1,13 +1,54 @@
 <p-dialog [(visible)]="isIndicatorModalOpen" [modal]="true" [dismissableMask]="true" [draggable]="false"
-    class="p-dialog-lg" (onHide)="close()">
+    class="p-dialog-md" (onHide)="close()" (onShow)="focus()">
     <ng-template pTemplate="header">
-        <h1>{{ ('pages.health_indicators.enum.' + indicator) | translate }}</h1>
+        <h1>{{ ('pages.health_indicators.enum.' + indicator + '.title') | translate }}</h1>
     </ng-template>
     <ng-template pTemplate="content">
-
+        <div class="grid gap-4 relative">
+            <div class="col-12 sticky top-0 left-0 sidebar-background z10">
+                <form [formGroup]="form">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="form-group">
+                                <label for="value">
+                                    {{ ('pages.health_indicators.enum.' + indicator + '.question') | translate }}
+                                </label>
+                                <div class="input-group w100">
+                                    <input type="text" formControlName="value"
+                                        [mask]="('pages.health_indicators.enum.' + indicator + '.mask') | translate"
+                                        thousandSeparator="." decimalMarker="," class="form-control w100"
+                                        requiredLabel="value" autofocus [showMaskTyped]="true" [dropSpecialCharacters]="false" #valueInput>
+                                    <div class="posfix">
+                                        {{ ('pages.health_indicators.enum.' + indicator + '.unit') | translate }}
+                                    </div>
+                                </div>
+                                <app-error-block formControlName="value" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="form-group">
+                                <label for="date">{{ ('pages.health_indicators.date') | translate }}</label>
+                                <p-datepicker formControlName="date" [dateFormat]="CALENDAR_DATE_FORMAT_BR"
+                                    requiredLabel="date" [placeholder]="DATE_MASK_BR" [readonlyInput]="true"
+                                    appendTo="body" [showTime]="true" />
+                                <app-error-block formControlName="date" [show]="isSubmitted" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12">
+                <div class="bento-card">
+                    <strong class="text-center">
+                        {{ 'pages.dashboard.results_history' | translate }}
+                    </strong>
+                    <ng-container *ngTemplateOutlet="itemsList" />
+                </div>
+            </div>
+        </div>
     </ng-template>
     <ng-template pTemplate="footer">
-        <div class="grid">
+        <div class="grid w100">
             <div class="col-12 md:col-6">
                 <button (click)="close()" type="button" class="btn btn-default mr-auto">{{ 'close' |
                     translate }}</button>
@@ -19,3 +60,19 @@
         </div>
     </ng-template>
 </p-dialog>
+
+<ng-template #itemsList>
+    <ng-container *ngIf="!indicators?.length">
+        <span class="text-center w100">{{ 'select.empty' | translate }}</span>
+    </ng-container>
+    <p-timeline [value]="indicators" align="left">
+        <ng-template pTemplate="opposite" let-item>
+            <small>{{ item.date | customDate:{time: true} }}</small>
+        </ng-template>
+        <ng-template pTemplate="content" let-item>
+            <span>{{ getFormattedValue(item) }} <small>
+                    {{ ('pages.health_indicators.enum.' + indicator + '.unit') | translate }}
+                </small></span>
+        </ng-template>
+    </p-timeline>
+</ng-template>

@@ -8,6 +8,14 @@ $directions: (
   "l": "left",
 );
 
+.z0 {
+  z-index: 0;
+}
+
+.z10 {
+  z-index: 10;
+}
+
 // Loop para padding
 @for $i from 0 through 6 {
   $value: $i * 0.5rem;
@@ -122,6 +130,7 @@ $directions: (
 .w100px {
   width: 100px;
 }
+
 .w150px {
   width: 150px;
 }
@@ -167,7 +176,7 @@ $directions: (
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .show {

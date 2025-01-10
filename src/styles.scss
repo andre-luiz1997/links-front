@@ -20,6 +20,14 @@ small {
   font-size: .8rem;
 }
 
+.background {
+  background-color: $background_color;
+}
+
+.sidebar-background {
+  background-color: $sidebar_color;
+}
+
 .btn-link {
   display: block;
   background: none;
@@ -277,6 +285,44 @@ td.actions {
 }
 
 
+.p-dialog-lg {
+  .p-dialog {
+    @media (min-width: $lg-breakpoint) {
+      width: 80vw;
+    }
+
+    @media (max-width: calc($lg-breakpoint - 1px)) {
+      width: 95vw;
+    }
+
+    .p-dialog-header,
+    .p-dialog-content,
+    .p-dialog-footer {
+      background-color: $sidebar_color;
+      color: $font_color;
+    }
+  }
+}
+
+.p-dialog-md {
+  .p-dialog {
+    @media (min-width: $lg-breakpoint) {
+      width: 50vw;
+    }
+
+    @media (max-width: calc($lg-breakpoint - 1px)) {
+      width: 95vw;
+    }
+
+    .p-dialog-header,
+    .p-dialog-content,
+    .p-dialog-footer {
+      background-color: $sidebar_color;
+      color: $font_color;
+    }
+  }
+}
+
 
 section.section {
   padding: .5rem;
@@ -321,6 +367,15 @@ section.section {
     background: $sidebar_color;
     padding: 0 .5rem;
   }
+}
+
+.bento-card {
+  background-color: $background_color;
+  padding: 1rem;
+  border-radius: $default_radius;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .card {

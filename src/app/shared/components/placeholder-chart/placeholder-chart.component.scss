@@ -2,6 +2,10 @@
 
 $chart-padding: 2rem;
 
+:host {
+    height: 100%;
+}
+
 .chart {
     min-height: 200px;
     width: 100%;

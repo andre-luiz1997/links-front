@@ -40,7 +40,6 @@ export class IndicatorReportComponent {
     this.isLoadingIndicators = true
     this.reportService.getExamTypesReport([examType._id], { start: this.start, end: this.end }).subscribe({
       next: (res) => {
-        console.log("🚀 ~ IndicatorReportComponent ~ this.reportService.getExamTypesReport ~ res:", res)
         this.isLoadingIndicators = false
         this.items = []
         this.data = {

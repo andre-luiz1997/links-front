@@ -9,6 +9,8 @@ export type FilterOperators =
 	| 'LESS THAN'
 	| 'LESS THAN OR EQUAL'
 	| 'IN'
+	| 'IS'
+	| 'IS NOT'
 	| 'NOT IN'
 	| 'IS NULL'
 	| 'IS NULL OR NOT EXISTS'

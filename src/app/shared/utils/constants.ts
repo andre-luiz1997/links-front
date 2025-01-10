@@ -3,6 +3,7 @@ export const DATE_MASK_US = 'YYYY-MM-DD';
 export const TIME_MASK = 'HH:mm';
 export const DATE_MASK_BR = 'DD/MM/YYYY';
 export const CALENDAR_DATE_FORMAT_BR = 'dd/mm/yy';
+export const CALENDAR_DATETIME_FORMAT_BR = 'dd/mm/yy HH:MM';
 export const MONTH_MASK = 'YYYY-MM';
 export const MONTH_MASK_BR = 'MM/YYYY';
 export const DATE_TIME_MASK_BR = 'DD/MM/YYYY HH:mm';

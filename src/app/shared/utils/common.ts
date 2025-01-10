@@ -1,5 +1,5 @@
 import type { LangService } from "@shared/services/lang.service";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { formatToCurrency } from "./currency";
 
 export function isEmpty<T>(value: T): value is Extract<T, undefined | null | ''> {
@@ -47,7 +47,7 @@ export function getErrorMessage(langService: LangService, error: string, options
 export function getDateRange(
 	start: Date,
 	end: Date,
-	type: 'days' | 'months',
+	type: dayjs.ManipulateType,
 ): string[] {
 	const startDate = dayjs(start);
 	const endDate = dayjs(end);
@@ -61,20 +61,33 @@ export function getDateRange(
 	}
 
 	const result: string[] = [];
-
-	if (type === 'days') {
-		let current = startDate;
-		while (current.isBefore(endDate) || current.isSame(endDate)) {
-			result.push(current.format('YYYY-MM-DD'));
-			current = current.add(1, 'day');
+	let format: string = 'YYYY-MM-DD HH:00';
+	let step: number = 1;
+	let unit: dayjs.OpUnitType = 'days';
+	switch (type) {
+		case 'minutes': {
+			unit = 'minutes';
+			break;
 		}
-	} else if (type === 'months') {
-		let current = startDate.startOf('month');
-		const endMonth = endDate.startOf('month');
-		while (current.isBefore(endMonth) || current.isSame(endMonth)) {
-			result.push(current.format('YYYY-MM'));
-			current = current.add(1, 'month');
+		case 'hours': {
+			unit = 'hours';
+			break;
 		}
+		case 'days': {
+			format = 'YYYY-MM-DD';
+			unit = 'days';
+			break;
+		}
+		case 'months': {
+			format = 'YYYY-MM';
+			unit = 'months';
+			break;
+		}
+	}
+	let current = startDate;
+	while (current.isBefore(endDate) || current.isSame(endDate)) {
+		result.push(current.format(format));
+		current = current.add(step, unit);
 	}
 
 	return result;

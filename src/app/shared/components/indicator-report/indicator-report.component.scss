@@ -1,13 +1,6 @@
 @import "variables";
 
-.bento-card {
-    background-color: $background_color;
-    padding: 1rem;
-    border-radius: $default_radius;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
+
 
 .skeleton-container {
     min-height: 300px;

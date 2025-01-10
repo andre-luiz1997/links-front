@@ -30,24 +30,13 @@
 }
 
 
-::ng-deep {
-    .p-dialog-lg {
-        .p-dialog {
-            @media (min-width: $lg-breakpoint) {
-                width: 80vw;
-            }
+.health-indicators-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 
-            @media (max-width: calc($lg-breakpoint - 1px)) {
-                width: 95vw;
-            }
-
-            .p-dialog-header,
-            .p-dialog-content,
-            .p-dialog-footer {
-                background-color: $sidebar_color;
-                color: $font_color;
-            }
-        }
+    @media (max-width: $md-breakpoint) {
+        grid-template-columns: 1fr;
     }
 }
 

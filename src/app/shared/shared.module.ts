@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
 import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight, phosphorHeartbeat } from '@ng-icons/phosphor-icons/regular';
-import { phosphorBarbellFill, phosphorDropFill, phosphorFireFill } from '@ng-icons/phosphor-icons/fill';
+import { phosphorBarbellFill, phosphorDropFill, phosphorFireFill, phosphorMoonStarsFill } from '@ng-icons/phosphor-icons/fill';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -37,6 +37,9 @@ import { HealthIndicatorCardComponent } from './components/health-indicator-card
 import { PlaceholderChartComponent } from './components/placeholder-chart/placeholder-chart.component';
 import { phosporDefaultIcons } from '.';
 import { HealthIndicatorModalComponent } from './components/health-indicator-modal/health-indicator-modal.component';
+import { DatePickerModule } from 'primeng/datepicker';
+import { TableModule } from 'primeng/table';
+import { StandaloneChipsRadioComponent } from './components/standalone-chips-radio/standalone-chips-radio.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,9 @@ import { HealthIndicatorModalComponent } from './components/health-indicator-mod
     DashboardCardComponent,
     HealthIndicatorCardComponent,
     PlaceholderChartComponent,
-    HealthIndicatorModalComponent
+    HealthIndicatorModalComponent,
+    StandaloneChipsRadioComponent
+    
   ],
   imports: [
     CommonModule,
@@ -76,6 +81,8 @@ import { HealthIndicatorModalComponent } from './components/health-indicator-mod
     ChartModule,
     SkeletonModule,
     TimelineModule,
+    DatePickerModule,
+    TableModule,
     NgIconsModule.withIcons({
       ...phosporDefaultIcons,
       phosphorHouseSimple,
@@ -95,7 +102,8 @@ import { HealthIndicatorModalComponent } from './components/health-indicator-mod
       phosphorHeartbeat,
       phosphorDropFill,
       phosphorBarbellFill,
-      phosphorFireFill
+      phosphorFireFill,
+      phosphorMoonStarsFill
     }),
   ],
   exports: [
@@ -118,7 +126,8 @@ import { HealthIndicatorModalComponent } from './components/health-indicator-mod
     DashboardCardComponent,
     HealthIndicatorCardComponent,
     PlaceholderChartComponent,
-    HealthIndicatorModalComponent
+    HealthIndicatorModalComponent,
+    StandaloneChipsRadioComponent
   ],
   providers: [
     provideNgxMask()

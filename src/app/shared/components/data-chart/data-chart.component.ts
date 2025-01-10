@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LangService } from '@shared/services/lang.service';
 import { getCssVariableValue } from '@shared/utils/common';
+import { UIChart } from 'primeng/chart';
 
 
 export type DataChartProps = {
@@ -9,6 +10,7 @@ export type DataChartProps = {
     label: string,
     data: any[],
     borderColor?: any,
+    backgroundColor?: any,
     fill?: boolean,
     spanGaps: true // Habilita a interpolação (preenchendo os gaps com uma linha contínua);
     tension?: number
@@ -24,8 +26,10 @@ export class DataChartComponent implements OnChanges {
   @Input('data') data!: DataChartProps;
   @Input('xAxisLabel') xAxisLabel: string = '';
   @Input('yAxisLabel') yAxisLabel: string = '';
+  @Input('type') type: UIChart['type'] = 'line';
   @Input('xAxisTickFormatting') xAxisTickFormatting: any = [];
-
+  @Input('yAxisFormatter') yAxisFormatter?: (...props: any) => any;
+ 
   legendTitle: string = 'Legend';
 
   options = {
@@ -44,6 +48,9 @@ export class DataChartComponent implements OnChanges {
             const value = context.raw; // Valor do ponto do gráfico
             const name = context.dataset.label || ''; // Unidade, utilizando o label do dataset
             const unit = this.yAxisLabel || ''; // Unidade, utilizando o label do dataset
+            if(this.yAxisFormatter) {
+              return `${name}: ${this.yAxisFormatter(value)} ${unit}`
+            }
             return `${name}: ${value} ${unit}`; // Formatação no formato [valor] [unit]
           }
         },
@@ -114,6 +121,12 @@ export class DataChartComponent implements OnChanges {
           }
         },
         ticks: {
+          callback: (value: any) => {
+            if(this.yAxisFormatter) {
+              return this.yAxisFormatter(value);
+            }
+            return value;
+          },
           color: getCssVariableValue('--font-color'),
           font: {
             family: 'Poppins',
