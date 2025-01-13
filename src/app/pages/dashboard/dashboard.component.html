@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="grid mt-6">
-            <div class="col-12 flex flex-sm-column flex-md-row align-items-center justify-content-between">
+            <div class="col-12 flex flex-row flex-wrap align-items-center justify-content-between">
                 <h3>{{ 'pages.dashboard.your_health_indicators' | translate }}</h3>
                 <app-standalone-chips-radio [(selectedIndex)]="selectedPeriod" (selectedIndexChange)="onSelectedPeriodChange($event)" [values]="periodOptions" />
             </div>

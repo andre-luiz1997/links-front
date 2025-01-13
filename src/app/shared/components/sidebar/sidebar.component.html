@@ -1,6 +1,6 @@
 <div class="sidebar" [ngClass]="{isToggled}">
   <div class="sidebar-container">
-    <button type="button" class="sidebar-toggler" (click)="toggle()">
+    <button type="button" class="toggler sidebar-toggler" (click)="toggle()">
       <ng-icon [name]="togglerIcon" size="1.4rem" />
     </button>
     <div class="sidebar-header">
@@ -18,3 +18,7 @@
     </div>
   </div>
 </div>
+
+<button type="button" class="toggler sidebar-sm-toggler" [ngClass]="{isToggled}" (click)="toggle()">
+  <ng-icon [name]="togglerIcon" size="1.4rem" />
+</button>

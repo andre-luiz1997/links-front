@@ -135,7 +135,11 @@ td.actions {
 .page {
   flex: 1;
   background-color: $sidebar_color;
-  border-radius: $default_radius;
+
+  @media (min-width: $lg-breakpoint) {
+    border-radius: $default_radius;
+  }
+
   padding: 1rem 2rem;
 
   .title-row {
@@ -144,6 +148,11 @@ td.actions {
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
+
+    @media (max-width: calc($lg-breakpoint - 1px)) {
+      justify-content: center;
+      margin-top: 2rem;
+    }
   }
 
   .page-title {

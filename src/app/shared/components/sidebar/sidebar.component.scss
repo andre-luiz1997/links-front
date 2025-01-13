@@ -1,32 +1,70 @@
 @import 'variables';
 
+.toggler {
+  background: none;
+  border: none;
+  color: $font_color;
+  transition: all .3s ease-in-out;
+  width: $default_button_height;
+  height: $default_button_height;
+  padding: .5rem;
+  border-radius: 12px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $main_color;
+    color: $font_color_contrast;
+  }
+}
+
+.sidebar-sm-toggler {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #232323;
+  width: 3rem;
+  height: 3rem;
+  box-shadow: -1px 3px 7px 1px rgba(0,0,0,0.5);
+}
+
 @media (max-width: calc($lg-breakpoint - 1px)) {
+  :host {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+  }
+
+  .sidebar-toggler {
+    display: none;
+  }
+
+  .sidebar-sm-toggler {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+    z-index: 900;
+  }
+
   .sidebar {
     position: fixed;
     inset: 0;
-    height: unset!important;
     transition: all .3s ease-in-out;
-    padding: $default_radius;
+    padding: 0!important;
+    z-index: 30;
 
     &.isToggled {
-      width: calc($default_button_height + $default_radius);
-      height: calc($default_button_height)!important;
-
-      .sidebar-toggler {
-        width: 100%;
-      }
-
-      .sidebar-header,
-      .sidebar-contents {
-        display: none!important;
-      }
+      transform: translateX(-110%);
     }
   }
 }
 
+
+
 .sidebar {
   padding: 1rem;
-  // height: 100%;
   gap: 2rem;
   display: flex;
   flex-direction: column;
@@ -42,23 +80,7 @@
     text-align: center;
   }
 
-  .sidebar-toggler {
-    background: none;
-    border: none;
-    color: $font_color;
-    transition: all .3s ease-in-out;
-    width: $default_button_height;
-    height: $default_button_height;
-    padding: .5rem;
-    border-radius: 12px;
 
-    &:hover {
-      cursor: pointer;
-      background-color: $main_color;
-      color: $font_color_contrast;
-    }
-  }
-  
   .sidebar-container {
     border-radius: $default_radius;
     background-color: $sidebar_color;

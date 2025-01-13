@@ -12,8 +12,9 @@
         justify-content: center;
     }
 
-    .placeholder-chart {
-        padding: 20px;
+    @media (min-width:$lg-breakpoint) {
+        .placeholder-chart {
+            padding: 20px;
+        }
     }
 }
-
