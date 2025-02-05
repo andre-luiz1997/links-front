@@ -1,5 +1,15 @@
-<a class="sidebar-item-container" [routerLink]="item.route" [ngClass]="{isToggled}"
-  [pTooltip]="isToggled ? (('pages.' + item.title + '.title')| translate) : null">
+<a class="sidebar-item-container" [routerLink]="item.route" (click)="toggleChildren()" [ngClass]="{isToggled, active: isActive}"
+  [pTooltip]="isToggled ? (('pages.' + item.title + '.title')| translate) : null"
+  [ngStyle]="{transform: 'scale(' + scale + ')'}"  
+>
   <ng-icon size="1.4rem" *ngIf="item.icon" [name]="item.icon" />
   <span>{{ ('pages.' + item.title + '.title') | translate }}</span>
+  <ng-icon *ngIf="!isToggled && item.children?.length" [name]="toggleIconName" class="toggleIcon"></ng-icon>
 </a>
+<p-accordion *ngIf="item.children?.length" [ngClass]="{hide: isToggled}" [value]="item.isOpen ? 1 : 0">
+  <p-accordion-panel [value]="1">
+    <p-accordion-content>
+      <app-sidebar-item *ngFor="let child of item.children" [item]="child"/>
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>

@@ -44,6 +44,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/exams/exams.module').then(m => m.ExamsModule),
         canActivate: [AuthGuardService]
       },
+      {
+        path: 'plans',
+        loadChildren: () => import('./pages/saas/plans/plans.module').then(m => m.PlansModule),
+        canActivate: [AuthGuardService]
+      },
     ]
   }
 ];

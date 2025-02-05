@@ -1,6 +1,23 @@
 @import 'variables';
 @import 'fonts';
 
+.toggleIcon {
+  position: absolute;
+  right: 10px;
+}
+
+:host {
+  .p-accordionpanel {
+    border: none!important;
+
+    ::ng-deep {
+      .p-accordioncontent-content {
+        background-color: $sidebar_color;
+      }
+    }
+  }
+}
+
 .sidebar-item-container {
   display: flex;
   align-items: center;
@@ -17,6 +34,7 @@
   position: relative;
   text-decoration: none;
   color: $font_color;
+  user-select: none;
 
   span {
     overflow: hidden;
@@ -25,7 +43,8 @@
     text-overflow: unset;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     cursor: pointer;
     background-color: $main_color;
     color: $font_color_contrast;

@@ -9,10 +9,10 @@
     <div class="sidebar-contents">
       <ng-container *ngFor="let item of items">
         <ng-container *ngIf="item.permissions && item.permissions?.length; else withoutPermissions">
-          <app-sidebar-item [item]="item" *permissions="item.permissions" />
+          <app-sidebar-item [item]="item" *permissions="item.permissions" (onOpened)="handleItemOpened($event)" />
         </ng-container>
         <ng-template #withoutPermissions>
-          <app-sidebar-item [item]="item" />
+          <app-sidebar-item [item]="item" (onOpened)="handleItemOpened($event)" />
         </ng-template>
       </ng-container>
     </div>

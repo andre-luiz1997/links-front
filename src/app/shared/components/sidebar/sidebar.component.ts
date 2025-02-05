@@ -5,10 +5,12 @@ import { STORAGE } from '@shared/utils/storage';
 
 export interface SidebarItem {
   icon?: string;
-  route: string;
+  route?: string;
   title: string;
   children?: SidebarItem[];
   permissions?: string[];
+  isOpen?: boolean;
+  depth?: number;
 }
 
 @Component({
@@ -42,7 +44,7 @@ export class SidebarComponent {
     {
       title: 'labs',
       icon: 'phosphorFlask',
-      route: '/labs'
+      route: '/labs',
     },
     {
       title: 'exam_types',
@@ -50,9 +52,22 @@ export class SidebarComponent {
       route: '/exam-types'
     },
     {
-      title: 'reports',
-      icon: 'phosphorChartLine',
-      route: '/reports'
+      title: 'saas',
+      icon: 'phosphorInvoice',
+      children: [
+        {
+          title: 'plans',
+          icon: 'phosphorDotFill',
+          route: '/plans',
+          depth: 1
+        },
+        {
+          title: 'subscriptions',
+          icon: 'phosphorDotFill',
+          route: '/subscriptions',
+          depth: 1
+        }
+      ]
     },
     {
       title: 'signout',
@@ -61,21 +76,28 @@ export class SidebarComponent {
     }
   ]
 
-  togglerIcon = STORAGE.get(STORAGE.keys.TOGGLE_SIDEBAR) ? 'phosphorArrowRight' :'phosphorArrowLeft';
+  togglerIcon = STORAGE.get(STORAGE.keys.TOGGLE_SIDEBAR) ? 'phosphorArrowRight' : 'phosphorArrowLeft';
   isToggled = STORAGE.get(STORAGE.keys.TOGGLE_SIDEBAR);
-  
+
   constructor(
     private sidebarService: SidebarService
   ) {
     this.sidebarService.$toggled.subscribe(toggled => {
       this.isToggled = toggled;
       this.togglerIcon = this.isToggled ? 'phosphorArrowRight' : 'phosphorArrowLeft';
-    });
+    })
   }
 
   toggle() {
     const toggled = !this.isToggled;
     this.sidebarService.$toggled.next(toggled);
     STORAGE.set(STORAGE.keys.TOGGLE_SIDEBAR, toggled);
+  }
+
+  handleItemOpened(item: SidebarItem) {
+    this.items.forEach(i => {
+      if (i != item) i.isOpen = false;
+    });
+    this.sidebarService.$checkIsOpen.next();
   }
 }

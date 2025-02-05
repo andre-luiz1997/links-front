@@ -234,6 +234,7 @@ const translation = {
 			plans: {
 				add: 'Adicionar plano',
 				edit: 'Editar plano',
+				title: 'Planos'
 			},
 			exams: {
 				title: 'Exames',
@@ -318,6 +319,9 @@ const translation = {
 					},
 				} as Record<HealthIndicatorEnum, any>
 			},
+			saas: {
+				title: 'SaaS',
+			},
 			exam_types: {
 				name_example: 'Colesterol LDL',
 				unit: 'Unidade de medida',
@@ -391,7 +395,7 @@ const translation = {
 				signin: 'Já possui uma conta?',
 			},
 			subscriptions: {
-				title: 'Escolha seu plano abaixo',
+				title: 'Assinaturas',
 				coupon: {
 					label: 'Possui um cupom de desconto?',
 					placeholder: 'Insira o cupom',
