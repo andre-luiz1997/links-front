@@ -1,8 +1,9 @@
 <div class="page-container">
     <div class="gradient-overlay">
         <div class="gradient-overlay-wrapper">
-            <img class="overlay1" [ngClass]="{hovered}" src="assets/img/gradient1.png" />
-            <img class="overlay2" [ngClass]="{hovered}" src="assets/img/gradient2.png" />
+            <app-auth-overlay-container />
+            <!-- <img class="overlay1" [ngClass]="{hovered}" src="assets/img/gradient1.png" />
+            <img class="overlay2" [ngClass]="{hovered}" src="assets/img/gradient2.png" /> -->
         </div>
     </div>
     <div class="router-card" (mouseenter)="hovered = true" (mouseleave)="hovered = false">

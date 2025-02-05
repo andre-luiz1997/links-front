@@ -9,6 +9,7 @@ import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { NgIconsModule } from '@ng-icons/core';
 import { phosphorSignIn } from '@ng-icons/phosphor-icons/regular';
 import { SharedModule } from '@shared/shared.module';
+import { AuthOverlayContainerComponent } from './auth-overlay-container/auth-overlay-container.component';
 
 
 
@@ -16,7 +17,8 @@ import { SharedModule } from '@shared/shared.module';
   declarations: [
     AuthComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    AuthOverlayContainerComponent
   ],
   imports: [
     CommonModule,
