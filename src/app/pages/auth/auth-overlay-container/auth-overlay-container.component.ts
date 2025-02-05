@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef } from '@
 
 @Component({
   selector: 'app-auth-overlay-container',
-  template: `<div class="container"><img src="assets/img/dna2.jpg" /></div>`,
+  template: `<div class="container"><img src="assets/img/fullGradient.png" /><div class="inner-container"></div></div>`,
   styleUrl: './auth-overlay-container.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -50,21 +50,6 @@
 
 }
 
-@keyframes overlay-wobble {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.2);
-        opacity: .5;
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
 .router-card {
     background-color: $background_color;
     display: flex;
@@ -76,8 +61,26 @@
     height: 100vh;
     box-shadow: 0 9px 25px 0px rgba(67, 67, 67, 0.5);
 
-    @media (max-width: calc($lg-breakpoint - 1px)) {
-        padding: 2rem;
-        width: 100vw;
+    @media (max-width: calc($xl-breakpoint - 1px)) {
+        padding: 3rem;
+        position: absolute;
+        width: 60vw;
+        border-radius: 30px;
+        height: auto;
+        min-height: 60vh;        
+    }
+
+    @media (max-width: calc($md-breakpoint - 1px)) {
+        width: 80vw;
+    }
+}
+
+::ng-deep {
+    .logo {
+        font-size: 4rem!important;
+        
+        @media (max-width: calc($md-breakpoint - 1px)) {
+            font-size: 3rem!important;
+        }
     }
 }
