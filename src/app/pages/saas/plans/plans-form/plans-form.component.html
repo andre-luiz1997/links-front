@@ -1,0 +1,63 @@
+<form [formGroup]="form">
+    <div class="grid">
+        <div class="col-12 md:col-10">
+            <div class="form-group">
+                <label for="name">{{ 'name' | translate }}</label>
+                <input type="text" formControlName="name" requiredLabel class="form-control">
+                <app-error-block formControlName="name" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-1">
+            <div class="form-group text-center">
+                <label for="isDefault" class="mb-2">{{ 'is_default' | translate }}</label>
+                <p-inputSwitch formControlName="isDefault" />
+                <app-error-block formControlName="isDefault" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12 md:col-1">
+            <div class="form-group text-center">
+                <label for="status" class="mb-2">{{ 'status' | translate }}</label>
+                <p-inputSwitch formControlName="status" />
+                <app-error-block formControlName="status" [show]="isSubmitted" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="description">{{ 'description' | translate }}</label>
+                <textarea formControlName="description" class="form-control" rows="3"></textarea>
+                <app-error-block formControlName="description" [show]="isSubmitted" />
+            </div>
+        </div>
+        <ng-container formGroupName="billing">
+            <div class="col-12 md:col-4">
+                <div class="form-group">
+                    <label for="price">{{ 'pages.plans.form.billing.price' | translate }}</label>
+                    <app-moeda-input formControlName="price" />
+                    <small>{{ 'pages.plans.form.billing.price_info' | translate }}</small>
+                    <app-error-block formControlName="price" [show]="isSubmitted" />
+                </div>
+            </div>
+            <div class="col-12 md:col-4">
+                <div class="form-group flex flex-column align-items-center">
+                    <label for="price">{{ 'pages.plans.form.billing.frequency' | translate }}</label>
+                    <p-selectbutton size="large" [options]="frequencyOptions" formControlName="frequency" optionLabel="label" optionValue="value" />
+                    <app-error-block formControlName="frequency" [show]="isSubmitted" />
+                </div>
+            </div>
+            <div class="col-12 md:col-4">
+                <div class="form-group">
+                    <label for="price">{{ 'pages.plans.form.billing.trial_period_days' | translate }}</label>
+                    <input type="number" [min]="0" class="form-control" formControlName="trialPeriodDays">
+                    <small>{{ 'pages.plans.form.billing.trial_period_days_info' | translate }}</small>
+                    <app-error-block formControlName="trialPeriodDays" [show]="isSubmitted" />
+                </div>
+            </div>
+        </ng-container>
+        
+        <div class="col-12">
+            <button type="button" class="btn btn-primary ml-auto" (click)="submitForm()">
+                {{ 'save' | translate }}
+            </button>
+        </div>
+    </div>
+</form>

@@ -458,16 +458,6 @@ td {
   max-width: 250px;
 }
 
-// .p-tooltip {
-//   background-color: $sidebar_color;
-//   font-size: .9rem;
-//   padding: .5rem;
-// }
-
-// .p-tooltip-text {
-//   padding: .5rem;
-// }
-
-// .p-tooltip-arrow {
-//   color: $sidebar_color;
-// }
+.p-toggleswitch .p-toggleswitch-slider {
+  position: relative;
+}

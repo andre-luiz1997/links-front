@@ -10,6 +10,8 @@ const translation = {
 		app_names: 'Histo Rique',
 		fixo: 'Fixo',
 		celular: 'Celular',
+		monthly: 'Mensal',
+		yearly: 'Anual',
 		calendar_inputs: {
 			firstDayOfWeek: 0,
 			dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -182,6 +184,7 @@ const translation = {
 		to: 'a',
 
 		not_informed: 'Não informado',
+		free: 'Grátis',
 
 		password: 'Senha',
 		password_confirm: 'Confirmar senha',
@@ -232,9 +235,22 @@ const translation = {
 				}
 			},
 			plans: {
-				add: 'Adicionar plano',
-				edit: 'Editar plano',
-				title: 'Planos'
+				title: 'Planos',
+				permissions: {
+					add: 'Adicionar plano',
+					edit: 'Editar plano',
+					delete: 'Excluir plano',
+					view: 'Visualizar planos',
+				},
+				form: {
+					billing: {
+						price: 'Valor do plano',
+						price_info: 'Insira o valor 0,00 para planos gratuitos',
+						frequency: 'Frequência de cobrança',
+						trial_period_days: 'Dias de teste',
+						trial_period_days_info: 'Quantidade de dias que o cliente tem para testar o plano antes de ser cobrado (Deixe vazio caso o teste não deva ser habilitado)',
+					}
+				}
 			},
 			exams: {
 				title: 'Exames',
@@ -273,7 +289,7 @@ const translation = {
 				lab: 'Laboratório',
 				title: 'Laboratórios',
 				permissions: {
-					add: 'Adicionar exame',
+					add: 'Adicionar laboratório',
 					edit: 'Editar laboratório',
 					delete: 'Excluir laboratório',
 					view: 'Visualizar laboratórios',

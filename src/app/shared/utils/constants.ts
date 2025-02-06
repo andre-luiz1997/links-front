@@ -11,14 +11,16 @@ export const DATE_TIME_MASK_FULL_BR = 'dddd, DD [de] MMMM [de] YYYY';
 
 export type CURRENCY_SYMBOLS = 'R$' | '$' | '€';
 export const CURRENCIES: {
-  value: string,
-  symbol: CURRENCY_SYMBOLS,
-  label: string
-}[] = [
-    { value: 'BRL', symbol: 'R$', label: 'Real brasileiro - R$' },
-    { value: 'USD', symbol: '$', label: 'Dollar - US$' },
-    { value: 'EUR', symbol: '€', label: 'Euro - €' },
-  ]
+  [key: string]: {
+    symbol: CURRENCY_SYMBOLS,
+    label: string,
+    locale: string
+  }
+} = {
+  BRL: { locale: 'pt-BR', symbol: 'R$', label: 'Real brasileiro - R$' },
+  USD: { locale: 'en-US', symbol: '$', label: 'Dollar - US$' },
+  EUR: { locale: 'de-DE', symbol: '€', label: 'Euro - €' },
+}
 export const DEFAULT_CURRENCY_SYMBOL: CURRENCY_SYMBOLS = 'R$'
 export const DEFAULT_CURRENCY = 'BRL'
 export const CURRENCY_MASK = '9.000,00';

@@ -4,6 +4,7 @@ export * from './examTypes';
 export * from './exams';
 export * from './healthIndicators';
 export * from './lab';
+export * from './plans';
 export * from './referenceValue';
 export * from './role';
 export * from './user';

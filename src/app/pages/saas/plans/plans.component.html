@@ -1,1 +1,16 @@
-<p>plans works!</p>,
+<div class="page">
+    <div class="title-row">
+        <h3 *ngIf="title" class="page-title">{{ title }}</h3>
+        <ng-container *ngIf="showAddButton">
+            <a *permissions="[]" [routerLink]="['add']" class="btn btn-primary btn-circle ml-auto"
+                [pTooltip]="'pages.plans.permissions.add' | translate" tooltipPosition="left">
+                <ng-icon name="phosphorPlus" size="1.4rem" />
+            </a>
+        </ng-container>
+    </div>
+    <app-breadcrumbs />
+
+    <div class="page-content">
+        <router-outlet />
+    </div>
+</div>

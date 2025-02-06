@@ -1,0 +1,40 @@
+// money input
+.input-group input.prefixed {
+	padding-left: 45px;
+}
+
+.input-group input.sufixed {
+	padding-right: 45px;
+}
+
+.input-group .afix {
+	height: 100%;
+	padding: 5px;
+	font-size: 0.8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	width: 40px;
+	position: absolute;
+	top: 0;
+}
+
+.input-group .prefix {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0.7;
+}
+
+.input-group .posfix {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0.7;
+	cursor: pointer;
+}

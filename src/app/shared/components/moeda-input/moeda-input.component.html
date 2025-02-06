@@ -1,0 +1,16 @@
+<div class="input-group" [ngClass]="{ disabled: !enabled }">
+	<span class="afix prefix" *ngIf="!percent">R$</span>
+	<input
+		#input
+		type="text"
+		(change)="changeText()"
+		(keyup)="changeText()"
+		(blur)="markAsTouched()"
+		[formControl]="formControl"
+		class="form-control"
+		placeholder="0,00"
+		appCurrency
+		[ngClass]="{ prefixed: !percent, sufixed: percent }"
+	/>
+	<span class="afix posfix" *ngIf="percent">%</span>
+</div>

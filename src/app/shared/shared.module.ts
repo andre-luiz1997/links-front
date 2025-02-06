@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { PermissionsDirective } from './directives/permissions.directive';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { StandaloneCheckboxComponent } from './components/standalone-checkbox/standalone-checkbox.component';
 import { StandaloneSwitchComponent } from './components/standalone-switch/standalone-switch.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { RequiredLabelDirective } from './directives';
+import { CurrencyDirective, RequiredLabelDirective } from './directives';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
@@ -41,6 +41,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { TableModule } from 'primeng/table';
 import { AccordionModule } from 'primeng/accordion';
 import { StandaloneChipsRadioComponent } from './components/standalone-chips-radio/standalone-chips-radio.component';
+import { MoedaInputComponent } from './components/moeda-input/moeda-input.component';
 
 @NgModule({
   declarations: [
@@ -65,8 +66,9 @@ import { StandaloneChipsRadioComponent } from './components/standalone-chips-rad
     HealthIndicatorCardComponent,
     PlaceholderChartComponent,
     HealthIndicatorModalComponent,
-    StandaloneChipsRadioComponent
-    
+    StandaloneChipsRadioComponent,
+    MoedaInputComponent,
+    CurrencyDirective,
   ],
   imports: [
     CommonModule,
@@ -133,7 +135,9 @@ import { StandaloneChipsRadioComponent } from './components/standalone-chips-rad
     HealthIndicatorCardComponent,
     PlaceholderChartComponent,
     HealthIndicatorModalComponent,
-    StandaloneChipsRadioComponent
+    StandaloneChipsRadioComponent,
+    MoedaInputComponent,
+    CurrencyDirective,
   ],
   providers: [
     provideNgxMask()
