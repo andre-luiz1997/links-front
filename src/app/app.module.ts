@@ -23,7 +23,7 @@ export class AuthSocket extends Socket {
         super({
             url: environment.SERVER_URL,
             options: {
-                path: '/auth',
+                path: '/auth-socket',
                 autoConnect: false,
             },
         });

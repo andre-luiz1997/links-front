@@ -31,12 +31,8 @@ import { TimelineModule } from 'primeng/timeline';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { DataChartComponent } from './components/data-chart/data-chart.component';
-import { IndicatorReportComponent } from './components/indicator-report/indicator-report.component';
-import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
-import { HealthIndicatorCardComponent } from './components/health-indicator-card/health-indicator-card.component';
 import { PlaceholderChartComponent } from './components/placeholder-chart/placeholder-chart.component';
 import { phosporDefaultIcons } from '.';
-import { HealthIndicatorModalComponent } from './components/health-indicator-modal/health-indicator-modal.component';
 import { DatePickerModule } from 'primeng/datepicker';
 import { TableModule } from 'primeng/table';
 import { AccordionModule } from 'primeng/accordion';
@@ -61,11 +57,7 @@ import { MoedaInputComponent } from './components/moeda-input/moeda-input.compon
     AddressFormComponent,
     CustomDatePipe,
     DataChartComponent,
-    IndicatorReportComponent,
-    DashboardCardComponent,
-    HealthIndicatorCardComponent,
     PlaceholderChartComponent,
-    HealthIndicatorModalComponent,
     StandaloneChipsRadioComponent,
     MoedaInputComponent,
     CurrencyDirective,
@@ -130,11 +122,7 @@ import { MoedaInputComponent } from './components/moeda-input/moeda-input.compon
     AddressFormComponent,
     CustomDatePipe,
     DataChartComponent,
-    IndicatorReportComponent,
-    DashboardCardComponent,
-    HealthIndicatorCardComponent,
     PlaceholderChartComponent,
-    HealthIndicatorModalComponent,
     StandaloneChipsRadioComponent,
     MoedaInputComponent,
     CurrencyDirective,

@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Event as NavigationEvent, NavigationEnd, Router, Scroll } from '@angular/router';
-import { ExamTypesService } from '@shared/services/exam-types.service';
 import { LangService, Translated } from '@shared/services/lang.service';
 import { isEmpty } from '@shared/utils/common';
 import { filter, lastValueFrom } from 'rxjs';
@@ -21,7 +20,6 @@ export class BreadcrumbsComponent {
 		private langService: LangService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private examTypesService: ExamTypesService,
 		private changeDetectorRef: ChangeDetectorRef
 	) {
 		this.lang = this.langService.getTranslation();
@@ -39,19 +37,19 @@ export class BreadcrumbsComponent {
 		this.lastCrumb = undefined;
 	}
 
-	private async fetchExamType(id: string) {
-		return lastValueFrom(this.examTypesService.getOne(id)).then((response) => response.data);
-	}
+	// private async fetchExamType(id: string) {
+	// 	return lastValueFrom(this.examTypesService.getOne(id)).then((response) => response.data);
+	// }
 
 	private async mapLabel(label: string, child: ActivatedRoute) {
 		switch (label) {
-			case ':examTypeId': {
-				const examTypeId = child.snapshot.params['examTypeId'];
-				if (isEmpty(examTypeId)) return '';
-				const examType = await this.fetchExamType(examTypeId);
-				if (examType?.name) return examType.name;
-				return '';
-			}
+			// case ':examTypeId': {
+			// 	const examTypeId = child.snapshot.params['examTypeId'];
+			// 	if (isEmpty(examTypeId)) return '';
+			// 	const examType = await this.fetchExamType(examTypeId);
+			// 	if (examType?.name) return examType.name;
+			// 	return '';
+			// }
 			default:
 				return this.langService.getMessage(label);
 		}

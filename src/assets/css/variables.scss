@@ -1,8 +1,8 @@
-$main_color: #c1fba4;
+$main_color: #9EE37D;
 $main_color_darker: darken($main_color, 10%);
 $main_color_lighter: lighten($main_color, 10%);
 
-$secondary_color: #ec698f;
+$secondary_color: #47AB90;
 $secondary_color_darker: darken($secondary_color, 10%);
 $secondary_color_lighter: lighten($secondary_color, 10%);
 
@@ -10,11 +10,11 @@ $tertiary_color: #0000ff;
 $tertiary_color_darker: darken($tertiary_color, 10%);
 $tertiary_color_lighter: lighten($tertiary_color, 10%);
 
-$font_color: #ffffff;
-$font_color_contrast: #000000;
+$font_color: #171D1C;
+$font_color_contrast: #171D1C;
 
-$background_color: rgba(27, 27, 27);
-$sidebar_color: #232323;
+$background_color: #fffff2;
+$sidebar_color: #f1f0ea;
 
 $default_color: #bbbbbb;
 $default_color_darker: darken($default_color, 10%);

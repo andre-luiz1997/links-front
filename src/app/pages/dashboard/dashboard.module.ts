@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardCardComponent } from '../../shared/components/dashboard-card/dashboard-card.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { phosphorArrowsOut, phosphorDna } from '@ng-icons/phosphor-icons/regular';
 import { TooltipModule } from 'primeng/tooltip';

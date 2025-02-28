@@ -37,21 +37,6 @@ export class SidebarComponent {
       route: '/roles'
     },
     {
-      title: 'exams',
-      icon: 'phosphorFile',
-      route: '/exams'
-    },
-    {
-      title: 'labs',
-      icon: 'phosphorFlask',
-      route: '/labs',
-    },
-    {
-      title: 'exam_types',
-      icon: 'phosphorExam',
-      route: '/exam-types'
-    },
-    {
       title: 'saas',
       icon: 'phosphorInvoice',
       children: [

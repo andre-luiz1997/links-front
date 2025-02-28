@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CALENDAR_DATE_FORMAT_BR, CALENDAR_DATETIME_FORMAT_BR, CURRENCY_MASK } from '@shared/utils/constants';
 import { isEmpty } from '@shared/utils/common';
-import { HealthIndicatorEnum } from '@shared/types';
 type langs = 'pt-BR';
 // {[key in langs]: {[x: string]: string | {[x: string]: string}}}
 const translation = {
@@ -215,15 +214,7 @@ const translation = {
 		},
 		pages: {
 			dashboard: {
-				title: 'Início',
-				add_indicator: 'Adicionar indicador',
-				configure_indicator: 'Configurar indicadores',
-				indicators: 'Indicadores',
-				your_health_indicators: 'Seus parâmetros de saúde',
-				form: {
-					select_indicator: 'Selecione um indicador abaixo',
-				},
-				results_history: 'Histórico de resultados',
+				title: 'Início'
 			},
 			users: {
 				title: 'Usuários',
@@ -252,133 +243,9 @@ const translation = {
 					}
 				}
 			},
-			exams: {
-				title: 'Exames',
-				permissions: {
-					add: 'Adicionar exame',
-					edit: 'Editar exame',
-					delete: 'Excluir exame',
-					view: 'Visualizar exames',
-				},
-				form: {
-					lab: 'Selecione o laboratório que foi realizado o exame',
-					date: 'Qual a data da coleta do exame?',
-					exam_date: 'Data do exame',
-					results: {
-						title: 'Resultados do exame',
-						add: 'Adicionar resultado',
-						edit: 'Editar resultado',
-						delete: 'Excluir resultado',
-						delete_confirmation: {
-							title: 'Você está prestes a excluir este resultado',
-							description: 'Deseja realmente continuar?'
-						},
-						warning: {
-							title: 'Você já adicionor um resultado para este tipo de exame',
-							description: 'Deseja realmente continuar?'
-						}
-					},
-					no_results: 'Nenhum resultado foi inserido. Clique no botão acima (+) para adicionar.',
-					exam_type: 'Selecione o tipo de exame',
-					value: 'Resultado',
-					material: 'Material utilizado',
-					method: 'Método utilizado',
-				}
-			},
-			labs: {
-				lab: 'Laboratório',
-				title: 'Laboratórios',
-				permissions: {
-					add: 'Adicionar laboratório',
-					edit: 'Editar laboratório',
-					delete: 'Excluir laboratório',
-					view: 'Visualizar laboratórios',
-				}
-			},
-			health_indicators: {
-				title: 'Indicadores de saúde',
-				permissions: {
-					add: 'Adicionar indicador de saúde',
-					edit: 'Editar indicador de saúde',
-					delete: 'Excluir indicador de saúde',
-					view: 'Visualizar indicadores de saúde',
-				},
-				unit: 'Unidade de medida',
-				unit_example: 'kg',
-				name_example: 'Peso',
-				description_example: 'Exemplo: Peso corporal',
-				date: 'Data da medição',
-				enum: {
-					[HealthIndicatorEnum.BLOOD_PRESSURE]: {
-						title: 'Pressão arterial',
-						question: 'Qual o valor da sua última medição de pressão?',
-						unit: 'mmHg',
-						mask: '00/00',
-					},
-					[HealthIndicatorEnum.WEIGHT]: {
-						title: 'Peso',
-						question: 'Qual o seu peso atual?',
-						unit: 'kg',
-						mask: '000,0',
-					},
-					[HealthIndicatorEnum.CALORIES]: {
-						title: 'Calorias',
-						question: 'Informe sua última contagem de calorias diárias',
-						unit: 'kcal',
-						mask: '0000',
-					},
-					[HealthIndicatorEnum.SLEEPING_HOURS]: {
-						title: 'Horas de sono',
-						question: 'Quantas horas você dormiu na última noite?',
-						unit: 'horas',
-						mask: '00:00',
-					},
-				} as Record<HealthIndicatorEnum, any>
-			},
+			
 			saas: {
 				title: 'SaaS',
-			},
-			exam_types: {
-				name_example: 'Colesterol LDL',
-				unit: 'Unidade de medida',
-				unit_example: 'mg/dl',
-				title: 'Tipos de exames',
-				list: 'Lista',
-				method: 'Método',
-				method_example: 'Exemplo: Enzimático',
-				material: 'Material',
-				material_example: 'Exemplo: Sangue',
-				description_example: 'Exemplo: LDL calculado a partir da Fórmula de Martin.',
-				no_group_found: 'Nenhum grupo foi inserido. Clique no botão acima (+) para adicionar.',
-				groups: {
-					title: 'Grupos de exames',
-					name: 'Nome do grupo',
-					delete: 'Excluir grupo',
-					exam_types: 'Tipos de exames no grupo',
-					delete_item: 'Excluir item',
-					add_item: 'Adicionar item',
-				},
-				permissions: {
-					add: 'Adicionar tipo de exame',
-					edit: 'Editar tipo de exame',
-					delete: 'Excluir tipo de exame',
-					view: 'Visualizar tipos de exames',
-				}
-			},
-			reference_values: {
-				title: 'Valores de referência',
-				permissions: {
-					add: 'Adicionar valor de referência',
-					edit: 'Editar valor de referência',
-					delete: 'Excluir valor de referência',
-					view: 'Visualizar valores de referência',
-				},
-				age_range: 'Faixa etária',
-				values: 'Valor de referência',
-				fasting: 'Com jejum',
-				non_fasting: 'Sem jejum',
-				leave_non_fasting_empty: 'Deixe em branco se não houver diferença entre os valores com e sem jejum',
-				category_example: 'Exemplo: Risco baixo, Risco alto, Deficiência, Toxicidade',
 			},
 			home: {
 				title: 'Início',

@@ -1,4 +1,4 @@
 export const environment = {
-    SERVER_URL: 'http://localhost:3400',
-    STORAGE_SECRET: 'exam-app',
+    SERVER_URL: 'http://localhost:3500',
+    STORAGE_SECRET: 'links-app',
 };

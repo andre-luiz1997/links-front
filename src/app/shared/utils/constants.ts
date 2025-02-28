@@ -28,5 +28,4 @@ export const CURRENCY_MASK = '9.000,00';
 export const ZIPCODE_MASK = '00000-000';
 
 export enum SettingsEnum {
-  DASHBOARD_INDICATORS = 'DASHBOARD_INDICATORS',
 }
