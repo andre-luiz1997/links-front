@@ -216,6 +216,18 @@ const translation = {
 			dashboard: {
 				title: 'Início'
 			},
+			links: {
+				title: 'Links',
+				permissions: {
+					add: 'Adicionar link',
+					edit: 'Editar link',
+					delete: 'Excluir link',
+					view: 'Visualizar links',
+				},
+				profile: {
+					edit: 'Editar perfil'
+				}
+			},
 			users: {
 				title: 'Usuários',
 				permissions: {

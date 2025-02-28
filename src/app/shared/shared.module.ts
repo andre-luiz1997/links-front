@@ -5,7 +5,7 @@ import { PermissionsDirective } from './directives/permissions.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
-import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight, phosphorHeartbeat, phosphorInvoice, phosphorCaretDown, phosphorCaretUp, phosphorDotOutline, phosphorDot } from '@ng-icons/phosphor-icons/regular';
+import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight, phosphorHeartbeat, phosphorInvoice, phosphorCaretDown, phosphorCaretUp, phosphorDotOutline, phosphorDot, phosphorLink } from '@ng-icons/phosphor-icons/regular';
 import { phosphorBarbellFill, phosphorDotFill, phosphorDropFill, phosphorFireFill, phosphorMoonStarsFill } from '@ng-icons/phosphor-icons/fill';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
@@ -103,7 +103,8 @@ import { MoedaInputComponent } from './components/moeda-input/moeda-input.compon
       phosphorInvoice,
       phosphorCaretDown,
       phosphorCaretUp,
-      phosphorDotFill
+      phosphorDotFill,
+      phosphorLink
     }),
   ],
   exports: [

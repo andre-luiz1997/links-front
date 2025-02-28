@@ -1,0 +1,80 @@
+<form [formGroup]="form">
+    <div class="grid">
+        <div class="col-12 md:col-4">
+            <div class="card user-section">
+                <ng-container *ngTemplateOutlet="userSection"></ng-container>
+            </div>
+        </div>
+        <div class="col-12 md:col-8">
+            <div class="card links-section"></div>
+        </div>
+    </div>
+</form>
+
+<ng-template #userSection>
+    <div class="grid">
+        <div class="col-12 flex flex-row justify-content-center">
+            <div class="user-profile-container">
+                <div class="profile-image-wrapper">
+                    @if(profileImage) {
+                    } @else {
+                    <div class="profile-image">
+                        {{ profileImageTitle }}
+                    </div>
+                    }
+                </div>
+                <div class="icon btn btn-primary">
+                    <ng-icon name="phosphorPencilSimple" />
+                </div>
+            </div>
+        </div>
+        <div class="col-12 flex flex-row justify-content-center">
+            <div class="user-personal-info-container">
+                @if(isEdittingProfile) {
+                <ng-container *ngTemplateOutlet="ngPersonalInfoContainer"></ng-container>
+                } @else {
+                <ng-container *ngTemplateOutlet="ngPersonalInfoForm"></ng-container>
+                }
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #ngPersonalInfoContainer>
+    <div class="grid fadeindown animation-duration-100">
+        <div class="col-12 flex justify-content-around gap-4">
+            <button type="button" class="btn btn-default btn-block" (click)="editProfile(true)">
+                <span>{{ 'cancel' | translate }}</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-block" (click)="saveProfile()">
+                <span>{{ 'save' | translate }}</span>
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #ngPersonalInfoForm>
+    <div class="grid fadeindown animation-duration-100">
+        <div class="col-12 text-center">
+            <h3 class="m0">{{ form.get('profile.title')?.value }}</h3>
+        </div>
+        <div class="col-12 text-center">
+            <span><i>{{ form.get('profile.subtitle')?.value }}</i></span>
+        </div>
+        <div class="col-12 text-center flex flex-row align-items-center gap-2 justify-content-center text-sm">
+            <ng-icon name="phosphorEnvelopeSimple" size="1rem" /><span>{{ form.get('profile.email')?.value }}</span>
+        </div>
+        <div class="col-12 text-center flex flex-row align-items-center gap-2 justify-content-center">
+            <div class="flex flex-row align-items-center gap-2 justify-content-center text-sm"><ng-icon
+                    name="phosphorWhatsappLogo" size="1rem" /><span>{{ form.get('profile.phone')?.value }}</span></div>
+            <div class="flex flex-row align-items-center gap-2 justify-content-center text-sm"><ng-icon
+                    name="phosphorPhone" size="1rem" /><span>{{ form.get('profile.phone2')?.value }}</span></div>
+        </div>
+        <div class="col-12 flex justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="editProfile()">
+                <ng-icon size="1.2rem" name="phosphorPencilSimple" />
+                <span>{{ 'pages.links.profile.edit' | translate }}</span>
+            </button>
+        </div>
+    </div>
+</ng-template>

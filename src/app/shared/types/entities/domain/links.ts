@@ -1,0 +1,33 @@
+import type { DBEntity } from "../entity";
+import type { IUsers } from "../user";
+
+export const LinkConfigurationThemes = ['default', 'nature', 'ocean', 'sunset','retro','professional','custom'];
+export type LinkConfigurationTheme = typeof LinkConfigurationThemes[number];
+
+export interface ILinkConfiguration {
+  theme: LinkConfigurationTheme;
+}
+
+export interface ILinkProfile {
+  show: boolean;
+  title?: string;
+  subtitle?: string;
+  phone?: string;
+  phone2?: string;
+  email?: string;
+}
+
+export interface ILinkItem {
+  title: string;
+  url: string;
+  status: boolean;
+}
+
+export interface ILinks extends DBEntity {
+  user: IUsers;
+  status: boolean;
+  profile: ILinkProfile;
+  title?: string;
+  items?: ILinkItem[];
+  configuration: ILinkConfiguration;
+}

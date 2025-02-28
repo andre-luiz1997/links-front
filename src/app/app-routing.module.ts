@@ -33,6 +33,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/saas/plans/plans.module').then(m => m.PlansModule),
         canActivate: [AuthGuardService]
       },
+      {
+        path: 'links',
+        loadChildren: () => import('./pages/domain/links/links.module').then(m => m.LinksModule),
+        canActivate: [AuthGuardService]
+      },
     ]
   }
 ];

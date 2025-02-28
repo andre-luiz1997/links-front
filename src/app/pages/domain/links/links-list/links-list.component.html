@@ -1,0 +1,34 @@
+<div class="grid">
+    <div class="col-12">
+        <p-table #table [loading]="isLoading" [totalRecords]="totalRecords" [value]="roles" [lazyLoadOnInit]="true"
+            [lazy]="true" (onLazyLoad)="getAll($event)" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[10,50,100]" sortField="name" [sortOrder]="1" styleClass="p-datatable-striped p-datatable-dark">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name" class="text-left">{{'name' | translate}}<p-sortIcon field="name"/></th>
+                    <th pSortableColumn="updatedAt" class="text-left">{{'updated_at' | translate}}</th>
+                    <th class="text-center w100px"><ng-icon name="phosphorGear" size="1.2rem" /></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-link let-index="rowIndex">
+                <tr>
+                    <td class="text-left">{{link.name}}</td>
+                    <td class="text-left">{{link.updatedAt | customDate:{time: true} }}</td>
+                    <td class="text-center actions w100px">
+                        <a [routerLink]="['edit',link._id]" class="btn btn-primary btn-circle table-btn" [pTooltip]="'pages.links.permissions.edit' | translate" tooltipPosition="left">
+                            <ng-icon name="phosphorPencilSimple" size="1.2rem" />
+                        </a>
+                        <button type="button" class="btn btn-primary btn-circle table-btn" [pTooltip]="'pages.links.permissions.delete' | translate" tooltipPosition="left" (click)="deleteLink(link._id)">
+                            <ng-icon name="phosphorTrashSimple" size="1.2rem" />
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <app-empty-table-message />
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

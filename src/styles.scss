@@ -389,10 +389,10 @@ section.section {
 
 .card {
   position: relative;
-  border: 1px solid $font_color;
   padding: .8rem;
   border-radius: $default_radius;
   transition: all .3s ease-in-out;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 
   &.bb {
     border-left: 0;
@@ -402,9 +402,9 @@ section.section {
     border-bottom-color: $background_color;
   }
 
-  &:hover:not(.no-hover) {
-    transform: translateY(-5px);
-  }
+  // &:hover:not(.no-hover) {
+  //   transform: translateY(-5px);
+  // }
 
   .card-buttons {
     display: flex;

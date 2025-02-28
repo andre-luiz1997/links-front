@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SidebarService } from '@shared/services/sidebar.service';
-import { IPermissions } from '@shared/types';
 import { STORAGE } from '@shared/utils/storage';
 
 export interface SidebarItem {
@@ -24,6 +23,12 @@ export class SidebarComponent {
       title: 'home',
       icon: 'phosphorHouseSimple',
       route: '/'
+    },
+    {
+      title: 'links',
+      icon: 'phosphorLink',
+      route: '/links',
+      permissions: ['links']
     },
     {
       title: 'account',
