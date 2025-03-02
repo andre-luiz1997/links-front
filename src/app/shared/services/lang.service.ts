@@ -47,6 +47,7 @@ const translation = {
 			minlength: 'Insira no mínimo {{requiredLength}} caracteres',
 			mask: 'Formato inválido',
 			invalidDocument: 'Documento inválido',
+			invalidUrl: 'URL inválida'
 		},
 		success_messages: {
 			record_saved_successfully: 'Registro salvo com sucesso!',
@@ -225,7 +226,29 @@ const translation = {
 					view: 'Visualizar links',
 				},
 				profile: {
-					edit: 'Editar perfil'
+					edit: 'Editar perfil',
+					show: 'Exibir seção de perfil?',
+					title: 'Nome',
+					subtitle: 'Bio',
+					phone: 'Whatsapp',
+					phone2: 'Telefone',
+					email: 'Email'
+				},
+				form: {
+					configure_link: 'Configurar link',
+					delete_link: 'Excluir link',
+					item: {
+						title: 'Título',
+						title_info: 'Ex: (Link de agendamento)',
+						url: 'URL',
+						url_info: 'Ex: https://example.com',
+						status_info: 'Links inativos não serão exibidos para o usuário'
+					}
+				},
+				tabs: {
+					links: 'Links',
+					appearance: 'Aparência',
+					configs: 'Configurações'
 				}
 			},
 			users: {
@@ -255,7 +278,7 @@ const translation = {
 					}
 				}
 			},
-			
+
 			saas: {
 				title: 'SaaS',
 			},

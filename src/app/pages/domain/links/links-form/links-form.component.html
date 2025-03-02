@@ -2,14 +2,142 @@
     <div class="grid">
         <div class="col-12 md:col-4">
             <div class="card user-section">
-                <ng-container *ngTemplateOutlet="userSection"></ng-container>
+                <ng-container *ngTemplateOutlet="userSection" />
             </div>
         </div>
         <div class="col-12 md:col-8">
-            <div class="card links-section"></div>
+            <div class="card links-section">
+                <ng-container *ngTemplateOutlet="linksSection" />
+            </div>
         </div>
     </div>
 </form>
+
+<ng-template #linksSection>
+    <p-tabs value="0">
+        <p-tablist>
+            <p-tab value="0">
+                <div class="flex flex-row align-items-center gap-2">
+                    <ng-icon name="phosphorLink" />
+                    <span>{{ 'pages.links.tabs.links' | translate }}</span>
+                </div>
+            </p-tab>
+            <p-tab value="1">
+                <div class="flex flex-row align-items-center gap-2">
+                    <ng-icon name="phosphorPaintBucket" />
+                    <span>{{ 'pages.links.tabs.appearance' | translate }}</span>
+                </div>
+            </p-tab>
+            <p-tab value="2">
+                <div class="flex flex-row align-items-center gap-2">
+                    <ng-icon name="phosphorWrench" />
+                    <span>{{ 'pages.links.tabs.configs' | translate }}</span>
+                </div>
+            </p-tab>
+
+        </p-tablist>
+        <p-tabpanels>
+            <p-tabpanel value="0"><ng-container *ngTemplateOutlet="linkTab" /></p-tabpanel>
+            <p-tabpanel value="1"><ng-container *ngTemplateOutlet="appearanceTab" /></p-tabpanel>
+            <p-tabpanel value="2"><ng-container *ngTemplateOutlet="configsTab" /></p-tabpanel>
+        </p-tabpanels>
+    </p-tabs>
+    <div class="grid">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary ml-auto" (click)="submitForm()">
+                {{ 'save' | translate }}
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<p-dialog [(visible)]="isItemFormVisible" [maximizable]="false" [draggable]="false" [resizable]="false" [modal]="true"
+    [dismissableMask]="false" [header]="'pages.links.form.configure_link' | translate">
+    <form class="fadeindown animation-duration-100" [formGroup]="itemForm">
+        <div class="grid">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="title">{{ 'pages.links.form.item.title' | translate }}</label>
+                    <input type="text" [placeholder]="'pages.links.form.item.title_info' | translate"
+                        formControlName="title" requiredLabel class="form-control">
+                    <app-error-block formControlName="title" [show]="itemFormSubmitted" />
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="url">{{ 'pages.links.form.item.url' | translate }}</label>
+                    <input type="text" [placeholder]="'pages.links.form.item.url_info' | translate"
+                        formControlName="url" requiredLabel class="form-control">
+                    <app-error-block formControlName="url" [show]="itemFormSubmitted" />
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="status">{{ 'status' | translate }}</label>
+                    <p-toggleswitch formControlName="status" />
+                    <small>{{ 'pages.links.form.item.status_info' | translate}}</small>
+                    <app-error-block formControlName="status" [show]="itemFormSubmitted" />
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 flex justify-content-around gap-4">
+                <button type="button" class="btn btn-default btn-block" (click)="isItemFormVisible = false">
+                    <span>{{ 'cancel' | translate }}</span>
+                </button>
+                <button type="button" class="btn btn-primary btn-block" (click)="saveItem()">
+                    <span>{{ 'continue' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
+
+<ng-template #linkTab>
+    <div class="grid w100">
+        <div class="col-12">
+            <button type="button" class="btn btn-circle btn-primary ml-auto" tooltipPosition="left"
+                [pTooltip]="'pages.links.form.configure_link' | translate" (click)="showItemForm()">
+                <ng-icon name="phosphorPlus" size="1.2rem" />
+            </button>
+        </div>
+        <div class="col-12 item-cards-container" cdkDropList (cdkDropListDropped)="onItemCardDrop($event)">
+            @if(items) {
+            @for (itemControl of items.controls; track $index) {
+            @if(itemControl.value; as item) {
+            <div cdkDrag>
+                <div class="item-card" [ngClass]="{unabled: !item.status}">
+                    <div class="item-title">
+                        {{item.title}}
+                    </div>
+                    <div class="item-buttons">
+                        <button [pTooltip]="'pages.links.form.configure_link' | translate" tooltipPosition="left"
+                            type="button" class="btn btn-circle btn-bare" (click)="showItemForm($index)">
+                            <ng-icon name="phosphorPencilSimple" size="1rem" />
+                        </button>
+                        <button [pTooltip]="'pages.links.form.delete_link' | translate" tooltipPosition="left"
+                            type="button" class="btn btn-circle btn-bare btn-danger" (click)="removeItem($index)">
+                            <ng-icon name="phosphorTrashSimple" size="1rem" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+            }
+            }
+        </div>
+    </div>
+</ng-template>
+<ng-template #appearanceTab>
+    <div class="grid">
+        tab 2
+    </div>
+</ng-template>
+<ng-template #configsTab>
+    <div class="grid">
+        tab 3
+    </div>
+</ng-template>
 
 <ng-template #userSection>
     <div class="grid">
@@ -41,16 +169,59 @@
 </ng-template>
 
 <ng-template #ngPersonalInfoContainer>
-    <div class="grid fadeindown animation-duration-100">
-        <div class="col-12 flex justify-content-around gap-4">
-            <button type="button" class="btn btn-default btn-block" (click)="editProfile(true)">
-                <span>{{ 'cancel' | translate }}</span>
-            </button>
-            <button type="button" class="btn btn-primary btn-block" (click)="saveProfile()">
-                <span>{{ 'save' | translate }}</span>
-            </button>
+    <form [formGroup]="form">
+        <div class="grid fadeindown animation-duration-100" formGroupName="profile">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="show">{{ 'pages.links.profile.show' | translate }}</label>
+                    <p-toggleswitch formControlName="show" />
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="title">{{ 'pages.links.profile.title' | translate }}</label>
+                    <input type="text" formControlName="title" requiredLabel class="form-control">
+                    <app-error-block formControlName="title" [show]="isSubmitted" />
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="subtitle">{{ 'pages.links.profile.subtitle' | translate }}</label>
+                    <textarea formControlName="subtitle" requiredLabel class="form-control"></textarea>
+                    <app-error-block formControlName="subtitle" [show]="isSubmitted" />
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="form-group">
+                    <label for="phone">{{ 'pages.links.profile.phone' | translate }}</label>
+                    <input type="text" formControlName="phone" requiredLabel class="form-control">
+                    <app-error-block formControlName="phone" [show]="isSubmitted" />
+                </div>
+            </div>
+            <div class="col-12 md:col-6">
+                <div class="form-group">
+                    <label for="phone2">{{ 'pages.links.profile.phone2' | translate }}</label>
+                    <input type="text" formControlName="phone2" requiredLabel class="form-control">
+                    <app-error-block formControlName="phone2" [show]="isSubmitted" />
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="email">{{ 'pages.links.profile.email' | translate }}</label>
+                    <input type="email" formControlName="email" requiredLabel class="form-control">
+                    <app-error-block formControlName="email" [show]="isSubmitted" />
+                </div>
+            </div>
+            <div class="col-12 flex justify-content-around gap-4">
+                <button type="button" class="btn btn-default btn-block" (click)="editProfile(true)">
+                    <span>{{ 'cancel' | translate }}</span>
+                </button>
+                <button type="button" class="btn btn-primary btn-block" (click)="saveProfile()">
+                    <span>{{ 'save' | translate }}</span>
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
 </ng-template>
 
 <ng-template #ngPersonalInfoForm>

@@ -9,6 +9,66 @@
   overflow: hidden;
 }
 
+.item-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 8rem;
+
+  @media (max-width: $md-breakpoint) {
+    padding: 0 1rem;
+  }
+
+}
+.item-card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: $default_box_shadow;
+  padding: 1rem;
+  border-radius: 15px;
+  transition: all .3s ease-in-out;
+  background-color: $sidebar_color;
+
+  &.unabled {
+    opacity: .5;
+
+    button {
+      opacity: 1;
+    }
+  }
+
+  .item-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &:hover {
+    box-shadow: $default_hover_box_shadow;
+  }
+}
+
+.cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow: $default_box_shadow;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+
 .user-profile-container {
   height: 10rem;
   width: 10rem;

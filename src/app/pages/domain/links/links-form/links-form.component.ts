@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LangService } from '@shared/services/lang.service';
+import { LinksService } from '@shared/services/links.service';
+import { LoaderService } from '@shared/services/loader.service';
+import { ToastService } from '@shared/services/toast.service';
+import { ILinkItem } from '@shared/types/entities/domain/links';
+import { CustomValidators } from '@shared/validators';
 
 @Component({
   selector: 'app-links-form',
@@ -10,23 +18,96 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class LinksFormComponent {
   isSubmitted = false
   isEdittingProfile = false
+  isItemFormVisible = false
 
   profileImage: string | undefined;
   profileImageTitle: string = '';
 
-  form = new FormGroup({
+  form = this.formBuilder.group({
+    _id: new FormControl<string|null>(null),
     profile: new FormGroup({
       show: new FormControl<boolean>(true),
       title: new FormControl<string | null>('John Doe'),
       subtitle: new FormControl<string | null>('Marketing Director'),
       phone: new FormControl<string | null>('+55 31971675658'),
       phone2: new FormControl<string | null>('+55 3138486504'),
-      email: new FormControl<string | null>('johndoe@email.com'),
-    })
+      email: new FormControl<string | null>('johndoe@email.com', [CustomValidators.IsValidEmailValidator]),
+    }),
+    configuration: new FormGroup({}),
+    items: this.formBuilder.array<Array<ILinkItem>>([
+      // this.formBuilder.group({
+      //   title: 'Link1',
+      //   url: 'https://app.pdvpix.com.br',
+      //   status: true
+      // }),
+      // this.formBuilder.group({
+      //   title: 'Link2',
+      //   url: 'https://teste.pdvpix.com.br',
+      //   status: false
+      // })
+    ])
   })
 
-  constructor() {
+  itemForm = new FormGroup({
+    title: new FormControl<string|null>(null, [Validators.required, Validators.minLength(3)]),
+    url: new FormControl<string|null>(null, [Validators.required, CustomValidators.IsValidUrlValidator()]),
+    status: new FormControl<boolean>(true),
+  })
+  itemFormSubmitted = false
+  itemIdx: null | number = null
+  _id: string | null = null
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private linksService: LinksService,
+    private loaderService: LoaderService,
+    private langService: LangService,
+    private toastService: ToastService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private changeDetector: ChangeDetectorRef
+  ) {
     this.profileImageTitle = this.form.get("profile.title")?.value?.at(0) ?? '';
+    this._id = this.route.snapshot.params['linkId'];
+    if(this._id) {
+      this.fetchLink();
+    }
+  }
+
+  fetchLink() {
+    if(!this._id) return;
+    this.loaderService.show()
+    this.linksService.getOne(this._id).subscribe({
+      next: (res) => {
+        const link = res.data;
+        this.loaderService.hide()
+        this.form.patchValue({
+          _id: link._id,
+          profile: {
+            show: link.profile.show,
+            title: link.profile.title,
+            subtitle: link.profile.subtitle,
+            phone: link.profile.phone,
+            phone2: link.profile.phone2,
+            email: link.profile.email,
+          },
+          configuration: link.configuration
+        })
+        this.items.clear();
+        link.items?.forEach(item => {
+          this.items.push(this.formBuilder.group({
+            title: item.title,
+            url: item.url,
+            status: item.status
+          }))
+        })
+        this.changeDetector.detectChanges();
+      },
+      error: (error) => {
+        this.loaderService.hide()
+
+      },
+    })
   }
 
   editProfile(isCancelling = false) {
@@ -37,7 +118,76 @@ export class LinksFormComponent {
     this.isEdittingProfile = true;
   }
 
-  saveProfile() {}
+  saveProfile() {
+    this.isSubmitted = true;
+    if(!this.form.valid) return;
+    this.loaderService.show();
+    this.linksService.save(this.form.value).subscribe({
+      next: (res) => {
+        this.loaderService.hide();
+        if(!this._id) {
+          this.router.navigate(['..','edit',res.data._id],{relativeTo: this.route})
+        }
+        this.toastService.show({
+          severity: 'success',
+          description: this.langService.getMessage('success_messages.record_saved_successfully'),
+        });
+      },
+      error: (error) => {
+        this.loaderService.hide();
+        this.toastService.show({
+          severity: 'error',
+          description: this.langService.getMessage(`error_messages.${error?.error?.message}`) || this.langService.getMessage('error_messages.error_occurred'),
+        });
+      }
+    })
+  }
+
+  showItemForm(itemIdx: number | null = null) {
+    this.isItemFormVisible = true;
+    this.itemIdx = itemIdx;
+    if(itemIdx !== null) {
+      const item = this.items?.controls?.at(itemIdx)?.value;
+      this.itemForm.patchValue({
+        title: item?.title,
+        url: item?.url,
+        status: item?.status
+      })
+    }
+  }
+
+  removeItem(itemIdx: number) {
+
+  }
+
+  get items() {
+    return this.form.get("items") as FormArray
+  }
+
+  onItemCardDrop(event: CdkDragDrop<any[]>) {
+    const oldItem = this.items.at(event.currentIndex)
+    const movingItem = this.items.at(event.previousIndex)
+    this.items.removeAt(event.currentIndex)
+    this.items.removeAt(event.previousIndex)
+    this.items.insert(event.currentIndex, movingItem)
+    this.items.insert(event.previousIndex, oldItem)
+  }
+
+  saveItem() {
+    this.itemFormSubmitted = true;
+    if(!this.itemForm.valid) return;
+    if(this.itemIdx !== null) {
+      const values = this.itemForm.value;
+      this.items.at(this.itemIdx).patchValue({
+        title: values?.title,
+        url: values?.url,
+        status: values?.status
+      })
+    } else {
+      this.items?.push(this.formBuilder.group(this.itemForm.value));
+    }
+    this.isItemFormVisible = false;
+  }
 
   submitForm() {}
 }

@@ -30,7 +30,7 @@ export const linksRoutes: Routes = [
                 }
             },
             {
-                path: 'edit/:roleId',
+                path: 'edit/:linkId',
                 component: LinksFormComponent,
                 data: {
                     title: 'pages.links.permissions.edit',

@@ -50,6 +50,9 @@ export class AuthSocket extends Socket {
         provideAnimationsAsync(),
         providePrimeNG({
             theme: {
+                options: {
+                    darkModeSelector: false || 'none'
+                },
                 preset: definePreset(Aura, {
                     semantic: {
                         primary: {
