@@ -9,12 +9,14 @@ import { TranslatePipe } from "@shared/pipes/translate.pipe";
 import { LinksListComponent } from "./links-list/links-list.component";
 import { LinksFormComponent } from "./links-form/links-form.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { TableModule } from "primeng/table";
 import { TabsModule } from "primeng/tabs";
 import { ToggleSwitchModule } from "primeng/toggleswitch";
 import { phosphorEnvelopeSimple, phosphorLink, phosphorPaintBucket, phosphorPhone, phosphorWhatsappLogo, phosphorWrench } from "@ng-icons/phosphor-icons/regular";
 import { DialogModule } from "primeng/dialog";
 import { CdkDrag, CdkDropList } from "@angular/cdk/drag-drop";
+import { PaginatorModule } from "primeng/paginator";
+import { SkeletonModule } from "primeng/skeleton";
+import { SpeedDialModule } from "primeng/speeddial";
 
 @NgModule({
     declarations: [LinksComponent, LinksListComponent, LinksFormComponent],
@@ -22,13 +24,15 @@ import { CdkDrag, CdkDropList } from "@angular/cdk/drag-drop";
         CommonModule,
         SharedModule,
         ReactiveFormsModule,
-        TableModule,
+        PaginatorModule,
         TranslatePipe,
         LinksRoutingModule,
         TooltipModule,
         TabsModule,
         DialogModule,
         ToggleSwitchModule,
+        SkeletonModule,
+        SpeedDialModule,
         CdkDropList, CdkDrag,
         NgIconsModule.withIcons({
             ...phosporDefaultIcons,

@@ -24,6 +24,9 @@ export class LinksService implements CRUDService {
 		return this.httpClient.get<DefaultPaginatedResponse<ILinks[]>>(`${this.ENDPOINT}${where ? `?${serializeParams(where)}` : ''}`);
   }
 
+  createDefault() {
+    return this.httpClient.post<DefaultResponse<ILinks>>(`${this.ENDPOINT}/default`,{});
+  }
   create(data: any) {
     return this.httpClient.post<DefaultResponse<ILinks>>(this.ENDPOINT, data);
   }

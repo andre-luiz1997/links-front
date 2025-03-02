@@ -1,3 +1,33 @@
+@import "variables";
+
 :host {
   display: block;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+
+  .card {
+    height: 300px;
+
+    .card-icon {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+    }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  p-skeleton.card {
+    padding: 0;
+    box-shadow: none;
+  }
 }

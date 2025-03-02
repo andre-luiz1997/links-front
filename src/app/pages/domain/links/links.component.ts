@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, Scroll } from '@angular/router';
 import { LangService } from '@shared/services/lang.service';
+import { LinksService } from '@shared/services/links.service';
+import { LoaderService } from '@shared/services/loader.service';
 
 @Component({
   selector: 'app-links',
@@ -15,7 +17,9 @@ export class LinksComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private langService: LangService
+    private langService: LangService,
+    private loaderService: LoaderService,
+    private linksService: LinksService
   ) {
     this.title = this.activatedRoute.snapshot.data['title'];
     this.router.events.subscribe((event) => {
@@ -31,5 +35,17 @@ export class LinksComponent {
         }
       }
     });
+  }
+
+  createLink() {
+    this.loaderService.show();
+    this.linksService.createDefault().subscribe({
+      next: (res) => {
+        if(res.data?._id) this.router.navigate(['edit',res.data._id], {relativeTo: this.activatedRoute});
+      },
+      error: (error) => {
+        this.loaderService.hide();
+      },
+    })
   }
 }

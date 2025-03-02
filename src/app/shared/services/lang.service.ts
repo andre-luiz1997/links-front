@@ -235,6 +235,7 @@ const translation = {
 					email: 'Email'
 				},
 				form: {
+					no_records_found: 'Nenhum link adicionado. Clique no botão + para adicionar',
 					configure_link: 'Configurar link',
 					delete_link: 'Excluir link',
 					item: {

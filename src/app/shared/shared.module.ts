@@ -38,6 +38,7 @@ import { TableModule } from 'primeng/table';
 import { AccordionModule } from 'primeng/accordion';
 import { StandaloneChipsRadioComponent } from './components/standalone-chips-radio/standalone-chips-radio.component';
 import { MoedaInputComponent } from './components/moeda-input/moeda-input.component';
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MoedaInputComponent } from './components/moeda-input/moeda-input.compon
     StandaloneChipsRadioComponent,
     MoedaInputComponent,
     CurrencyDirective,
+    PersonalInfoComponent
   ],
   imports: [
     CommonModule,
@@ -127,6 +129,7 @@ import { MoedaInputComponent } from './components/moeda-input/moeda-input.compon
     StandaloneChipsRadioComponent,
     MoedaInputComponent,
     CurrencyDirective,
+    PersonalInfoComponent
   ],
   providers: [
     provideNgxMask()

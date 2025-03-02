@@ -3,6 +3,11 @@
 @import 'fonts';
 @import 'forms';
 
+:root {
+  --p-skeleton-background: #d7d7d7!important;
+  // --p-skeleton-animation-background: lighten($font_color,100%)!important;
+}
+
 
 html,
 body {
@@ -496,6 +501,10 @@ td {
   color: $font-color;
 }
 
+.p-paginator {
+  background-color: transparent !important;
+}
+
 
 .p-tablist-tab-list {
   background-color: transparent !important;
@@ -541,6 +550,13 @@ td {
   }
 }
 
+.p-toast-message-content {
+  flex-direction: row;
+  align-items: center!important;
+  justify-content: flex-start;
+}
+
 .p-tabpanels {
   background-color: transparent !important;
 }
+

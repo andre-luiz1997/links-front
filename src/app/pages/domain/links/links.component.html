@@ -2,10 +2,10 @@
     <div class="title-row">
         <h3 *ngIf="title" class="page-title">{{ title }}</h3>
         <ng-container *ngIf="showAddButton">
-            <a *permissions="[]" [routerLink]="['add']" class="btn btn-primary btn-circle ml-auto"
-                [pTooltip]="'pages.links.permissions.add' | translate" tooltipPosition="left">
+            <button type="button" *permissions="['links.add']" class="btn btn-primary btn-circle ml-auto"
+                [pTooltip]="'pages.links.permissions.add' | translate" tooltipPosition="left" (click)="createLink()">
                 <ng-icon name="phosphorPlus" size="1.4rem" />
-            </a>
+            </button>
         </ng-container>
     </div>
     <app-breadcrumbs />

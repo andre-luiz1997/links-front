@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LangService } from '@shared/services/lang.service';
@@ -17,21 +17,21 @@ import { CustomValidators } from '@shared/validators';
 })
 export class LinksFormComponent {
   isSubmitted = false
-  isEdittingProfile = false
+  isEdittingProfile = signal<boolean>(false)
   isItemFormVisible = false
 
   profileImage: string | undefined;
   profileImageTitle: string = '';
 
   form = this.formBuilder.group({
-    _id: new FormControl<string|null>(null),
+    _id: new FormControl<string|undefined>(undefined),
     profile: new FormGroup({
       show: new FormControl<boolean>(true),
-      title: new FormControl<string | null>('John Doe'),
-      subtitle: new FormControl<string | null>('Marketing Director'),
-      phone: new FormControl<string | null>('+55 31971675658'),
-      phone2: new FormControl<string | null>('+55 3138486504'),
-      email: new FormControl<string | null>('johndoe@email.com', [CustomValidators.IsValidEmailValidator]),
+      title: new FormControl<string | undefined>('John Doe'),
+      subtitle: new FormControl<string | undefined>('Marketing Director'),
+      phone: new FormControl<string | undefined>('+55 31971675658'),
+      phone2: new FormControl<string | undefined>('+55 3138486504'),
+      email: new FormControl<string | undefined>('johndoe@email.com', [CustomValidators.IsValidEmailValidator]),
     }),
     configuration: new FormGroup({}),
     items: this.formBuilder.array<Array<ILinkItem>>([
@@ -112,10 +112,10 @@ export class LinksFormComponent {
 
   editProfile(isCancelling = false) {
     if(isCancelling) {
-      this.isEdittingProfile = false;
+      this.isEdittingProfile.set(false);
       return;
     }
-    this.isEdittingProfile = true;
+    this.isEdittingProfile.set(true);
   }
 
   saveProfile() {
@@ -128,6 +128,8 @@ export class LinksFormComponent {
         if(!this._id) {
           this.router.navigate(['..','edit',res.data._id],{relativeTo: this.route})
         }
+        this.isEdittingProfile.set(false);
+        this.changeDetector.detectChanges();
         this.toastService.show({
           severity: 'success',
           description: this.langService.getMessage('success_messages.record_saved_successfully'),
@@ -157,7 +159,10 @@ export class LinksFormComponent {
   }
 
   removeItem(itemIdx: number) {
-
+    this.items.removeAt(itemIdx);
+    setTimeout(() => {
+      this.linksService.save(this.form.value).subscribe();
+    }, 10);
   }
 
   get items() {
@@ -165,12 +170,15 @@ export class LinksFormComponent {
   }
 
   onItemCardDrop(event: CdkDragDrop<any[]>) {
-    const oldItem = this.items.at(event.currentIndex)
-    const movingItem = this.items.at(event.previousIndex)
-    this.items.removeAt(event.currentIndex)
-    this.items.removeAt(event.previousIndex)
-    this.items.insert(event.currentIndex, movingItem)
-    this.items.insert(event.previousIndex, oldItem)
+    if (event.previousIndex !== event.currentIndex) {
+    const item = this.items.at(event.previousIndex);
+    this.items.removeAt(event.previousIndex);
+    this.items.insert(event.currentIndex, item);
+  }
+
+    setTimeout(() => {
+      this.linksService.save(this.form.value).subscribe();
+    }, 10);
   }
 
   saveItem() {
@@ -186,8 +194,7 @@ export class LinksFormComponent {
     } else {
       this.items?.push(this.formBuilder.group(this.itemForm.value));
     }
+    this.linksService.save(this.form.value).subscribe();
     this.isItemFormVisible = false;
   }
-
-  submitForm() {}
 }

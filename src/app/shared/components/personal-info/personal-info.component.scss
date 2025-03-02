@@ -1,0 +1,13 @@
+@import "variables";
+
+:host {
+  display: block;
+  &.small {
+    font-size: .8rem;
+
+    .phones-row {
+      flex-direction: column!important;
+    }
+  }
+}
+
