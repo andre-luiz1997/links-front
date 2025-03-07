@@ -20,6 +20,10 @@ export class LinksService implements CRUDService {
     return this.update(data._id, data);
   }
 
+  getOneByToken(token: string) {
+    return this.httpClient.get<DefaultResponse<ILinks>>(`${this.ENDPOINT}/token/${token}`);
+  }
+
   getAll(where?: DefaultPaginatedRequest) {
 		return this.httpClient.get<DefaultPaginatedResponse<ILinks[]>>(`${this.ENDPOINT}${where ? `?${serializeParams(where)}` : ''}`);
   }

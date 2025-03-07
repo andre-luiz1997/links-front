@@ -1,0 +1,25 @@
+@import 'variables';
+@import 'themes';
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  .container {
+    flex: 1;
+    &.centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+:host {
+  display: block;
+}
+
+.max-width {
+  max-width: 1000px;
+}

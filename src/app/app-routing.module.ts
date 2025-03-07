@@ -39,6 +39,14 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
       },
     ]
+  },
+  {
+    path: ':token', // Movido para depois das rotas específicas
+    loadComponent: () => import('./pages/domain/links/landing-page/landing-page.component').then(m => m.LandingPageComponent)
+  },
+  {
+    path: '**', // Rota curinga no final
+    redirectTo: ''
   }
 ];
 

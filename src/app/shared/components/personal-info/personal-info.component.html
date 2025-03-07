@@ -11,18 +11,18 @@
     }
     @if(profile?.email) {
         <div class="col-12 text-center flex flex-row align-items-center gap-2 justify-content-center text-sm">
-            <ng-icon name="phosphorEnvelopeSimple" size="1rem" /><span>{{ profile?.email }}</span>
+            <ng-icon name="phosphorEnvelopeSimple" size="1.2rem" /><span>{{ profile?.email }}</span>
         </div>
     }
     @if(profile?.phone || profile?.phone2) {
         <div class="col-12 text-center flex flex-row align-items-center gap-2 justify-content-center phones-row">
             @if(profile?.phone) {
                 <div class="flex flex-row align-items-center gap-2 justify-content-center text-sm"><ng-icon
-                        name="phosphorWhatsappLogo" size="1rem" /><span>{{ profile?.phone }}</span></div>
+                        name="phosphorWhatsappLogo" size="1.2rem" /><span>{{ profile?.phone }}</span></div>
             }
             @if(profile?.phone2) {
                 <div class="flex flex-row align-items-center gap-2 justify-content-center text-sm"><ng-icon
-                        name="phosphorPhone" size="1rem" /><span>{{ profile?.phone2 }}</span></div>
+                        name="phosphorPhone" size="1.2rem" /><span>{{ profile?.phone2 }}</span></div>
             }
         </div>
     }

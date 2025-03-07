@@ -1,0 +1,16 @@
+@import 'variables';
+@import 'themes';
+
+:host {
+  display: block;
+
+  &:hover {
+    cursor: pointer;
+    .card {
+      transition: all .3s ease-in-out;
+      transform: translateY(-5px);
+    }
+  }
+}
+
+
