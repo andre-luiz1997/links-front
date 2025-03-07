@@ -1,0 +1,117 @@
+@import 'variables';
+
+.default-theme {
+    .bg {
+        background-color: #{$main_color}0F;
+    }
+
+    .button {
+        background-color: $secondary_color;
+        color: $font_color;
+    }
+}
+
+.bubblegum-theme {
+    $main_color: #E91E63;
+    $secondary_color: #F06292;
+    $font_color: #FFFFFF;
+
+    .bg {
+        background-color: #{$main_color}0F;
+    }
+
+    .button {
+        background-color: $secondary_color;
+        color: $font_color;
+    }
+}
+
+
+.nature-theme {
+    $main_color: #4CAF50;
+    $secondary_color: #8BC34A;
+    $font_color: #FFFFFF;
+
+    .bg {
+        background-color: #{$main_color}0F;
+    }
+
+    .button {
+        background-color: $secondary_color;
+        color: $font_color;
+    }
+}
+
+.ocean-theme {
+    $main_color: #2196F3;
+    $secondary_color: #03A9F4;
+    $font_color: #FFFFFF;
+
+    .bg {
+        background-color: #{$main_color}0F;
+    }
+
+    .button {
+        background-color: $secondary_color;
+        color: $font_color;
+    }
+}
+
+.sunset-theme {
+    $main_color: #FF9800;
+    $secondary_color: #FFC107;
+    $font_color: #FFFFFF;
+
+    .bg {
+        background-color: #{$main_color}0F;
+    }
+
+    .color {
+        color: $main_color;
+    }
+
+    .button {
+        background-color: $secondary_color;
+        color: $font_color;
+    }
+}
+
+.retro-theme {
+    $main_color: #FF5722;
+    $secondary_color: #FF7043;
+    $font_color: #FFFFFF;
+
+    .bg {
+        background-color: #{$main_color}0F;
+    }
+
+    .color {
+        color: $main_color;
+    }
+
+
+    .button {
+        background-color: $secondary_color;
+        color: $font_color;
+    }
+}
+
+.professional-theme {
+    $main_color: #607D8B;
+    $secondary_color: #78909C;
+    $font_color: #FFFFFF;
+
+    .bg {
+        background-color: #{$main_color}0F;
+    }
+
+    .color {
+        color: $main_color;
+    }
+
+
+    .button {
+        background-color: $secondary_color;
+        color: $font_color;
+    }
+}

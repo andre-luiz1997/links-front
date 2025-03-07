@@ -26,6 +26,20 @@ small {
   font-size: .8rem;
 }
 
+.link {
+  color: $main_color_darker;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.monospace {
+  font-family: 'Courier New', Courier, monospace;
+}
+
 .background {
   background-color: $background_color;
 }

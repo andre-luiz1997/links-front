@@ -24,16 +24,17 @@
   position: fixed;
   top: 10px;
   left: 10px;
-  background-color: #232323;
+  background-color: $main_color;
   width: 3rem;
   height: 3rem;
-  box-shadow: -1px 3px 7px 1px rgba(0,0,0,0.5);
+  box-shadow: $default_box_shadow;
 }
 
 @media (max-width: calc($lg-breakpoint - 1px)) {
   :host {
-    position: fixed;
-    inset: 0;
+    position: sticky;
+    top: 10px;
+    left: 10px;
     z-index: 30;
   }
 

@@ -1,11 +1,14 @@
 import type { DBEntity } from "../entity";
 import type { IUsers } from "../user";
 
-export const LinkConfigurationThemes = ['default', 'nature', 'ocean', 'sunset','retro','professional','custom'];
+export const LinkConfigurationThemes = ['default', 'nature', 'ocean', 'sunset','retro','professional','bubblegum', 'custom'];
 export type LinkConfigurationTheme = typeof LinkConfigurationThemes[number];
 
 export interface ILinkConfiguration {
   theme: LinkConfigurationTheme;
+  main_color?: string
+  secondary_color?: string;
+  font_color?: string;
 }
 
 export interface ILinkProfile {

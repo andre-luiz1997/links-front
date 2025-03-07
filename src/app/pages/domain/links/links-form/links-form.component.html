@@ -1,3 +1,9 @@
+<div class="page-buttons ">
+    <button type="button" class="btn btn-circle btn-bare ml-auto" tooltipPosition="left"
+        [pTooltip]="'pages.links.visit_link' | translate" (click)="isLinkVisitInfoVisible = true">
+        <ng-icon name="phosphorArrowSquareOut" size="1.2rem" />
+    </button>
+</div>
 <form [formGroup]="form">
     <div class="grid">
         <div class="col-12 md:col-4">
@@ -44,6 +50,40 @@
     </p-tabs>
 </ng-template>
 
+<p-dialog [(visible)]="isLinkVisitInfoVisible" [maximizable]="false" [draggable]="false" [resizable]="false"
+    [modal]="true" [dismissableMask]="false" styleClass="linkURLDialog">
+    <ng-template pTemplate="body">
+        @if(linkURL) {
+        <div class="grid mb-5">
+            <div class="col-12 text-center">
+                <h3>{{ 'pages.links.link_url' | translate }}</h3>
+                <a class="link" [href]="linkURL" target="_blank" [pTooltip]="'pages.links.visit_link' | translate"
+                    tooltipPosition="bottom">{{ linkURL }}</a>
+            </div>
+            <div class="col-12 text-center">
+                <button type="button" class="m-auto btn btn-primary" (click)="copyToClipboard(linkURL)">
+                    <ng-icon name="phosphorCopy" size="1.2rem" />
+                    {{ 'copy_to_clipboard' | translate }}
+                </button>
+            </div>
+            <div class="col-12 text-center">
+                <span>{{ 'or' | translate }}</span>
+                <br />
+                <h3 class="mb-0">{{ 'pages.links.link_qrcode' | translate }}</h3>
+            </div>
+            <div class="col-12 text-center">
+                <qrcode (qrCodeURL)="linkQRCodeURL = $event" [qrdata]="linkURL" [width]="256"
+                    [errorCorrectionLevel]="'M'" />
+                <button type="button" class="m-auto btn btn-default" (click)="downloadQRCodeUrl()">
+                    <ng-icon name="phosphorDownload" size="1.2rem" />
+                    {{ 'download_qrcode' | translate }}
+                </button>
+            </div>
+        </div>
+        }
+    </ng-template>
+</p-dialog>
+
 <p-dialog [(visible)]="isItemFormVisible" [maximizable]="false" [draggable]="false" [resizable]="false" [modal]="true"
     [dismissableMask]="false" [header]="'pages.links.form.configure_link' | translate">
     <form class="fadeindown animation-duration-100" [formGroup]="itemForm">
@@ -87,7 +127,7 @@
 </p-dialog>
 
 <ng-template #linkTab>
-    <div class="grid w100">
+    <div class="grid w100 fadein animation-duration-100">
         <div class="col-12">
             <button type="button" class="btn btn-circle btn-primary ml-auto" tooltipPosition="left"
                 [pTooltip]="'pages.links.form.configure_link' | translate" (click)="showItemForm()">
@@ -118,20 +158,74 @@
             }
             }
             } @else {
-                <div class="grid">
-                    <div class="col-12 text-center">
-                        <span>{{ 'pages.links.form.no_records_found' | translate }}</span>
-                    </div>
+            <div class="grid">
+                <div class="col-12 text-center">
+                    <span>{{ 'pages.links.form.no_records_found' | translate }}</span>
                 </div>
+            </div>
             }
         </div>
     </div>
 </ng-template>
+
+<ng-template #customAppearanceSelector>
+    <ng-container [formGroup]="form">
+        <div class="grid card fadeindown animation-duration-500" formGroupName="configuration">
+            <div class="col-12 flex flex-row align-items-center justify-content-between">
+                <h4>{{ 'pages.links.custom.title' | translate }}</h4>
+                <button type="button" class="btn btn-primary" (click)="applyCustomTheme()">
+                    {{ 'pages.links.custom.apply_custom' | translate }}
+                </button>
+            </div>
+            <div class="col-12">
+                <div class="form-group flex flex-row align-items-center justify-content-between">
+                    <span>{{ 'pages.links.custom.main_color' | translate }}</span>
+                    <div class="flex flex-row gap-2 align-items-center justify-content-end">
+                        <input type="color" formControlName="main_color" class="form-control">
+                        <span class="monospace">{{ form.get("configuration.main_color")?.value }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group flex flex-row align-items-center justify-content-between">
+                    <span>{{ 'pages.links.custom.secondary_color' | translate }}</span>
+                    <div class="flex flex-row gap-2 align-items-center justify-content-end">
+                        <input type="color" formControlName="secondary_color" class="form-control">
+                        <span class="monospace">{{ form.get("configuration.secondary_color")?.value }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group flex flex-row align-items-center justify-content-between">
+                    <span>{{ 'pages.links.custom.font_color' | translate }}</span>
+                    <div class="flex flex-row gap-2 align-items-center justify-content-end">
+                        <input type="color" formControlName="font_color" class="form-control">
+                        <span class="monospace">{{ form.get("configuration.font_color")?.value }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
 <ng-template #appearanceTab>
-    <div class="grid">
-        tab 2
+    <div class="fadein animation-duration-100">
+        @if(form.get('configuration.theme')?.value; as selectedTheme) {
+        <div class="appearance-grid mb-4">
+            @for (theme of themes; track $index) {
+            <app-appearance-item [theme]="theme" [selected]="selectedTheme == theme"
+                (click)="setSelectedTheme(theme)" />
+            }
+        </div>
+
+        @if(selectedTheme == 'custom') {
+        <ng-container *ngTemplateOutlet="customAppearanceSelector" />
+        }
+        }
+
     </div>
 </ng-template>
+
 <ng-template #configsTab>
     <div class="grid">
         tab 3

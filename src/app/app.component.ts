@@ -33,7 +33,6 @@ export class AppComponent {
         summary: toast.title,
         detail: toast.description,
         closable: true,
-        
       })
     });
 

@@ -67,6 +67,23 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
+::ng-deep {
+  .linkURLDialog {
+    @media (min-width: $xl-breakpoint) {
+      max-width: 30vw;
+    }
+    @media (min-width: $lg-breakpoint) {
+      max-width: 40vw;
+    }
+    @media (min-width: $md-breakpoint) {
+      max-width: 60vw;
+    }
+    @media (max-width: calc($md-breakpoint - 1px)) {
+      width: 90vw;
+    }
+
+  }
+}
 
 
 .user-profile-container {
@@ -115,4 +132,11 @@
     border-radius: 100%;
     display: flex;
   }
+}
+
+.appearance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  column-gap: 1rem;
 }

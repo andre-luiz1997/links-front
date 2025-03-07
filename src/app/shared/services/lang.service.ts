@@ -54,6 +54,8 @@ const translation = {
 			record_deleted_successfully: 'Registro deletado com sucesso!',
 			signin_success: 'Login efetuado com sucesso!',
 			signup_success: 'Conta criada com sucesso!',
+			copied_to_clipboard: 'Copiado para a área de transferência',
+			downloaded_successfully: 'Download concluído com sucesso',
 		},
 		error_messages: {
 			error_occurred: 'Ocorreu um erro. Tente novamente.',
@@ -66,6 +68,8 @@ const translation = {
 			},
 			record_not_found: 'Registro não encontrado',
 		},
+		copy_to_clipboard: 'Copiar para a área de transferência',
+		download_qrcode: 'Download do QRCode',
 		signout: 'Sair',
 		signup_success_message: 'Clique no botão abaixo para continuar',
 		select_placeholder: 'Selecione...',
@@ -197,6 +201,7 @@ const translation = {
 		card_expiration: 'Validade',
 		card_validation: 'CVV',
 		person_type: 'Tipo',
+		or: 'ou',
 		person_types: {
 			individual: 'Pessoa física',
 			corporation: 'Pessoa jurídica',
@@ -219,6 +224,9 @@ const translation = {
 			},
 			links: {
 				title: 'Links',
+				visit_link: 'Visitar link',
+				link_url: 'Compartilhe este link abaixo com seus contatos',
+				link_qrcode: 'Faça o download do QRCode para compartilhar',
 				permissions: {
 					add: 'Adicionar link',
 					edit: 'Editar link',
@@ -245,6 +253,13 @@ const translation = {
 						url_info: 'Ex: https://example.com',
 						status_info: 'Links inativos não serão exibidos para o usuário'
 					}
+				},
+				custom: {
+					title: 'Customize seu tema',
+					main_color: 'Cor principal',
+					secondary_color: 'Cor secondária',
+					font_color: 'Cor da fonte',
+					apply_custom: 'Aplicar tema customizado',
 				},
 				tabs: {
 					links: 'Links',

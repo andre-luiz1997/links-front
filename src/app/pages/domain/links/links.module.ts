@@ -11,15 +11,18 @@ import { LinksFormComponent } from "./links-form/links-form.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TabsModule } from "primeng/tabs";
 import { ToggleSwitchModule } from "primeng/toggleswitch";
-import { phosphorEnvelopeSimple, phosphorLink, phosphorPaintBucket, phosphorPhone, phosphorWhatsappLogo, phosphorWrench } from "@ng-icons/phosphor-icons/regular";
+import { phosphorArrowSquareOut, phosphorCheck, phosphorCopy, phosphorDownload, phosphorEnvelopeSimple, phosphorLink, phosphorPaintBucket, phosphorPhone, phosphorWhatsappLogo, phosphorWrench } from "@ng-icons/phosphor-icons/regular";
 import { DialogModule } from "primeng/dialog";
 import { CdkDrag, CdkDropList } from "@angular/cdk/drag-drop";
 import { PaginatorModule } from "primeng/paginator";
 import { SkeletonModule } from "primeng/skeleton";
 import { SpeedDialModule } from "primeng/speeddial";
+import { AppearanceItemComponent } from "./links-form/appearance-item/appearance-item.component";
+import { CapitalizePipe } from "@shared/pipes/capitalize.pipe";
+import { QRCodeModule } from "angularx-qrcode";
 
 @NgModule({
-    declarations: [LinksComponent, LinksListComponent, LinksFormComponent],
+    declarations: [LinksComponent, LinksListComponent, LinksFormComponent, AppearanceItemComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -34,6 +37,8 @@ import { SpeedDialModule } from "primeng/speeddial";
         SkeletonModule,
         SpeedDialModule,
         CdkDropList, CdkDrag,
+        CapitalizePipe,
+        QRCodeModule,
         NgIconsModule.withIcons({
             ...phosporDefaultIcons,
             phosphorEnvelopeSimple,
@@ -41,7 +46,11 @@ import { SpeedDialModule } from "primeng/speeddial";
             phosphorPhone,
             phosphorLink,
             phosphorPaintBucket,
-            phosphorWrench
+            phosphorWrench,
+            phosphorCheck,
+            phosphorArrowSquareOut,
+            phosphorCopy,
+            phosphorDownload
         })],
 })
 export class LinksModule { }

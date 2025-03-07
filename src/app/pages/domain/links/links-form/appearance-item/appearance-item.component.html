@@ -1,0 +1,9 @@
+<div [class]="theme + '-theme'" [ngClass]="{selected}">
+    <div class="bg">
+        @if(selected) {
+            <ng-icon name="phosphorCheck" class="check color" size="1.2rem" />
+        }
+        <h5 class="theme-title m-0">{{ theme | capitalize }}</h5>
+        <div class="theme-primary-color button"></div>
+    </div>
+</div>

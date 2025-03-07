@@ -1,13 +1,15 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LangService } from '@shared/services/lang.service';
 import { LinksService } from '@shared/services/links.service';
 import { LoaderService } from '@shared/services/loader.service';
 import { ToastService } from '@shared/services/toast.service';
-import { ILinkItem } from '@shared/types/entities/domain/links';
+import { ILinkItem, LinkConfigurationTheme, LinkConfigurationThemes } from '@shared/types/entities/domain/links';
 import { CustomValidators } from '@shared/validators';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-links-form',
@@ -33,19 +35,13 @@ export class LinksFormComponent {
       phone2: new FormControl<string | undefined>('+55 3138486504'),
       email: new FormControl<string | undefined>('johndoe@email.com', [CustomValidators.IsValidEmailValidator]),
     }),
-    configuration: new FormGroup({}),
-    items: this.formBuilder.array<Array<ILinkItem>>([
-      // this.formBuilder.group({
-      //   title: 'Link1',
-      //   url: 'https://app.pdvpix.com.br',
-      //   status: true
-      // }),
-      // this.formBuilder.group({
-      //   title: 'Link2',
-      //   url: 'https://teste.pdvpix.com.br',
-      //   status: false
-      // })
-    ])
+    configuration: new FormGroup({
+      theme: new FormControl<LinkConfigurationTheme>('default'),
+      main_color: new FormControl<string | undefined>(undefined),
+      secondary_color: new FormControl<string | undefined>(undefined),
+      font_color: new FormControl<string | undefined>(undefined),
+    }),
+    items: this.formBuilder.array<Array<ILinkItem>>([])
   })
 
   itemForm = new FormGroup({
@@ -56,6 +52,11 @@ export class LinksFormComponent {
   itemFormSubmitted = false
   itemIdx: null | number = null
   _id: string | null = null
+  themes = LinkConfigurationThemes
+
+  isLinkVisitInfoVisible = false
+  linkURL?: string;
+  linkQRCodeURL?: SafeUrl;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -93,6 +94,7 @@ export class LinksFormComponent {
           },
           configuration: link.configuration
         })
+        this.linkURL = `${environment.FRONT_URL}/${link._id}`;
         this.items.clear();
         link.items?.forEach(item => {
           this.items.push(this.formBuilder.group({
@@ -108,6 +110,28 @@ export class LinksFormComponent {
 
       },
     })
+  }
+
+  copyToClipboard(content: string) {
+    navigator.clipboard.writeText(content).then(() => {
+      this.toastService.show({
+        severity: 'success',
+        description: this.langService.getMessage('success_messages.copied_to_clipboard'),
+      });
+    });
+  }
+
+  downloadQRCodeUrl() {
+    if(!this.linkQRCodeURL) return;
+    const link = document.createElement('a');
+    // @ts-ignore
+    link.href = this.linkQRCodeURL.changingThisBreaksApplicationSecurity;
+    link.download = 'qrcode.png';
+    link.click();
+    this.toastService.show({
+      severity: 'success',
+      description: this.langService.getMessage('success_messages.downloaded_successfully'),
+    });
   }
 
   editProfile(isCancelling = false) {
@@ -196,5 +220,33 @@ export class LinksFormComponent {
     }
     this.linksService.save(this.form.value).subscribe();
     this.isItemFormVisible = false;
+  }
+
+  setSelectedTheme(theme: LinkConfigurationTheme) {
+    this.form.get("configuration.theme")?.setValue(theme);
+    if(theme == 'custom') {
+      if(!this.form.get("configuration.main_color")?.value) {
+        this.form.get("configuration.main_color")?.setValue('#9EE37D');
+      }
+      if(!this.form.get("configuration.secondary_color")?.value) {
+        this.form.get("configuration.secondary_color")?.setValue('#47AB90');
+      }
+      if(!this.form.get("configuration.font_color")?.value) {
+        this.form.get("configuration.font_color")?.setValue('#171D1C');
+      }
+    } else {
+      this.form.get("configuration.main_color")?.setValue(undefined);
+      this.form.get("configuration.secondary_color")?.setValue(undefined);
+      this.form.get("configuration.font_color")?.setValue(undefined);
+    }
+    this.linksService.save(this.form.value).subscribe();
+  }
+  
+  applyCustomTheme() {
+    this.linksService.save(this.form.value).subscribe();
+    this.toastService.show({
+      severity: 'success',
+      description: this.langService.getMessage('success_messages.record_saved_successfully'),
+    });
   }
 }

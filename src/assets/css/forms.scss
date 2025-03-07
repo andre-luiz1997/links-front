@@ -32,6 +32,15 @@
         border-bottom: 1px solid #ffffff2b;
         cursor: not-allowed;
     }
+
+    &[type="color"] {
+        padding: 0;
+        border: none;
+        height: calc($default_control_height - 10px);
+        width: calc($default_control_height - 10px);
+        border-radius: $default_radius;
+        cursor: pointer;
+    }
 }
 
 .disabled {
