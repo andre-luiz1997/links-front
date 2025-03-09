@@ -202,13 +202,20 @@
 <ng-template #socialLinksSection>
     <div class="grid w100">
         <div class="col-12 text-center flex flex-column align-items-center justify-content-center gap-2">
-            <button type="button" class="btn btn-primary btn-circle absolute-btn" [pTooltip]="'pages.links.form.configure_social_links' | translate" tooltipPosition="left" (click)="isSocialLinksDialogVisible = true">
+            <button type="button" class="btn btn-primary btn-circle absolute-btn"
+                [pTooltip]="'pages.links.form.configure_social_links' | translate" tooltipPosition="left"
+                (click)="isSocialLinksDialogVisible = true">
                 <ng-icon size="1.2rem" name="phosphorPencilSimple" />
             </button>
             <h3 class="m-0">{{ 'pages.links.form.social_links' | translate }}</h3>
             <div class="social-links-row">
                 @for (item of socialLinks.controls; track $index) {
-                    <app-social-link [item]="item.value" />
+                @if(item.value.status) {
+                <app-social-link [item]="item.value" />
+                }
+                }
+                @if(noSocialLinkSelected) {
+                    <small>{{ 'pages.links.form.no_social_links' | translate }}</small>
                 }
             </div>
         </div>
@@ -236,28 +243,36 @@
             <div class="col-12">
                 <div class="form-group">
                     <label for="subtitle">{{ 'pages.links.profile.subtitle' | translate }}</label>
-                    <textarea formControlName="subtitle" [placeholder]=" 'pages.links.form.placeholders.subtitle' | translate " requiredLabel class="form-control"></textarea>
+                    <textarea formControlName="subtitle"
+                        [placeholder]=" 'pages.links.form.placeholders.subtitle' | translate " requiredLabel
+                        class="form-control"></textarea>
                     <app-error-block formControlName="subtitle" [show]="isSubmitted" />
                 </div>
             </div>
             <div class="col-12 md:col-6">
                 <div class="form-group">
                     <label for="phone">{{ 'pages.links.profile.phone' | translate }}</label>
-                    <input type="text" formControlName="phone" [placeholder]=" 'pages.links.form.placeholders.phone' | translate " requiredLabel class="form-control">
+                    <input type="text" formControlName="phone"
+                        [placeholder]=" 'pages.links.form.placeholders.phone' | translate " requiredLabel
+                        class="form-control">
                     <app-error-block formControlName="phone" [show]="isSubmitted" />
                 </div>
             </div>
             <div class="col-12 md:col-6">
                 <div class="form-group">
                     <label for="phone2">{{ 'pages.links.profile.phone2' | translate }}</label>
-                    <input type="text" formControlName="phone2" [placeholder]=" 'pages.links.form.placeholders.phone2' | translate " requiredLabel class="form-control">
+                    <input type="text" formControlName="phone2"
+                        [placeholder]=" 'pages.links.form.placeholders.phone2' | translate " requiredLabel
+                        class="form-control">
                     <app-error-block formControlName="phone2" [show]="isSubmitted" />
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <label for="email">{{ 'pages.links.profile.email' | translate }}</label>
-                    <input type="email" formControlName="email" [placeholder]=" 'pages.links.form.placeholders.email' | translate " requiredLabel class="form-control">
+                    <input type="email" formControlName="email"
+                        [placeholder]=" 'pages.links.form.placeholders.email' | translate " requiredLabel
+                        class="form-control">
                     <app-error-block formControlName="email" [show]="isSubmitted" />
                 </div>
             </div>
@@ -276,27 +291,51 @@
 <ng-template #ngPersonalInfoForm>
     <div class="grid w100 fadeindown animation-duration-100">
         <app-personal-info class="w100" [profile]="form.get('profile')?.value" [showProfileImage]="false" />
-        <button type="button" class="btn btn-primary btn-circle absolute-btn" [pTooltip]="'pages.links.profile.edit' | translate" tooltipPosition="left" (click)="editProfile()">
+        <button type="button" class="btn btn-primary btn-circle absolute-btn"
+            [pTooltip]="'pages.links.profile.edit' | translate" tooltipPosition="left" (click)="editProfile()">
             <ng-icon size="1.2rem" name="phosphorPencilSimple" />
         </button>
     </div>
 </ng-template>
 
 <p-dialog [(visible)]="isSocialLinksDialogVisible" [maximizable]="false" [draggable]="false" [resizable]="false"
-    [modal]="true" [dismissableMask]="false" styleClass="largeDialog" [header]="'pages.links.form.configure_social_links' | translate" >
+    [modal]="true" [dismissableMask]="true" styleClass="largeDialog"
+    [header]="'pages.links.form.configure_social_links' | translate">
     <ng-template pTemplate="body">
-        <div class="grid">
-            <div class="col-12 py-4 flex flex-row align-items-center justify-content-center flex-wrap gap-3">
-                @for (company of socialCompaniesOptions; track $index) {
-                    <div class="card social-card">
-                        <div class="absolute-btn">
-                            <div class="relative">
-                                <app-standalone-switch [isActive]="isSocialLinkActive(company.name)" (onChange)="toggleSocialLink($event, $index, company.name)" />
-                            </div>
+        <div class="grid" [formGroup]="form">
+            <div class="col-12 py-4 flex flex-row align-items-center justify-content-center flex-wrap gap-3"
+                formGroupName="socialLinks">
+                @for (company of socialLinks.controls; track $index) {
+                <div class="card social-card" [formArrayName]="$index">
+                    <div class="absolute-btn">
+                        <div class="relative">
+                            <p-toggleSwitch formControlName="status" />
                         </div>
-                        <h3 class="m-0">{{ ('companies.' + company.name) | translate }}</h3>
-                        <ng-icon [name]="company.icon" size="1.2rem" />
                     </div>
+                    @if(form.get("socialLinks." + $index + ".status")?.value) {
+                    <button type="button" class="btn btn-circle btn-primary absolute-btn bottom-right"
+                        (click)="popover.toggle($event)">
+                        <p-popover class="hide" #popover>
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="name">{{ 'pages.links.form.item.url' | translate }}</label>
+                                        <input type="text" formControlName="url" class="form-control"
+                                            [placeholder]=" ('example_min' |translate) + ' https://' + form.get('socialLinks.' + $index + '.company')?.value + '.com'">
+                                    </div>
+                                </div>
+                            </div>
+                        </p-popover>
+                        <ng-icon name="phosphorPencilSimple" size="1.2rem" />
+                    </button>
+                    }
+                    @if(form.get("socialLinks." + $index + ".company")?.value; as companyName) {
+                    <h3 class="m-0">{{ ('companies.' + companyName) | translate }}</h3>
+                    }
+                    @if(form.get("socialLinks." + $index + ".icon")?.value; as companyIcon) {
+                    <ng-icon [name]="companyIcon" size="1.2rem" />
+                    }
+                </div>
                 }
             </div>
         </div>

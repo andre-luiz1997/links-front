@@ -12,6 +12,7 @@ import { IFiles } from '@shared/types';
 import { ILinkItem, ILinks, ILinkSocial, LinkConfigurationTheme, LinkConfigurationThemes, LinkSocialCompanies, LinkSocialCompanyName } from '@shared/types/entities/domain/links';
 import { getPublicAsset } from '@shared/utils/common';
 import { CustomValidators } from '@shared/validators';
+import { debounceTime } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
@@ -80,7 +81,7 @@ export class LinksFormComponent implements AfterViewInit {
   isUploadingProfileImage = signal<boolean>(false);
 
   isSocialLinksDialogVisible = false;
-  socialCompaniesOptions = Object.values(LinkSocialCompanies);
+  // socialCompaniesOptions = Object.values(LinkSocialCompanies);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -107,6 +108,12 @@ export class LinksFormComponent implements AfterViewInit {
       } else {
         this.profileImage = undefined;
       }
+    })
+    this.form.get("socialLinks")?.valueChanges
+    .pipe(debounceTime(2000)).subscribe(() => {
+      setTimeout(() => {
+        this.linksService.save(this.form.value).subscribe();
+      }, 10);
     })
   }
 
@@ -136,9 +143,8 @@ export class LinksFormComponent implements AfterViewInit {
             phone2: link.profile.phone2,
             email: link.profile.email,
           },
-          configuration: link.configuration
+          configuration: link.configuration,
         })
-
         this.linkURL = `${environment.FRONT_URL}/${link._id}`;
         this.items.clear();
         link.items?.forEach(item => {
@@ -146,6 +152,16 @@ export class LinksFormComponent implements AfterViewInit {
             title: item.title,
             url: item.url,
             status: item.status
+          }))
+        })
+        this.socialLinks.clear();
+        Object.values(LinkSocialCompanies).forEach(company => {
+          const socialLink = link.socialLinks?.find((link) => link.company === company.name);
+          this.socialLinks.push(this.formBuilder.group({
+            company: company.name,
+            icon: company.icon,
+            url: socialLink?.url,
+            status: socialLink?.status ?? false
           }))
         })
         this.changeDetector.detectChanges();
@@ -242,24 +258,8 @@ export class LinksFormComponent implements AfterViewInit {
     return this.form.get("socialLinks") as FormArray
   }
 
-  isSocialLinkActive(company: LinkSocialCompanyName) {
-    return this.socialLinks?.controls?.find((control) => control?.value?.company === company)?.value?.status;
-  }
-
-  toggleSocialLink(enabled: boolean, idx: number, company: LinkSocialCompanyName) {
-    if(enabled) {
-      this.socialLinks.push(this.formBuilder.group({
-        company: company,
-        icon: LinkSocialCompanies[company].icon,
-        url: '',
-        status: true
-      }))
-    } else {
-      this.socialLinks.removeAt(idx);
-    }
-    // setTimeout(() => {
-    //   this.linksService.save(this.form.value).subscribe();
-    // }, 10);
+  get noSocialLinkSelected() {
+    return this.socialLinks?.controls?.every((control) => !control?.value?.status);
   }
 
   onItemCardDrop(event: CdkDragDrop<any[]>) {

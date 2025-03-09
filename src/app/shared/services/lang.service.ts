@@ -162,6 +162,8 @@ const translation = {
 		min: 'Mínimo',
 		max: 'Máximo',
 		category: 'Categoria',
+		example: 'Exemplo',
+		example_min: 'Ex:',
 
 		last_24_hours: 'Últimas 24 horas',
 		last_3_days: 'Últimos 3 dias',
@@ -258,6 +260,7 @@ const translation = {
 				form: {
 					social_links: 'Redes sociais',
 					configure_social_links: 'Editar redes sociais',
+					no_social_links: 'Nenhuma rede social adicionada. Clique no botão para editar suas redes sociais',
 					placeholders: {
 						title: 'Ex: John Doe',
 						subtitle: 'Ex: Marketing Director',

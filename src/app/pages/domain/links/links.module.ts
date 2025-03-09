@@ -18,6 +18,7 @@ import { CdkDrag, CdkDropList } from "@angular/cdk/drag-drop";
 import { PaginatorModule } from "primeng/paginator";
 import { SkeletonModule } from "primeng/skeleton";
 import { SpeedDialModule } from "primeng/speeddial";
+import { PopoverModule } from "primeng/popover";
 import { AppearanceItemComponent } from "./links-form/appearance-item/appearance-item.component";
 import { CapitalizePipe } from "@shared/pipes/capitalize.pipe";
 import { QRCodeModule } from "angularx-qrcode";
@@ -49,6 +50,7 @@ export const SocialMediaIcons = {
         CdkDropList, CdkDrag,
         CapitalizePipe,
         QRCodeModule,
+        PopoverModule,
         NgIconsModule.withIcons({
             ...phosporDefaultIcons,
             phosphorEnvelopeSimple,

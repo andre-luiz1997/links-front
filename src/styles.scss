@@ -63,6 +63,18 @@ small {
   }
 }
 
+.absolute-btn {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+
+  &.bottom-right {
+    top: unset;
+    right: -10px;
+    bottom: -10px;
+  }
+}
+
 .btn {
   background: none;
   border: none;
