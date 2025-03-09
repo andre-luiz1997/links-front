@@ -5,6 +5,7 @@ import { phosporDefaultIcons, SharedModule } from "@shared/index";
 import { LinksRoutingModule } from "./links-routing.module";
 import { TooltipModule } from "primeng/tooltip";
 import { NgIconsModule } from "@ng-icons/core";
+import { faBrandFacebook, faBrandInstagram, faBrandTiktok, faBrandTwitter, faBrandXTwitter, faBrandYoutube } from '@ng-icons/font-awesome/brands';
 import { TranslatePipe } from "@shared/pipes/translate.pipe";
 import { LinksListComponent } from "./links-list/links-list.component";
 import { LinksFormComponent } from "./links-form/links-form.component";
@@ -20,6 +21,15 @@ import { SpeedDialModule } from "primeng/speeddial";
 import { AppearanceItemComponent } from "./links-form/appearance-item/appearance-item.component";
 import { CapitalizePipe } from "@shared/pipes/capitalize.pipe";
 import { QRCodeModule } from "angularx-qrcode";
+
+export const SocialMediaIcons = {
+    faBrandFacebook,
+    faBrandInstagram,
+    faBrandTwitter,
+    faBrandTiktok,
+    faBrandYoutube,
+    faBrandXTwitter
+}
 
 @NgModule({
     declarations: [LinksComponent, LinksListComponent, LinksFormComponent, AppearanceItemComponent],
@@ -50,7 +60,8 @@ import { QRCodeModule } from "angularx-qrcode";
             phosphorCheck,
             phosphorArrowSquareOut,
             phosphorCopy,
-            phosphorDownload
+            phosphorDownload,
+            ...SocialMediaIcons
         })],
 })
 export class LinksModule { }

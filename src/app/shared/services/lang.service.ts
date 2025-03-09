@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CALENDAR_DATE_FORMAT_BR, CALENDAR_DATETIME_FORMAT_BR, CURRENCY_MASK } from '@shared/utils/constants';
 import { isEmpty } from '@shared/utils/common';
+import { LinkSocialCompanyName } from '@shared/types/entities/domain/links';
 type langs = 'pt-BR';
 // {[key in langs]: {[x: string]: string | {[x: string]: string}}}
 const translation = {
@@ -194,6 +195,14 @@ const translation = {
 		not_informed: 'Não informado',
 		free: 'Grátis',
 
+		companies: {
+			facebook: 'Facebook',
+			instagram: 'Instagram',
+			twitter: 'X',
+			tiktok: 'TikTok',
+			youtube: 'YouTube',
+		} as {[key in LinkSocialCompanyName]: string},
+
 		password: 'Senha',
 		password_confirm: 'Confirmar senha',
 		forgot_password: 'Esqueceu a senha?',
@@ -247,6 +256,15 @@ const translation = {
 					email: 'Email'
 				},
 				form: {
+					social_links: 'Redes sociais',
+					configure_social_links: 'Editar redes sociais',
+					placeholders: {
+						title: 'Ex: John Doe',
+						subtitle: 'Ex: Marketing Director',
+						phone: 'Ex: +55 (00)00000-0000',
+						phone2: 'Ex: +55 (00)0000-0000',
+						email: 'Ex: johndoe@email.com',
+					},
 					no_records_found: 'Nenhum link adicionado. Clique no botão + para adicionar',
 					configure_link: 'Configurar link',
 					delete_link: 'Excluir link',

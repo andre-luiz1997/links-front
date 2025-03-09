@@ -9,7 +9,7 @@ import { LinksService } from '@shared/services/links.service';
 import { LoaderService } from '@shared/services/loader.service';
 import { ToastService } from '@shared/services/toast.service';
 import { IFiles } from '@shared/types';
-import { ILinkItem, ILinks, LinkConfigurationTheme, LinkConfigurationThemes } from '@shared/types/entities/domain/links';
+import { ILinkItem, ILinks, ILinkSocial, LinkConfigurationTheme, LinkConfigurationThemes, LinkSocialCompanies, LinkSocialCompanyName } from '@shared/types/entities/domain/links';
 import { getPublicAsset } from '@shared/utils/common';
 import { CustomValidators } from '@shared/validators';
 import { environment } from 'src/environments/environment.development';
@@ -29,15 +29,15 @@ export class LinksFormComponent implements AfterViewInit {
   profileImageTitle: string = '';
 
   form = this.formBuilder.group({
-    _id: new FormControl<string|undefined>(undefined),
+    _id: new FormControl<string | undefined>(undefined),
     profile: new FormGroup({
       image: new FormControl<IFiles | undefined>(undefined),
       show: new FormControl<boolean>(true),
-      title: new FormControl<string | undefined>('John Doe'),
-      subtitle: new FormControl<string | undefined>('Marketing Director'),
-      phone: new FormControl<string | undefined>('+55 31971675658'),
-      phone2: new FormControl<string | undefined>('+55 3138486504'),
-      email: new FormControl<string | undefined>('johndoe@email.com', [CustomValidators.IsValidEmailValidator]),
+      title: new FormControl<string | undefined>(undefined),
+      subtitle: new FormControl<string | undefined>(undefined),
+      phone: new FormControl<string | undefined>(undefined),
+      phone2: new FormControl<string | undefined>(undefined),
+      email: new FormControl<string | undefined>(undefined, [CustomValidators.IsValidEmailValidator]),
     }),
     configuration: new FormGroup({
       theme: new FormControl<LinkConfigurationTheme>('default'),
@@ -45,12 +45,26 @@ export class LinksFormComponent implements AfterViewInit {
       secondary_color: new FormControl<string | undefined>(undefined),
       font_color: new FormControl<string | undefined>(undefined),
     }),
-    items: this.formBuilder.array<Array<ILinkItem>>([])
+    items: this.formBuilder.array<ILinkItem>([]),
+    socialLinks: this.formBuilder.array<ILinkSocial>([
+      // {
+      //   company: LinkSocialCompanies.facebook.name,
+      //   icon: LinkSocialCompanies.facebook.icon,
+      //   url: '',
+      //   status: true
+      // },
+      // {
+      //   company: LinkSocialCompanies.instagram.name,
+      //   icon: LinkSocialCompanies.instagram.icon,
+      //   url: '',
+      //   status: true
+      // }
+    ]),
   })
 
   itemForm = new FormGroup({
-    title: new FormControl<string|null>(null, [Validators.required, Validators.minLength(3)]),
-    url: new FormControl<string|null>(null, [Validators.required, CustomValidators.IsValidUrlValidator()]),
+    title: new FormControl<string | null>(null, [Validators.required, Validators.minLength(3)]),
+    url: new FormControl<string | null>(null, [Validators.required, CustomValidators.IsValidUrlValidator()]),
     status: new FormControl<boolean>(true),
   })
   itemFormSubmitted = false
@@ -65,6 +79,9 @@ export class LinksFormComponent implements AfterViewInit {
   @ViewChild('fileUpload') fileUpload?: FileUploadComponent;
   isUploadingProfileImage = signal<boolean>(false);
 
+  isSocialLinksDialogVisible = false;
+  socialCompaniesOptions = Object.values(LinkSocialCompanies);
+
   constructor(
     private formBuilder: FormBuilder,
     private linksService: LinksService,
@@ -77,15 +94,15 @@ export class LinksFormComponent implements AfterViewInit {
   ) {
     this.profileImageTitle = this.form.get("profile.title")?.value?.at(0) ?? '';
     this._id = this.route.snapshot.params['linkId'];
-    if(this._id) {
-      this.form.get("_id")?.setValue(this._id, {emitEvent: false}); 
+    if (this._id) {
+      this.form.get("_id")?.setValue(this._id, { emitEvent: false });
       this.fetchLink();
     }
   }
-  
+
   ngAfterViewInit(): void {
     this.form.get("profile.image")?.valueChanges.subscribe((image: IFiles | null | undefined) => {
-      if(image?.name) {
+      if (image?.name) {
         this.profileImage = getPublicAsset(image.name);
       } else {
         this.profileImage = undefined;
@@ -102,7 +119,7 @@ export class LinksFormComponent implements AfterViewInit {
   }
 
   fetchLink() {
-    if(!this._id) return;
+    if (!this._id) return;
     this.loaderService.show()
     this.linksService.getOne(this._id).subscribe({
       next: (res) => {
@@ -121,7 +138,7 @@ export class LinksFormComponent implements AfterViewInit {
           },
           configuration: link.configuration
         })
-        
+
         this.linkURL = `${environment.FRONT_URL}/${link._id}`;
         this.items.clear();
         link.items?.forEach(item => {
@@ -150,7 +167,7 @@ export class LinksFormComponent implements AfterViewInit {
   }
 
   downloadQRCodeUrl() {
-    if(!this.linkQRCodeURL) return;
+    if (!this.linkQRCodeURL) return;
     const link = document.createElement('a');
     // @ts-ignore
     link.href = this.linkQRCodeURL.changingThisBreaksApplicationSecurity;
@@ -163,7 +180,7 @@ export class LinksFormComponent implements AfterViewInit {
   }
 
   editProfile(isCancelling = false) {
-    if(isCancelling) {
+    if (isCancelling) {
       this.isEdittingProfile.set(false);
       return;
     }
@@ -172,13 +189,13 @@ export class LinksFormComponent implements AfterViewInit {
 
   saveProfile() {
     this.isSubmitted = true;
-    if(!this.form.valid) return;
+    if (!this.form.valid) return;
     this.loaderService.show();
     this.linksService.save(this.form.value).subscribe({
       next: (res) => {
         this.loaderService.hide();
-        if(!this._id) {
-          this.router.navigate(['..','edit',res.data._id],{relativeTo: this.route})
+        if (!this._id) {
+          this.router.navigate(['..', 'edit', res.data._id], { relativeTo: this.route })
         }
         this.isEdittingProfile.set(false);
         this.changeDetector.detectChanges();
@@ -200,7 +217,7 @@ export class LinksFormComponent implements AfterViewInit {
   showItemForm(itemIdx: number | null = null) {
     this.isItemFormVisible = true;
     this.itemIdx = itemIdx;
-    if(itemIdx !== null) {
+    if (itemIdx !== null) {
       const item = this.items?.controls?.at(itemIdx)?.value;
       this.itemForm.patchValue({
         title: item?.title,
@@ -221,12 +238,36 @@ export class LinksFormComponent implements AfterViewInit {
     return this.form.get("items") as FormArray
   }
 
+  get socialLinks() {
+    return this.form.get("socialLinks") as FormArray
+  }
+
+  isSocialLinkActive(company: LinkSocialCompanyName) {
+    return this.socialLinks?.controls?.find((control) => control?.value?.company === company)?.value?.status;
+  }
+
+  toggleSocialLink(enabled: boolean, idx: number, company: LinkSocialCompanyName) {
+    if(enabled) {
+      this.socialLinks.push(this.formBuilder.group({
+        company: company,
+        icon: LinkSocialCompanies[company].icon,
+        url: '',
+        status: true
+      }))
+    } else {
+      this.socialLinks.removeAt(idx);
+    }
+    // setTimeout(() => {
+    //   this.linksService.save(this.form.value).subscribe();
+    // }, 10);
+  }
+
   onItemCardDrop(event: CdkDragDrop<any[]>) {
     if (event.previousIndex !== event.currentIndex) {
-    const item = this.items.at(event.previousIndex);
-    this.items.removeAt(event.previousIndex);
-    this.items.insert(event.currentIndex, item);
-  }
+      const item = this.items.at(event.previousIndex);
+      this.items.removeAt(event.previousIndex);
+      this.items.insert(event.currentIndex, item);
+    }
 
     setTimeout(() => {
       this.linksService.save(this.form.value).subscribe();
@@ -235,8 +276,8 @@ export class LinksFormComponent implements AfterViewInit {
 
   saveItem() {
     this.itemFormSubmitted = true;
-    if(!this.itemForm.valid) return;
-    if(this.itemIdx !== null) {
+    if (!this.itemForm.valid) return;
+    if (this.itemIdx !== null) {
       const values = this.itemForm.value;
       this.items.at(this.itemIdx).patchValue({
         title: values?.title,
@@ -252,14 +293,14 @@ export class LinksFormComponent implements AfterViewInit {
 
   setSelectedTheme(theme: LinkConfigurationTheme) {
     this.form.get("configuration.theme")?.setValue(theme);
-    if(theme == 'custom') {
-      if(!this.form.get("configuration.main_color")?.value) {
+    if (theme == 'custom') {
+      if (!this.form.get("configuration.main_color")?.value) {
         this.form.get("configuration.main_color")?.setValue('#9EE37D');
       }
-      if(!this.form.get("configuration.secondary_color")?.value) {
+      if (!this.form.get("configuration.secondary_color")?.value) {
         this.form.get("configuration.secondary_color")?.setValue('#47AB90');
       }
-      if(!this.form.get("configuration.font_color")?.value) {
+      if (!this.form.get("configuration.font_color")?.value) {
         this.form.get("configuration.font_color")?.setValue('#171D1C');
       }
     } else {
@@ -269,7 +310,7 @@ export class LinksFormComponent implements AfterViewInit {
     }
     this.linksService.save(this.form.value).subscribe();
   }
-  
+
   applyCustomTheme() {
     this.linksService.save(this.form.value).subscribe();
     this.toastService.show({

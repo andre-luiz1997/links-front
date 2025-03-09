@@ -1,4 +1,14 @@
 <div class="grid">
+    @if(showProfileImage && profileImage) {
+        <div class="user-profile-container m-auto">
+            <div class="profile-image-wrapper">
+                <div class="profile-image">
+                    <img [src]="profileImage" />
+                </div>
+            </div>
+        </div>
+    }
+
     @if(profile?.title) {
         <div class="col-12 text-center">
             <h3 class="m1">{{ profile?.title }}</h3>

@@ -574,3 +574,16 @@ td {
   background-color: transparent !important;
 }
 
+.largeDialog {
+  width: 90vw;
+  @media (min-width: $xl-breakpoint) {
+    width: 70vw;
+  }
+  @media (min-width: $lg-breakpoint) {
+    width: 80vw;
+  }
+  @media (max-width: calc($md-breakpoint - 1px)) {
+    width: 90vw;
+  }
+
+}

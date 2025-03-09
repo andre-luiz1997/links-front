@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { PermissionsDirective } from './directives/permissions.directive';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,6 +40,8 @@ import { StandaloneChipsRadioComponent } from './components/standalone-chips-rad
 import { MoedaInputComponent } from './components/moeda-input/moeda-input.component';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { SocialLinkComponent } from './components/social-link/social-link.component';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     MoedaInputComponent,
     CurrencyDirective,
     PersonalInfoComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    SocialLinkComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +75,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     RouterModule,
     ReactiveFormsModule,
     TranslatePipe,
-    InputSwitchModule,
+    ToggleSwitchModule,
     CheckboxModule,
     DialogModule,
     DropdownModule,
@@ -133,7 +136,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     MoedaInputComponent,
     CurrencyDirective,
     PersonalInfoComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    SocialLinkComponent
   ],
   providers: [
     provideNgxMask()
