@@ -11,6 +11,7 @@ const translation = {
 		celular: 'Celular',
 		monthly: 'Mensal',
 		yearly: 'Anual',
+		no_file_uploaded: 'Nenhum arquivo selecionado',
 		calendar_inputs: {
 			firstDayOfWeek: 0,
 			dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -58,6 +59,8 @@ const translation = {
 			downloaded_successfully: 'Download concluído com sucesso',
 		},
 		error_messages: {
+			file_format_not_allowed: 'Formato de arquivo não permitido',
+			file_size_limit_exceeded: 'O arquivo selecionado excede o tamanho máximo permitido ({{size}}MB)',
 			error_occurred: 'Ocorreu um erro. Tente novamente.',
 			auth: {
 				invalid_credentials: 'Usuário ou senha inválidos. Tente novamente.',

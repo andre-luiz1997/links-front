@@ -237,16 +237,18 @@
         <div class="col-12 flex flex-row justify-content-center">
             <div class="user-profile-container">
                 <div class="profile-image-wrapper">
-                    @if(profileImage) {
-                    } @else {
                     <div class="profile-image">
-                        {{ profileImageTitle }}
+                        @if(profileImage) {
+                            <img [src]="profileImage" />
+                        } @else {
+                            {{ profileImageTitle }}
+                        }
                     </div>
-                    }
                 </div>
-                <div class="icon btn btn-primary">
+                <app-file-upload #fileUpload style="display: none;" model="link" [modelId]="_id!" (onFileUploaded)="onProfileUploaded($event)" />
+                <button (click)="enableProfileUpload()" class="icon btn btn-primary">
                     <ng-icon name="phosphorPencilSimple" />
-                </div>
+                </button>
             </div>
         </div>
         <div class="col-12 flex flex-row justify-content-center">
@@ -318,8 +320,8 @@
 </ng-template>
 
 <ng-template #ngPersonalInfoForm>
-    <div class="grid fadeindown animation-duration-100">
-        <app-personal-info [profile]="form.get('profile')?.value" />
+    <div class="grid w100 fadeindown animation-duration-100">
+        <app-personal-info class="w100" [profile]="form.get('profile')?.value" />
         <div class="col-12 flex justify-content-center">
             <button type="button" class="btn btn-primary" (click)="editProfile()">
                 <ng-icon size="1.2rem" name="phosphorPencilSimple" />

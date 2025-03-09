@@ -1,3 +1,4 @@
+import { IFiles } from "@shared/types/file";
 import type { DBEntity } from "../entity";
 import type { IUsers } from "../user";
 
@@ -18,6 +19,7 @@ export interface ILinkProfile {
   phone?: string;
   phone2?: string;
   email?: string;
+  image?: IFiles;
 }
 
 export interface ILinkItem {

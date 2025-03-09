@@ -1,6 +1,11 @@
 import type { LangService } from "@shared/services/lang.service";
 import dayjs, { Dayjs } from "dayjs";
 import { formatToCurrency } from "./currency";
+import { environment } from "src/environments/environment.development";
+
+export function getPublicAsset(url: string) {
+	return `${environment.SERVER_URL}/${url}`
+}
 
 export function isEmpty<T>(value: T): value is Extract<T, undefined | null | ''> {
 	return value === null || value === undefined || value === '';

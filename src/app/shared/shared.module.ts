@@ -5,7 +5,7 @@ import { PermissionsDirective } from './directives/permissions.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
-import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight, phosphorHeartbeat, phosphorInvoice, phosphorCaretDown, phosphorCaretUp, phosphorDotOutline, phosphorDot, phosphorLink } from '@ng-icons/phosphor-icons/regular';
+import { phosphorHouseSimple, phosphorUser, phosphorFile, phosphorChartLine, phosphorArrowLeft, phosphorArrowRight, phosphorSignOut, phosphorExam, phosphorCaretRight, phosphorEyeSlash, phosphorEye, phosphorFingerprint, phosphorFlask, phosphorDna, phosphorArrowCircleRight, phosphorHeartbeat, phosphorInvoice, phosphorCaretDown, phosphorCaretUp, phosphorDotOutline, phosphorDot, phosphorLink, phosphorPaperclip } from '@ng-icons/phosphor-icons/regular';
 import { phosphorBarbellFill, phosphorDotFill, phosphorDropFill, phosphorFireFill, phosphorMoonStarsFill } from '@ng-icons/phosphor-icons/fill';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TooltipModule } from 'primeng/tooltip';
@@ -39,6 +39,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { StandaloneChipsRadioComponent } from './components/standalone-chips-radio/standalone-chips-radio.component';
 import { MoedaInputComponent } from './components/moeda-input/moeda-input.component';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
     StandaloneChipsRadioComponent,
     MoedaInputComponent,
     CurrencyDirective,
-    PersonalInfoComponent
+    PersonalInfoComponent,
+    FileUploadComponent
   ],
   imports: [
     CommonModule,
@@ -106,7 +108,8 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
       phosphorCaretDown,
       phosphorCaretUp,
       phosphorDotFill,
-      phosphorLink
+      phosphorLink,
+      phosphorPaperclip
     }),
   ],
   exports: [
@@ -129,7 +132,8 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
     StandaloneChipsRadioComponent,
     MoedaInputComponent,
     CurrencyDirective,
-    PersonalInfoComponent
+    PersonalInfoComponent,
+    FileUploadComponent
   ],
   providers: [
     provideNgxMask()

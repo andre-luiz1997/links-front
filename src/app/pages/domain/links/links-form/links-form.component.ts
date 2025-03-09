@@ -1,13 +1,16 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, signal, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FileUploadComponent } from '@shared/components/file-upload/file-upload.component';
 import { LangService } from '@shared/services/lang.service';
 import { LinksService } from '@shared/services/links.service';
 import { LoaderService } from '@shared/services/loader.service';
 import { ToastService } from '@shared/services/toast.service';
-import { ILinkItem, LinkConfigurationTheme, LinkConfigurationThemes } from '@shared/types/entities/domain/links';
+import { IFiles } from '@shared/types';
+import { ILinkItem, ILinks, LinkConfigurationTheme, LinkConfigurationThemes } from '@shared/types/entities/domain/links';
+import { getPublicAsset } from '@shared/utils/common';
 import { CustomValidators } from '@shared/validators';
 import { environment } from 'src/environments/environment.development';
 
@@ -17,7 +20,7 @@ import { environment } from 'src/environments/environment.development';
   styleUrl: './links-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinksFormComponent {
+export class LinksFormComponent implements AfterViewInit {
   isSubmitted = false
   isEdittingProfile = signal<boolean>(false)
   isItemFormVisible = false
@@ -28,6 +31,7 @@ export class LinksFormComponent {
   form = this.formBuilder.group({
     _id: new FormControl<string|undefined>(undefined),
     profile: new FormGroup({
+      image: new FormControl<IFiles | undefined>(undefined),
       show: new FormControl<boolean>(true),
       title: new FormControl<string | undefined>('John Doe'),
       subtitle: new FormControl<string | undefined>('Marketing Director'),
@@ -58,6 +62,8 @@ export class LinksFormComponent {
   linkURL?: string;
   linkQRCodeURL?: SafeUrl;
 
+  @ViewChild('fileUpload') fileUpload?: FileUploadComponent;
+
   constructor(
     private formBuilder: FormBuilder,
     private linksService: LinksService,
@@ -71,8 +77,29 @@ export class LinksFormComponent {
     this.profileImageTitle = this.form.get("profile.title")?.value?.at(0) ?? '';
     this._id = this.route.snapshot.params['linkId'];
     if(this._id) {
+      this.form.get("_id")?.setValue(this._id, {emitEvent: false}); 
       this.fetchLink();
     }
+  }
+  
+  ngAfterViewInit(): void {
+    this.form.get("profile.image")?.valueChanges.subscribe((image: IFiles | null | undefined) => {
+      console.log("🚀 ~ LinksFormComponent ~ this.form.get ~ image:", image)
+      if(image?.name) {
+        this.profileImage = getPublicAsset(image.name);
+      } else {
+        this.profileImage = undefined;
+      }
+    })
+  }
+
+  onProfileUploaded(event: IFiles) {
+    console.log("🚀 ~ LinksFormComponent ~ onProfileUploaded ~ event:", event)
+    this.form.get("profile.image")?.setValue(event);
+  }
+
+  enableProfileUpload() {
+    this.fileUpload?.click();
   }
 
   fetchLink() {
@@ -85,6 +112,7 @@ export class LinksFormComponent {
         this.form.patchValue({
           _id: link._id,
           profile: {
+            image: link.profile.image,
             show: link.profile.show,
             title: link.profile.title,
             subtitle: link.profile.subtitle,
@@ -94,6 +122,7 @@ export class LinksFormComponent {
           },
           configuration: link.configuration
         })
+        
         this.linkURL = `${environment.FRONT_URL}/${link._id}`;
         this.items.clear();
         link.items?.forEach(item => {
