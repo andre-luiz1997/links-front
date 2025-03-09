@@ -105,3 +105,4 @@ export function getDateRange(
 export function getCssVariableValue(variableName: string): string {
 	return getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
 }
+

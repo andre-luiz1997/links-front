@@ -63,6 +63,7 @@ export class LinksFormComponent implements AfterViewInit {
   linkQRCodeURL?: SafeUrl;
 
   @ViewChild('fileUpload') fileUpload?: FileUploadComponent;
+  isUploadingProfileImage = signal<boolean>(false);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -84,7 +85,6 @@ export class LinksFormComponent implements AfterViewInit {
   
   ngAfterViewInit(): void {
     this.form.get("profile.image")?.valueChanges.subscribe((image: IFiles | null | undefined) => {
-      console.log("🚀 ~ LinksFormComponent ~ this.form.get ~ image:", image)
       if(image?.name) {
         this.profileImage = getPublicAsset(image.name);
       } else {
@@ -94,7 +94,6 @@ export class LinksFormComponent implements AfterViewInit {
   }
 
   onProfileUploaded(event: IFiles) {
-    console.log("🚀 ~ LinksFormComponent ~ onProfileUploaded ~ event:", event)
     this.form.get("profile.image")?.setValue(event);
   }
 

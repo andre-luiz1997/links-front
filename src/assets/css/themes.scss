@@ -1,5 +1,12 @@
 @import 'variables';
 
+:root {
+    --custom-main_color: $main_color;
+    --custom-main_color_rgba: $main_color_rgba;
+    --custom-secondary_color: $secondary_color;
+    --custom-font_color: $font_color;
+}
+
 .default-theme {
     .bg {
         background-color: #{$main_color}0F;
@@ -10,6 +17,19 @@
         color: $font_color;
     }
 }
+
+.custom-theme {
+
+    .bg {
+        background-color: var(--custom-main_color_rgba);
+    }
+
+    .button {
+        background-color: var(--custom-secondary_color);
+        color: var(--custom-font_color);
+    }
+}
+
 
 .bubblegum-theme {
     $main_color: #E91E63;

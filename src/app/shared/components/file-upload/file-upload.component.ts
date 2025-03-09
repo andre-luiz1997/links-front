@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, EventEmitter, Input, Output, signal, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FileService } from '@shared/services/file.service';
 import { LangService } from '@shared/services/lang.service';
 import { ToastService } from '@shared/services/toast.service';
 import { FileMimeType, IFiles } from '@shared/types';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-file-upload',
@@ -23,6 +24,7 @@ export class FileUploadComponent {
   @Input() acceptedFileTypes?: FileMimeType[];
 
   @Output() onFileUploaded = new EventEmitter<IFiles>();
+  @Output() isUploadingFile = new EventEmitter<boolean>();
 
   filename?: string;
   uploadedFile?: File;
@@ -40,7 +42,11 @@ export class FileUploadComponent {
     private fileService: FileService,
     private toastService: ToastService,
     private langService: LangService
-  ) { }
+  ) {
+    effect(() => {
+      this.isUploadingFile.emit(this.isUploading());
+    })
+  }
 
   click() {
     this.fileUploadInput?.nativeElement.click();
@@ -87,7 +93,8 @@ export class FileUploadComponent {
   protected uploadFile(props: { formData: FormData, modelId?: string }) {
     if (!props.formData) return;
     this.isUploading.set(true);
-    this.fileService.upload(props.formData).subscribe({
+    this.fileService.upload(props.formData)
+    .pipe(delay(5000)).subscribe({
       next: (res: any) => {
         this.isUploading.set(false);
         this.onFileUploaded.emit(res.data);

@@ -237,6 +237,11 @@
         <div class="col-12 flex flex-row justify-content-center">
             <div class="user-profile-container">
                 <div class="profile-image-wrapper">
+                    @if(isUploadingProfileImage()) {
+                        <div class="profile-image-loader">
+                            <app-loader />
+                        </div>
+                    }
                     <div class="profile-image">
                         @if(profileImage) {
                             <img [src]="profileImage" />
@@ -245,7 +250,7 @@
                         }
                     </div>
                 </div>
-                <app-file-upload #fileUpload style="display: none;" model="link" [modelId]="_id!" (onFileUploaded)="onProfileUploaded($event)" />
+                <app-file-upload #fileUpload style="display: none;" model="link" [modelId]="_id!" (isUploadingFile)="isUploadingProfileImage.set($event)" (onFileUploaded)="onProfileUploaded($event)" />
                 <button (click)="enableProfileUpload()" class="icon btn btn-primary">
                     <ng-icon name="phosphorPencilSimple" />
                 </button>

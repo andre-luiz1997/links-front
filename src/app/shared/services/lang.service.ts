@@ -57,6 +57,7 @@ const translation = {
 			signup_success: 'Conta criada com sucesso!',
 			copied_to_clipboard: 'Copiado para a área de transferência',
 			downloaded_successfully: 'Download concluído com sucesso',
+			file_uploaded: 'Arquivo enviado com sucesso',
 		},
 		error_messages: {
 			file_format_not_allowed: 'Formato de arquivo não permitido',
